@@ -78,11 +78,23 @@ export function PrivacyBanner({ position = "right" }: PrivacyBannerProps) {
     if (consent) {
       try {
         const parsed = JSON.parse(consent);
+        const isAnalyticsGranted = !!parsed.analytics;
+        const isMarketingGranted = !!parsed.marketing;
+
         setPreferences({
           essential: true,
-          analytics: !!parsed.analytics,
-          marketing: !!parsed.marketing,
+          analytics: isAnalyticsGranted,
+          marketing: isMarketingGranted,
         });
+
+        // 将读取到的偏好同步更新至 Google Analytics 授权状态
+        if (typeof window !== "undefined" && (window as any).gtag) {
+          (window as any).gtag("consent", "update", {
+            analytics_storage: isAnalyticsGranted ? "granted" : "denied",
+            ad_storage: isMarketingGranted ? "granted" : "denied",
+          });
+        }
+
         setSaved(true);
         setVisible(false);
       } catch (e) {
@@ -123,6 +135,15 @@ export function PrivacyBanner({ position = "right" }: PrivacyBannerProps) {
     };
     setPreferences(newPrefs);
     localStorage.setItem("a11ykit-cookie-consent", JSON.stringify(newPrefs));
+
+    // 用户保存设置时，动态更新 Google Analytics 授权状态
+    if (typeof window !== "undefined" && (window as any).gtag) {
+      (window as any).gtag("consent", "update", {
+        analytics_storage: analyticsVal ? "granted" : "denied",
+        ad_storage: marketingVal ? "granted" : "denied",
+      });
+    }
+
     setSaved(true);
     setVisible(false);
     setShowPreferences(false);
