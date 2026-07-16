@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { PrivacyBanner } from "@/components/privacy-banner";
 
 export const metadata: Metadata = {
   title: "A11yKit — Free WCAG & EAA Accessibility Tools",
@@ -48,6 +49,7 @@ export default function RootLayout({
         <Navbar />
         <main className="flex-grow w-full">{children}</main>
         <Footer />
+        <PrivacyBanner />
       </body>
     </html>
   );
