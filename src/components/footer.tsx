@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { Accessibility } from "lucide-react";
-import { liveTools, comingSoonTools } from "@/lib/tools";
+import { liveTools } from "@/lib/tools";
 
 export function Footer() {
   return (
     <footer className="border-t border-slate-200 bg-white">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
-          <div className="md:col-span-2">
+        <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-5">
+          <div className="col-span-2 sm:col-span-3 lg:col-span-2">
             <div className="flex items-center gap-2 font-bold text-lg text-slate-900">
               <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-700 text-white">
                 <Accessibility className="h-5 w-5" aria-hidden="true" />
@@ -24,9 +24,9 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-slate-900">Tools</h3>
+            <h3 className="text-sm font-semibold text-slate-900">Check & Fix</h3>
             <ul className="mt-4 space-y-2">
-              {liveTools.map((tool) => (
+              {liveTools.filter((t) => t.category === "check" || t.category === "fix").map((tool) => (
                 <li key={tool.slug}>
                   <Link
                     href={`/tools/${tool.slug}`}
@@ -36,11 +36,20 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
-              {comingSoonTools.slice(0, 3).map((tool) => (
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold text-slate-900">Generate & Simulate</h3>
+            <ul className="mt-4 space-y-2">
+              {liveTools.filter((t) => t.category === "generate" || t.category === "simulate" || t.category === "monitor").map((tool) => (
                 <li key={tool.slug}>
-                  <span className="text-sm text-slate-600">
-                    {tool.shortTitle} (soon)
-                  </span>
+                  <Link
+                    href={`/tools/${tool.slug}`}
+                    className="text-sm text-slate-600 hover:text-teal-700"
+                  >
+                    {tool.shortTitle}
+                  </Link>
                 </li>
               ))}
             </ul>
