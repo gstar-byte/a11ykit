@@ -295,7 +295,7 @@ export function PrivacyBanner({ position = "right" }: PrivacyBannerProps) {
           {/* 底部按钮栏 */}
           <div className="mt-4 flex flex-wrap gap-2 items-center justify-between">
             <Link
-              href="/about"
+              href="/privacy"
               className="text-[11px] font-medium text-slate-600 hover:text-teal-700 dark:text-slate-300 dark:hover:text-teal-400 underline underline-offset-2 transition-colors"
             >
               {currentLang.privacyPolicy}

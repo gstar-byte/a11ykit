@@ -67,6 +67,22 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link
+                  href="/privacy"
+                  className="text-sm text-slate-600 hover:text-teal-700"
+                >
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/terms"
+                  className="text-sm text-slate-600 hover:text-teal-700"
+                >
+                  Terms of Use
+                </Link>
+              </li>
+              <li>
                 <a
                   href="https://www.w3.org/WAI/standards-guidelines/wcag/"
                   target="_blank"
