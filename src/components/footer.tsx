@@ -38,7 +38,7 @@ export function Footer() {
               ))}
               {comingSoonTools.slice(0, 3).map((tool) => (
                 <li key={tool.slug}>
-                  <span className="text-sm text-slate-400">
+                  <span className="text-sm text-slate-600">
                     {tool.shortTitle} (soon)
                   </span>
                 </li>
@@ -82,7 +82,7 @@ export function Footer() {
         </div>
 
         <div className="mt-8 border-t border-slate-200 pt-8">
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-slate-600">
             © {new Date().getFullYear()} A11yKit. Free accessibility tools for
             everyone. WCAG is a trademark of W3C. EAA refers to Directive (EU)
             2019/882.

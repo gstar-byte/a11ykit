@@ -50,11 +50,11 @@ export default function ToolsPage() {
                         <Icon className="h-6 w-6" aria-hidden="true" />
                       </div>
                       {isLive ? (
-                        <span className="text-xs font-medium text-green-600">
+                        <span className="text-xs font-bold text-emerald-700">
                           ● Live
                         </span>
                       ) : (
-                        <span className="text-xs font-medium text-slate-400">
+                        <span className="text-xs font-medium text-slate-600">
                           Coming soon
                         </span>
                       )}
@@ -88,7 +88,7 @@ export default function ToolsPage() {
                 ) : (
                   <div
                     key={tool.slug}
-                    className="group flex flex-col rounded-xl border border-slate-200 bg-white p-6 shadow-sm opacity-75 cursor-default"
+                    className="group flex flex-col rounded-xl border border-slate-200 bg-slate-50/60 p-6 shadow-sm cursor-default"
                   >
                     {cardContent}
                   </div>

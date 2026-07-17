@@ -206,7 +206,7 @@ export function PrivacyBanner({ position = "right" }: PrivacyBannerProps) {
             </span>
             <button
               onClick={handleDeclineAll}
-              className="p-1 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800 dark:text-slate-500 dark:hover:text-slate-300 transition-colors"
+              className="p-1 rounded-full text-slate-500 hover:text-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-colors"
               aria-label="Close cookie settings (essential only)"
             >
               <X className="h-4 w-4" />
@@ -216,7 +216,7 @@ export function PrivacyBanner({ position = "right" }: PrivacyBannerProps) {
           <h3 className="text-base font-bold text-slate-900 dark:text-slate-50 text-left">
             {currentLang.title}
           </h3>
-          <p className="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed text-left">
+          <p className="mt-2 text-xs text-slate-700 dark:text-slate-300 leading-relaxed text-left">
             {currentLang.description}
           </p>
 
@@ -233,7 +233,7 @@ export function PrivacyBanner({ position = "right" }: PrivacyBannerProps) {
                   <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200">
                     {currentLang.essentialTitle}
                   </h4>
-                  <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-tight">
+                  <p className="text-[10px] text-slate-600 dark:text-slate-300 leading-tight">
                     {currentLang.essentialDesc}
                   </p>
                 </div>
@@ -254,7 +254,7 @@ export function PrivacyBanner({ position = "right" }: PrivacyBannerProps) {
                   <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
                     {currentLang.analyticsTitle}
                   </h4>
-                  <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-tight">
+                  <p className="text-[10px] text-slate-600 dark:text-slate-300 leading-tight">
                     {currentLang.analyticsDesc}
                   </p>
                 </div>
@@ -275,7 +275,7 @@ export function PrivacyBanner({ position = "right" }: PrivacyBannerProps) {
                   <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
                     {currentLang.marketingTitle}
                   </h4>
-                  <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-tight">
+                  <p className="text-[10px] text-slate-600 dark:text-slate-300 leading-tight">
                     {currentLang.marketingDesc}
                   </p>
                 </div>
@@ -296,7 +296,7 @@ export function PrivacyBanner({ position = "right" }: PrivacyBannerProps) {
           <div className="mt-4 flex flex-wrap gap-2 items-center justify-between">
             <Link
               href="/about"
-              className="text-[11px] font-medium text-slate-500 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400 underline underline-offset-2 transition-colors"
+              className="text-[11px] font-medium text-slate-600 hover:text-teal-600 dark:text-slate-300 dark:hover:text-teal-400 underline underline-offset-2 transition-colors"
             >
               {currentLang.privacyPolicy}
             </Link>

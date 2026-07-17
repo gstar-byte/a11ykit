@@ -24,8 +24,8 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-grid-slate-700/[0.2]" aria-hidden="true" />
         <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
           <div className="mx-auto max-w-3xl text-center">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-teal-500/20 px-4 py-1.5 text-sm font-medium text-teal-200 ring-1 ring-inset ring-teal-500/30">
-              <span className="flex h-2 w-2 rounded-full bg-green-400" aria-hidden="true" />
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-teal-950/60 px-4 py-1.5 text-sm font-medium text-teal-100 ring-1 ring-inset ring-teal-400/40">
+              <span className="flex h-2 w-2 rounded-full bg-emerald-400" aria-hidden="true" />
               EAA enforced since June 2025 — are you compliant?
             </div>
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
@@ -121,15 +121,15 @@ export default function HomePage() {
                       <Icon className="h-6 w-6" aria-hidden="true" />
                     </div>
                     <div className="flex flex-col">
-                      <span className="text-xs font-medium uppercase tracking-wide text-slate-400">
+                      <span className="text-xs font-semibold uppercase tracking-wide text-slate-600">
                         {categoryLabels[tool.category]}
                       </span>
                       {isLive ? (
-                        <span className="text-xs font-medium text-green-600">
+                        <span className="text-xs font-bold text-emerald-700">
                           ● Live
                         </span>
                       ) : (
-                        <span className="text-xs font-medium text-slate-400">
+                        <span className="text-xs font-medium text-slate-600">
                           Coming soon
                         </span>
                       )}
@@ -165,7 +165,7 @@ export default function HomePage() {
               ) : (
                 <div
                   key={tool.slug}
-                  className="group relative flex flex-col rounded-xl border border-slate-200 bg-white p-6 shadow-sm opacity-75 cursor-default"
+                  className="group relative flex flex-col rounded-xl border border-slate-200 bg-slate-50/60 p-6 shadow-sm cursor-default"
                   aria-label={`${tool.title} (coming soon)`}
                 >
                   {cardContent}
