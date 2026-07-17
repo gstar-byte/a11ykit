@@ -1,7 +1,58 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { Check, X, Copy, RotateCcw } from "lucide-react";
+import { Check, X, Copy, RotateCcw, Pipette, Lightbulb } from "lucide-react";
+
+function sRGBToLinear(c: number): number {
+  const cs = c / 255;
+  return cs <= 0.04045 ? cs / 12.92 : Math.pow((cs + 0.055) / 1.055, 2.4);
+}
+
+function computeAPCA(fg: [number, number, number], bg: [number, number, number]): number {
+  const fgL = 0.2126 * sRGBToLinear(fg[0]) + 0.7152 * sRGBToLinear(fg[1]) + 0.0722 * sRGBToLinear(fg[2]);
+  const bgL = 0.2126 * sRGBToLinear(bg[0]) + 0.7152 * sRGBToLinear(bg[1]) + 0.0722 * sRGBToLinear(bg[2]);
+  const fgY = Math.pow(fgL, 0.59);
+  const bgY = Math.pow(bgL, 0.59);
+  const contrast = bgY - fgY;
+  const scale = 1.14;
+  const offset = 0.027;
+  if (Math.abs(contrast) < offset) return 0;
+  const apca = contrast < 0
+    ? (contrast * scale - offset) * 100
+    : (contrast * scale + offset) * 100;
+  return Math.round(apca * 10) / 10;
+}
+
+function adjustLuminance(hex: string, delta: number): string {
+  const rgb = hexToRgb(hex);
+  if (!rgb) return hex;
+  const adjusted = rgb.map((v) => Math.min(255, Math.max(0, Math.round(v + delta)))) as [number, number, number];
+  return "#" + adjusted.map((v) => v.toString(16).padStart(2, "0")).join("");
+}
+
+function findNearestPassing(fg: string, bg: string, threshold: number, isFg: boolean): string | null {
+  let best: string | null = null;
+  let bestDist = Infinity;
+  for (let delta = 1; delta <= 255; delta++) {
+    for (const sign of [1, -1]) {
+      const candidate = adjustLuminance(isFg ? fg : bg, delta * sign);
+      const candidateRgb = hexToRgb(candidate);
+      const otherRgb = hexToRgb(isFg ? bg : fg);
+      if (!candidateRgb || !otherRgb) continue;
+      const ratio = getContrastRatio(isFg ? candidateRgb : otherRgb, isFg ? otherRgb : candidateRgb);
+      if (ratio >= threshold) {
+        const origRgb = hexToRgb(isFg ? fg : bg)!;
+        const dist = Math.abs(candidateRgb[0] - origRgb[0]) + Math.abs(candidateRgb[1] - origRgb[1]) + Math.abs(candidateRgb[2] - origRgb[2]);
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = candidate;
+        }
+      }
+    }
+    if (best) break;
+  }
+  return best;
+}
 
 function hexToRgb(hex: string): [number, number, number] | null {
   const cleaned = hex.replace("#", "");
@@ -105,19 +156,51 @@ export function ContrastChecker() {
   const [fontSize, setFontSize] = useState(18);
   const [fontWeight, setFontWeight] = useState(400);
   const [copied, setCopied] = useState(false);
+  const [lightness, setLightness] = useState(0);
+  const [eyedropperSupported] = useState(typeof window !== "undefined" && "EyeDropper" in window);
 
   const fgValid = isValidHex(fg);
   const bgValid = isValidHex(bg);
 
+  const effectiveFgHex = lightness !== 0 ? adjustLuminance(fg, lightness) : fg;
+  const effectiveFgValid = isValidHex(effectiveFgHex);
+
   const result = useCallback((): CheckResult | null => {
-    if (!fgValid || !bgValid) return null;
-    const fgRgb = hexToRgb(fg);
+    if (!fgValid || !bgValid || !effectiveFgValid) return null;
+    const fgRgb = hexToRgb(effectiveFgHex);
     const bgRgb = hexToRgb(bg);
     if (!fgRgb || !bgRgb) return null;
-    const effectiveFg = fgAlpha < 100 ? compositeAlpha(fgRgb, fgAlpha, bgRgb) : fgRgb;
-    const ratio = getContrastRatio(effectiveFg, bgRgb);
+    const composited = fgAlpha < 100 ? compositeAlpha(fgRgb, fgAlpha, bgRgb) : fgRgb;
+    const ratio = getContrastRatio(composited, bgRgb);
     return evaluateContrast(ratio);
-  }, [fg, bg, fgAlpha, fgValid, bgValid])();
+  }, [effectiveFgHex, bg, fgAlpha, fgValid, bgValid, effectiveFgValid])();
+
+  const apcaScore = useCallback((): number | null => {
+    if (!fgValid || !bgValid) return null;
+    const fgRgb = hexToRgb(effectiveFgHex);
+    const bgRgb = hexToRgb(bg);
+    if (!fgRgb || !bgRgb) return null;
+    const composited = fgAlpha < 100 ? compositeAlpha(fgRgb, fgAlpha, bgRgb) : fgRgb;
+    return computeAPCA(composited, bgRgb);
+  }, [effectiveFgHex, bg, fgAlpha, fgValid, bgValid])();
+
+  const suggestions = useCallback(() => {
+    if (!result || result.aaNormal) return null;
+    const fgSuggestion = findNearestPassing(effectiveFgHex, bg, 4.5, true);
+    const bgSuggestion = findNearestPassing(effectiveFgHex, bg, 4.5, false);
+    return { fg: fgSuggestion, bg: bgSuggestion };
+  }, [result, effectiveFgHex, bg])();
+
+  const handleEyedrop = async (target: "fg" | "bg") => {
+    try {
+      const eyeDropper = new (window as unknown as { EyeDropper: new () => { open: () => Promise<{ sRGBHex: string }> } }).EyeDropper();
+      const result = await eyeDropper.open();
+      if (target === "fg") setFg(result.sRGBHex);
+      else setBg(result.sRGBHex);
+    } catch {
+      // 用户取消
+    }
+  };
 
   const isLargeText = fontSize >= 18 && fontWeight >= 400 || fontSize >= 14 && fontWeight >= 700;
 
@@ -144,6 +227,7 @@ export function ContrastChecker() {
     setFgAlpha(100);
     setFontSize(18);
     setFontWeight(400);
+    setLightness(0);
   };
 
   return (
@@ -216,16 +300,19 @@ export function ContrastChecker() {
             <label htmlFor="fg-alpha" className="block text-xs font-medium text-slate-600">
               Foreground opacity: <span className="text-teal-700 font-semibold">{fgAlpha}%</span>
             </label>
-            <input
-              id="fg-alpha"
-              type="range"
-              min={0}
-              max={100}
-              value={fgAlpha}
-              onChange={(e) => setFgAlpha(Number(e.target.value))}
-              className="mt-1 w-full accent-teal-700"
-            />
+            <input id="fg-alpha" type="range" min={0} max={100} value={fgAlpha} onChange={(e) => setFgAlpha(Number(e.target.value))} className="mt-1 w-full accent-teal-700" />
           </div>
+          <div className="mt-3">
+            <label htmlFor="lightness" className="block text-xs font-medium text-slate-600">
+              Lightness adjust: <span className="text-teal-700 font-semibold">{lightness > 0 ? "+" : ""}{lightness}</span>
+            </label>
+            <input id="lightness" type="range" min={-100} max={100} value={lightness} onChange={(e) => setLightness(Number(e.target.value))} className="mt-1 w-full accent-teal-700" />
+          </div>
+          {eyedropperSupported && (
+            <button type="button" onClick={() => handleEyedrop("fg")} className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-teal-700 hover:text-teal-800">
+              <Pipette className="h-3.5 w-3.5" aria-hidden="true" /> Pick from screen
+            </button>
+          )}
         </fieldset>
 
         <fieldset className="rounded-lg border border-slate-200 p-4">
@@ -252,6 +339,11 @@ export function ContrastChecker() {
           </div>
           {!bgValid && (
             <p className="mt-2 text-xs text-red-600">Invalid hex color</p>
+          )}
+          {eyedropperSupported && (
+            <button type="button" onClick={() => handleEyedrop("bg")} className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-teal-700 hover:text-teal-800">
+              <Pipette className="h-3.5 w-3.5" aria-hidden="true" /> Pick from screen
+            </button>
           )}
         </fieldset>
       </div>
@@ -368,6 +460,39 @@ export function ContrastChecker() {
             </div>
           </div>
 
+          {apcaScore !== null && (
+            <div className="mt-4 rounded-lg bg-blue-50 p-4 text-sm text-slate-700">
+              <p>
+                <strong>APCA Lc score:</strong> <span className={`font-bold ${Math.abs(apcaScore) >= 75 ? "text-green-700" : Math.abs(apcaScore) >= 60 ? "text-amber-700" : "text-red-700"}`}>{apcaScore}</span>
+                <span className="ml-2 text-xs text-slate-500">
+                  (WCAG 3 draft — Lc 90+ preferred body, Lc 75+ minimum, Lc 60+ large text)
+                </span>
+              </p>
+            </div>
+          )}
+
+          {suggestions && (suggestions.fg || suggestions.bg) && (
+            <div className="mt-4 rounded-lg bg-amber-50 p-4">
+              <p className="flex items-center gap-2 text-sm font-semibold text-amber-800">
+                <Lightbulb className="h-4 w-4" aria-hidden="true" /> Suggested nearest passing colors (AA 4.5:1):
+              </p>
+              <div className="mt-3 flex flex-wrap gap-4">
+                {suggestions.fg && (
+                  <button type="button" onClick={() => { setFg(suggestions.fg!); setLightness(0); }} className="flex items-center gap-2 rounded-lg border border-amber-300 bg-white px-3 py-2 text-sm hover:bg-amber-100">
+                    <div className="h-6 w-6 rounded border border-slate-200" style={{ backgroundColor: suggestions.fg }} />
+                    <span className="font-mono text-xs">FG: {suggestions.fg}</span>
+                  </button>
+                )}
+                {suggestions.bg && (
+                  <button type="button" onClick={() => setBg(suggestions.bg!)} className="flex items-center gap-2 rounded-lg border border-amber-300 bg-white px-3 py-2 text-sm hover:bg-amber-100">
+                    <div className="h-6 w-6 rounded border border-slate-200" style={{ backgroundColor: suggestions.bg }} />
+                    <span className="font-mono text-xs">BG: {suggestions.bg}</span>
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
+
           <div className="mt-4 rounded-lg bg-teal-50 p-4 text-sm text-slate-700">
             <p>
               <strong>Current text size:</strong> {fontSize}px, weight {fontWeight} —
@@ -376,6 +501,11 @@ export function ContrastChecker() {
               {fgAlpha < 100 && (
                 <span className="block mt-1">
                   <strong>Alpha note:</strong> Foreground opacity is {fgAlpha}%. Contrast is calculated against the composited (blended) color over the background, per WCAG guidance on transparency.
+                </span>
+              )}
+              {lightness !== 0 && (
+                <span className="block mt-1">
+                  <strong>Lightness note:</strong> Foreground adjusted by {lightness > 0 ? "+" : ""}{lightness} units.
                 </span>
               )}
             </p>

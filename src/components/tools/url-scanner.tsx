@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { Globe, AlertTriangle, CheckCircle, Info, Download, Loader2, LinkIcon } from "lucide-react";
+import { useState, useCallback, useRef } from "react";
+import { Globe, AlertTriangle, CheckCircle, Info, Download, Loader2, LinkIcon, FileQuestion, ChevronRight } from "lucide-react";
 import { exportAsJSON, exportAsMarkdown, exportAsHTML } from "@/lib/export-utils";
 
 interface ScanIssue {
@@ -15,6 +15,16 @@ const CORS_PROXIES = [
   (url: string) => `https://corsproxy.io/?url=${encodeURIComponent(url)}`,
 ];
 
+const EAA_QUESTIONS = [
+  "Is your organization based in or operating within the European Union?",
+  "Do you provide products or services to consumers (B2C)?",
+  "Do you operate an e-commerce website or online store?",
+  "Do you provide digital banking, e-books, or passenger transport services?",
+  "Do you have more than 10 employees and/or annual revenue above €2 million?",
+  "Are your digital products (websites, apps, ATMs, ticketing machines) used by consumers?",
+  "Was your product or service first placed on the market after 28 June 2025?",
+];
+
 export function UrlScanner() {
   const [url, setUrl] = useState("");
   const [scanning, setScanning] = useState(false);
@@ -23,6 +33,10 @@ export function UrlScanner() {
   const [pageTitle, setPageTitle] = useState("");
   const [pageUrl, setPageUrl] = useState("");
   const [error, setError] = useState("");
+  const [showEaaCheck, setShowEaaCheck] = useState(false);
+  const [eaaAnswers, setEaaAnswers] = useState<Record<number, boolean>>({});
+  const [eaaResult, setEaaResult] = useState<null | { applies: boolean; summary: string }>(null);
+  const pageTitleRef = useRef("");
 
   const scanHtml = useCallback((html: string, sourceUrl: string): ScanIssue[] => {
     const found: ScanIssue[] = [];
@@ -30,6 +44,7 @@ export function UrlScanner() {
     const doc = parser.parseFromString(html, "text/html");
 
     setPageTitle(doc.title || "(no title)");
+    pageTitleRef.current = doc.title || "(no title)";
 
     const root = doc.documentElement;
     if (!root.getAttribute("lang")) {
@@ -151,6 +166,58 @@ export function UrlScanner() {
       found.push({ type: "warning", message: `${onclickDivs.length} non-interactive element(s) with onclick — may not be keyboard accessible.`, wcag: "2.1.1" });
     }
 
+    const viewport = doc.querySelector('meta[name="viewport"]');
+    if (!viewport) {
+      found.push({ type: "warning", message: "Missing viewport meta tag — may cause mobile accessibility issues.", wcag: "1.4.4" });
+    }
+
+    const tables = Array.from(doc.querySelectorAll("table"));
+    if (tables.length > 0) {
+      const tablesWithoutTh = tables.filter((t) => !t.querySelector("th"));
+      if (tablesWithoutTh.length > 0) {
+        found.push({ type: "warning", message: `${tablesWithoutTh.length} of ${tables.length} table(s) missing header cells (<th>).`, wcag: "1.3.1" });
+      } else {
+        found.push({ type: "pass", message: `All ${tables.length} table(s) have header cells.`, wcag: "1.3.1" });
+      }
+    }
+
+    const ariaHiddenFocusable = Array.from(doc.querySelectorAll('[aria-hidden="true"]')).filter((el) => {
+      return el.querySelector("a, button, input, select, textarea, [tabindex]") || el.matches("a, button, input, select, textarea, [tabindex]");
+    });
+    if (ariaHiddenFocusable.length > 0) {
+      found.push({ type: "error", message: `${ariaHiddenFocusable.length} focusable element(s) inside aria-hidden="true" — keyboard users can reach them but screen readers skip them.`, wcag: "1.3.1" });
+    }
+
+    const formFields = Array.from(doc.querySelectorAll("input:not([type='hidden'])"));
+    const withoutAutocomplete = formFields.filter((f) => {
+      const type = f.getAttribute("type") || "text";
+      return ["text", "email", "tel", "url", "password"].includes(type) && !f.getAttribute("autocomplete");
+    });
+    if (withoutAutocomplete.length > 3) {
+      found.push({ type: "info", message: `${withoutAutocomplete.length} form field(s) without autocomplete attribute — consider adding for better UX.`, wcag: "3.3.2" });
+    }
+
+    const duplicateIds = (() => {
+      const allIds = Array.from(doc.querySelectorAll("[id]")).map((el) => el.getAttribute("id"));
+      const seen = new Set<string>();
+      const dupes = new Set<string>();
+      for (const id of allIds) {
+        if (!id) continue;
+        if (seen.has(id)) dupes.add(id);
+        seen.add(id);
+      }
+      return Array.from(dupes);
+    })();
+    if (duplicateIds.length > 0) {
+      found.push({ type: "error", message: `${duplicateIds.length} duplicate ID(s) found: ${duplicateIds.slice(0, 3).join(", ")}${duplicateIds.length > 3 ? "..." : ""} — IDs must be unique.`, wcag: "4.1.1" });
+    }
+
+    const langAttrs = Array.from(doc.querySelectorAll("[lang]"));
+    const invalidLang = langAttrs.filter((el) => !/^[a-z]{2}(-[A-Z]{2})?$/.test(el.getAttribute("lang") || ""));
+    if (invalidLang.length > 0) {
+      found.push({ type: "warning", message: `${invalidLang.length} element(s) with invalid lang attribute value.`, wcag: "3.1.2" });
+    }
+
     found.push({ type: "info", message: `Scan of ${sourceUrl} complete. ${found.filter((f) => f.type === "error").length} error(s), ${found.filter((f) => f.type === "warning").length} warning(s).` });
 
     return found;
@@ -199,6 +266,15 @@ export function UrlScanner() {
       const results = scanHtml(html, scanUrl);
       setIssues(results);
       setScanned(true);
+
+      try {
+        const existing = JSON.parse(localStorage.getItem("a11ykit-scan-results") || "[]");
+        existing.unshift({ url: scanUrl, title: pageTitleRef.current || scanUrl, issues: results, date: new Date().toISOString() });
+        if (existing.length > 10) existing.length = 10;
+        localStorage.setItem("a11ykit-scan-results", JSON.stringify(existing));
+      } catch {
+        // localStorage may be unavailable
+      }
     } catch {
       setError("An error occurred while scanning. Please check the URL and try again.");
     }
@@ -258,6 +334,51 @@ export function UrlScanner() {
           {error}
         </div>
       )}
+
+      {/* EAA Quick Check */}
+      <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+        <button type="button" onClick={() => setShowEaaCheck(!showEaaCheck)} className="flex w-full items-center justify-between text-left">
+          <span className="flex items-center gap-2 text-sm font-semibold text-slate-900">
+            <FileQuestion className="h-4 w-4 text-teal-700" aria-hidden="true" />
+            EAA Compliance Quick Check
+          </span>
+          <ChevronRight className={`h-4 w-4 text-slate-400 transition ${showEaaCheck ? "rotate-90" : ""}`} aria-hidden="true" />
+        </button>
+        {showEaaCheck && (
+          <div className="mt-4 space-y-4">
+            <p className="text-sm text-slate-600">Answer these 7 questions to determine if the European Accessibility Act (EAA) applies to your organization.</p>
+            {EAA_QUESTIONS.map((q, i) => (
+              <div key={i} className="rounded-lg bg-slate-50 p-3">
+                <p className="text-sm font-medium text-slate-800">{i + 1}. {q}</p>
+                <div className="mt-2 flex gap-2">
+                  <button type="button" onClick={() => setEaaAnswers((prev) => ({ ...prev, [i]: true }))} className={`rounded-md px-3 py-1 text-xs font-medium ${eaaAnswers[i] === true ? "bg-teal-600 text-white" : "border border-slate-300 text-slate-600 hover:bg-slate-100"}`}>Yes</button>
+                  <button type="button" onClick={() => setEaaAnswers((prev) => ({ ...prev, [i]: false }))} className={`rounded-md px-3 py-1 text-xs font-medium ${eaaAnswers[i] === false ? "bg-teal-600 text-white" : "border border-slate-300 text-slate-600 hover:bg-slate-100"}`}>No</button>
+                </div>
+              </div>
+            ))}
+            <button type="button" onClick={() => {
+              const answered = Object.keys(eaaAnswers).length;
+              if (answered < 7) { setEaaResult(null); return; }
+              const yesCount = Object.values(eaaAnswers).filter(Boolean).length;
+              const applies = eaaAnswers[0] === true && (eaaAnswers[1] === true || eaaAnswers[2] === true || eaaAnswers[3] === true);
+              setEaaResult({
+                applies,
+                summary: applies
+                  ? `The EAA likely applies to your organization (${yesCount}/7 "Yes"). You should ensure your digital products meet WCAG 2.2 AA and publish an accessibility statement.`
+                  : `The EAA may not apply (${yesCount}/7 "Yes"). However, check with legal counsel — this quick check is not legal advice.`,
+              });
+            }} className="inline-flex items-center gap-2 rounded-lg bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-500">
+              Check EAA applicability
+            </button>
+            {eaaResult && (
+              <div className={`rounded-lg p-4 text-sm ${eaaResult.applies ? "bg-amber-50 text-amber-800" : "bg-green-50 text-green-800"}`}>
+                <p className="font-semibold">{eaaResult.applies ? "EAA likely applies" : "EAA may not apply"}</p>
+                <p className="mt-1">{eaaResult.summary}</p>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
 
       {scanned && (
         <>

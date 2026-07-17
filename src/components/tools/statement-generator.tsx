@@ -1,10 +1,58 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { Copy, Check, Download, Award } from "lucide-react";
+import { useState, useMemo, useEffect } from "react";
+import { Copy, Check, Download, Award, FileText, FileCode, Upload } from "lucide-react";
 import { downloadFile } from "@/lib/export-utils";
 
 type Regulation = "EAA" | "ADA" | "Section508" | "AODA" | "Generic";
+type TemplateType = "basic" | "comprehensive" | "legal" | "developer";
+
+const templateLabels: Record<TemplateType, string> = {
+  basic: "Basic — minimal compliance statement",
+  comprehensive: "Comprehensive — full W3C WAI template",
+  legal: "Legal-focused — enforcement & complaint details",
+  developer: "Developer-friendly — technical specs & testing",
+};
+
+function htmlToMarkdown(html: string): string {
+  let md = html;
+  md = md.replace(/<section[^>]*>/g, "");
+  md = md.replace(/<\/section>/g, "");
+  md = md.replace(/<h1[^>]*>(.*?)<\/h1>/g, "# $1\n");
+  md = md.replace(/<h2[^>]*>(.*?)<\/h2>/g, "\n## $1\n");
+  md = md.replace(/<h3[^>]*>(.*?)<\/h3>/g, "\n### $1\n");
+  md = md.replace(/<strong>(.*?)<\/strong>/g, "**$1**");
+  md = md.replace(/<em>(.*?)<\/em>/g, "*$1*");
+  md = md.replace(/<a href="([^"]*)">(.*?)<\/a>/g, "[$2]($1)");
+  md = md.replace(/<ul>/g, "");
+  md = md.replace(/<\/ul>/g, "");
+  md = md.replace(/<li>(.*?)<\/li>/g, "- $1");
+  md = md.replace(/<p>(.*?)<\/p>/g, "$1\n");
+  md = md.replace(/<br\s*\/?>/g, "");
+  md = md.replace(/<[^>]+>/g, "");
+  md = md.replace(/\n{3,}/g, "\n\n");
+  return md.trim();
+}
+
+function htmlToText(html: string): string {
+  let text = html;
+  text = text.replace(/<section[^>]*>/g, "");
+  text = text.replace(/<\/section>/g, "");
+  text = text.replace(/<h1[^>]*>(.*?)<\/h1>/g, "$1\n" + "=".repeat(40) + "\n");
+  text = text.replace(/<h2[^>]*>(.*?)<\/h2>/g, "\n$1\n" + "-".repeat(40) + "\n");
+  text = text.replace(/<h3[^>]*>(.*?)<\/h3>/g, "\n$1\n");
+  text = text.replace(/<strong>(.*?)<\/strong>/g, "$1");
+  text = text.replace(/<em>(.*?)<\/em>/g, "$1");
+  text = text.replace(/<a href="([^"]*)">(.*?)<\/a>/g, "$2 ($1)");
+  text = text.replace(/<ul>/g, "");
+  text = text.replace(/<\/ul>/g, "");
+  text = text.replace(/<li>(.*?)<\/li>/g, "  * $1");
+  text = text.replace(/<p>(.*?)<\/p>/g, "$1\n");
+  text = text.replace(/<br\s*\/?>/g, "");
+  text = text.replace(/<[^>]+>/g, "");
+  text = text.replace(/\n{3,}/g, "\n\n");
+  return text.trim();
+}
 
 interface FormData {
   orgName: string;
@@ -43,6 +91,33 @@ export function StatementGenerator() {
     reviewDate: "",
   });
   const [copied, setCopied] = useState(false);
+  const [template, setTemplate] = useState<TemplateType>("comprehensive");
+  const [scanResults, setScanResults] = useState<{ url: string; title: string; issues: { type: string; message: string; wcag?: string }[]; date: string }[]>([]);
+
+  useEffect(() => {
+    try {
+      const stored = JSON.parse(localStorage.getItem("a11ykit-scan-results") || "[]");
+      setScanResults(stored);
+    } catch {
+      // localStorage may be unavailable
+    }
+  }, []);
+
+  const handleImportScan = (idx: number) => {
+    const scan = scanResults[idx];
+    if (!scan) return;
+    const errors = scan.issues.filter((i) => i.type === "error");
+    const warnings = scan.issues.filter((i) => i.type === "warning");
+    const limitations = [
+      ...errors.map((e) => e.message),
+      ...warnings.map((w) => w.message),
+    ];
+    setForm((prev) => ({
+      ...prev,
+      orgUrl: scan.url,
+      knownLimitations: limitations.length > 0 ? limitations.join("\n") : "No significant accessibility issues were found during automated scanning.",
+    }));
+  };
 
   const update = (field: keyof FormData, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -50,6 +125,7 @@ export function StatementGenerator() {
 
   const generatedHtml = useMemo(() => {
     const reg = regulationLabels[form.regulation];
+    const org = escapeHtml(form.orgName || "[Organization Name]");
     const measuresHtml = form.measuresTaken
       ? form.measuresTaken
           .split("\n")
@@ -75,58 +151,60 @@ export function StatementGenerator() {
       contactParts.push(`      <p>Contact form: <a href="${escapeHtml(form.contactForm)}">${escapeHtml(form.contactForm)}</a></p>`);
     const contactHtml = contactParts.join("\n") || "      <p>Please provide contact information.</p>";
 
+    const dateLine = `<p><strong>Date of statement:</strong> ${escapeHtml(form.approvalDate)}${form.reviewDate ? ` (last reviewed: ${escapeHtml(form.reviewDate)})` : ""}</p>`;
+    const commitmentSection = `  <h2>Commitment to Accessibility</h2>\n  <p>${org} is committed to ensuring digital accessibility for people with disabilities. We are continually improving the user experience for everyone and applying the relevant accessibility standards.</p>`;
+    const conformanceSection = `  <h2>Conformance Status</h2>\n  <p>This website aims to conform to <strong>WCAG 2.2 Level ${form.conformanceLevel}</strong>. These guidelines explain how to make web content more accessible to people with disabilities. Conformance to these guidelines helps make the web a more inclusive space for all users.</p>\n  <p>The applicable regulatory framework is the <strong>${reg}</strong>.</p>`;
+    const measuresSection = `  <h2>Measures Taken</h2>\n  <p>We have taken the following measures to ensure accessibility of ${org}:</p>\n  <ul>\n${measuresHtml}\n  </ul>`;
+    const limitationsSection = `  <h2>Known Limitations</h2>\n  <p>Despite our efforts, there may be some limitations:</p>\n  <ul>\n${limitationsHtml}\n  </ul>\n  <p>If you find an accessibility issue that is not listed above, please contact us so we can address it.</p>`;
+    const contactSection = `  <h2>Contact Us</h2>\n  <p>If you encounter any accessibility barriers on our website or have any questions, please contact us:</p>\n${contactHtml}\n  <p>We aim to respond to accessibility feedback within 5 business days and to propose a solution or remediation plan within 10 business days.</p>`;
+    const techSection = `  <h2>Technical Specifications</h2>\n  <p>Accessibility of this website relies on the following technologies to work with the particular combination of web browser and any assistive technologies or plugins that you have installed:</p>\n  <ul>\n    <li>HTML5</li>\n    <li>WAI-ARIA 1.2</li>\n    <li>CSS3</li>\n    <li>JavaScript</li>\n  </ul>\n  <p>These technologies are relied upon for conformance with the accessibility standards used.</p>`;
+    const assessmentSection = `  <h2>Assessment Approach</h2>\n  <p>${org} assessed the accessibility of this website using the following methods:</p>\n  <ul>\n    <li>Self-evaluation using automated accessibility testing tools</li>\n    <li>Manual evaluation by trained accessibility staff</li>\n    <li>User testing with assistive technology users</li>\n  </ul>`;
+    const complaintsSection = `  <h2>Formal Complaints</h2>\n  <p>If you are not satisfied with our response to your accessibility concern, you may file a formal complaint through the relevant enforcement authority in your jurisdiction.</p>`;
+
+    let body = "";
+    if (template === "basic") {
+      body = [
+        commitmentSection,
+        conformanceSection,
+        contactSection,
+      ].join("\n\n");
+    } else if (template === "legal") {
+      body = [
+        commitmentSection,
+        conformanceSection,
+        limitationsSection,
+        contactSection,
+        `  <h2>Enforcement Procedure</h2>\n  <p>Under the ${reg}, if you are not satisfied with our response to your accessibility concern, you may file a formal complaint with the relevant enforcement authority.</p>\n  <ul>\n    <li><strong>EAA:</strong> National enforcement body in your EU member state</li>\n    <li><strong>ADA:</strong> U.S. Department of Justice, Civil Rights Division</li>\n    <li><strong>Section 508:</strong> U.S. Access Board</li>\n    <li><strong>AODA:</strong> Accessibility Directorate of Ontario</li>\n  </ul>\n  <p>Retaliation against individuals who file accessibility complaints is prohibited.</p>`,
+      ].join("\n\n");
+    } else if (template === "developer") {
+      body = [
+        `  <h2>Conformance Status</h2>\n  <p>This website aims to conform to <strong>WCAG 2.2 Level ${form.conformanceLevel}</strong>.</p>`,
+        techSection,
+        `  <h2>Testing & Validation</h2>\n  <p>Our development workflow includes:</p>\n  <ul>\n    <li>Automated testing with axe-core and Lighthouse CI in pull requests</li>\n    <li>Keyboard navigation testing on all interactive components</li>\n    <li>Screen reader testing with NVDA, JAWS, and VoiceOver</li>\n    <li>Color contrast verification at AA/AAA levels</li>\n    <li>Reduced motion and prefers-reduced-s media query support</li>\n  </ul>`,
+        assessmentSection,
+        contactSection,
+      ].join("\n\n");
+    } else {
+      body = [
+        commitmentSection,
+        conformanceSection,
+        measuresSection,
+        limitationsSection,
+        contactSection,
+        techSection,
+        assessmentSection,
+        complaintsSection,
+      ].join("\n\n");
+    }
+
     return `<section aria-labelledby="a11y-statement-heading">
-  <h1 id="a11y-statement-heading">Accessibility Statement for ${escapeHtml(form.orgName || "[Organization Name]")}</h1>
+  <h1 id="a11y-statement-heading">Accessibility Statement for ${org}</h1>
 
-  <p><strong>Date of statement:</strong> ${escapeHtml(form.approvalDate)}${form.reviewDate ? ` (last reviewed: ${escapeHtml(form.reviewDate)})` : ""}</p>
+  ${dateLine}
 
-  <h2>Commitment to Accessibility</h2>
-  <p>${escapeHtml(form.orgName || "[Organization Name]")} is committed to ensuring digital accessibility for people with disabilities. We are continually improving the user experience for everyone and applying the relevant accessibility standards.</p>
-
-  <h2>Conformance Status</h2>
-  <p>This website aims to conform to <strong>WCAG 2.2 Level ${form.conformanceLevel}</strong>. These guidelines explain how to make web content more accessible to people with disabilities. Conformance to these guidelines helps make the web a more inclusive space for all users.</p>
-  <p>The applicable regulatory framework is the <strong>${reg}</strong>.</p>
-
-  <h2>Measures Taken</h2>
-  <p>We have taken the following measures to ensure accessibility of ${escapeHtml(form.orgName || "our website")}:</p>
-  <ul>
-${measuresHtml}
-  </ul>
-
-  <h2>Known Limitations</h2>
-  <p>Despite our efforts, there may be some limitations:</p>
-  <ul>
-${limitationsHtml}
-  </ul>
-  <p>If you find an accessibility issue that is not listed above, please contact us so we can address it.</p>
-
-  <h2>Contact Us</h2>
-  <p>If you encounter any accessibility barriers on our website or have any questions, please contact us:</p>
-${contactHtml}
-  <p>We aim to respond to accessibility feedback within 5 business days and to propose a solution or remediation plan within 10 business days.</p>
-
-  <h2>Technical Specifications</h2>
-  <p>Accessibility of this website relies on the following technologies to work with the particular combination of web browser and any assistive technologies or plugins that you have installed:</p>
-  <ul>
-    <li>HTML5</li>
-    <li>WAI-ARIA 1.2</li>
-    <li>CSS3</li>
-    <li>JavaScript</li>
-  </ul>
-  <p>These technologies are relied upon for conformance with the accessibility standards used.</p>
-
-  <h2>Assessment Approach</h2>
-  <p>${escapeHtml(form.orgName || "[Organization Name]")} assessed the accessibility of this website using the following methods:</p>
-  <ul>
-    <li>Self-evaluation using automated accessibility testing tools</li>
-    <li>Manual evaluation by trained accessibility staff</li>
-    <li>User testing with assistive technology users</li>
-  </ul>
-
-  <h2>Formal Complaints</h2>
-  <p>If you are not satisfied with our response to your accessibility concern, you may file a formal complaint through the relevant enforcement authority in your jurisdiction.</p>
+${body}
 </section>`;
-  }, [form]);
+  }, [form, template]);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(generatedHtml);
@@ -136,6 +214,16 @@ ${contactHtml}
 
   const handleDownload = () => {
     downloadFile(generatedHtml, "accessibility-statement.html", "text/html");
+  };
+
+  const handleDownloadMarkdown = () => {
+    const md = htmlToMarkdown(generatedHtml);
+    downloadFile(md, "accessibility-statement.md", "text/markdown");
+  };
+
+  const handleDownloadText = () => {
+    const txt = htmlToText(generatedHtml);
+    downloadFile(txt, "accessibility-statement.txt", "text/plain");
   };
 
   const handleCertificate = () => {
@@ -203,6 +291,45 @@ It does not constitute legal certification. Independent verification is recommen
       {/* Form */}
       <div className="space-y-4">
         <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <h2 className="mb-4 text-lg font-semibold text-slate-900">Statement Template</h2>
+          <div className="mb-4">
+            <label htmlFor="template" className="block text-sm font-medium text-slate-700">
+              Template style
+            </label>
+            <select
+              id="template"
+              value={template}
+              onChange={(e) => setTemplate(e.target.value as TemplateType)}
+              className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
+            >
+              {(Object.keys(templateLabels) as TemplateType[]).map((t) => (
+                <option key={t} value={t}>{templateLabels[t]}</option>
+              ))}
+            </select>
+          {scanResults.length > 0 && (
+            <div className="mt-3 rounded-lg bg-slate-50 p-3">
+              <p className="flex items-center gap-1.5 text-xs font-semibold text-slate-700">
+                <Upload className="h-3.5 w-3.5" aria-hidden="true" /> Import from URL Scanner
+              </p>
+              <div className="mt-2 space-y-1.5">
+                {scanResults.slice(0, 5).map((scan, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => handleImportScan(i)}
+                    className="flex w-full items-center justify-between rounded-md border border-slate-200 bg-white px-2.5 py-1.5 text-left text-xs hover:bg-teal-50"
+                  >
+                    <span className="truncate text-slate-700">{scan.url}</span>
+                    <span className="ml-2 flex-shrink-0 text-slate-400">
+                      {scan.issues.filter((x) => x.type === "error").length} err / {scan.issues.filter((x) => x.type === "warning").length} warn
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
           <h2 className="mb-4 text-lg font-semibold text-slate-900">Organization Details</h2>
           <div className="space-y-4">
             <div>
@@ -391,8 +518,23 @@ It does not constitute legal certification. Independent verification is recommen
             <button
               onClick={handleDownload}
               className="inline-flex items-center gap-2 rounded-md border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+              title="Download HTML"
             >
-              <Download className="h-4 w-4" aria-hidden="true" /> Download
+              <Download className="h-4 w-4" aria-hidden="true" /> HTML
+            </button>
+            <button
+              onClick={handleDownloadMarkdown}
+              className="inline-flex items-center gap-2 rounded-md border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+              title="Download Markdown"
+            >
+              <FileCode className="h-4 w-4" aria-hidden="true" /> MD
+            </button>
+            <button
+              onClick={handleDownloadText}
+              className="inline-flex items-center gap-2 rounded-md border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+              title="Download plain text"
+            >
+              <FileText className="h-4 w-4" aria-hidden="true" /> TXT
             </button>
             <button
               onClick={handleCertificate}

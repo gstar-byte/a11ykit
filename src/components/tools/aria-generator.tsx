@@ -11,6 +11,8 @@ interface Pattern {
   keyboard: string[];
   ariaRoles: string[];
   ariaAttributes: string[];
+  requiredAttributes?: string[];
+  isLiveRegion?: boolean;
 }
 
 const patterns: Pattern[] = [
@@ -283,6 +285,59 @@ const patterns: Pattern[] = [
     ariaRoles: ["switch"],
     ariaAttributes: ["aria-checked", "aria-labelledby", "tabindex"],
   },
+  {
+    id: "live-status",
+    name: "Live Region — Status",
+    description: "Polite status announcements for screen readers (e.g. form saved).",
+    html: `<div role="status" aria-live="polite" aria-atomic="true">
+  <p>Form saved successfully.</p>
+</div>`,
+    keyboard: [],
+    ariaRoles: ["status"],
+    ariaAttributes: ["aria-live", "aria-atomic"],
+    requiredAttributes: ["aria-live"],
+    isLiveRegion: true,
+  },
+  {
+    id: "live-alert",
+    name: "Live Region — Alert",
+    description: "Assertive alert announcements that interrupt screen reader speech.",
+    html: `<div role="alert" aria-live="assertive" aria-atomic="true">
+  <p>Session expiring in 2 minutes.</p>
+</div>`,
+    keyboard: [],
+    ariaRoles: ["alert"],
+    ariaAttributes: ["aria-live", "aria-atomic"],
+    requiredAttributes: ["aria-live"],
+    isLiveRegion: true,
+  },
+  {
+    id: "live-log",
+    name: "Live Region — Log",
+    description: "Sequential log of updates (e.g. chat messages).",
+    html: `<div role="log" aria-live="polite" aria-relevant="additions">
+  <p>User joined the chat.</p>
+  <p>User sent a message.</p>
+</div>`,
+    keyboard: [],
+    ariaRoles: ["log"],
+    ariaAttributes: ["aria-live", "aria-relevant"],
+    requiredAttributes: ["aria-live"],
+    isLiveRegion: true,
+  },
+  {
+    id: "live-timer",
+    name: "Live Region — Timer",
+    description: "Time-based updates announced to screen readers.",
+    html: `<div role="timer" aria-live="off" aria-atomic="true">
+  <span id="countdown">00:30</span>
+</div>`,
+    keyboard: [],
+    ariaRoles: ["timer"],
+    ariaAttributes: ["aria-live", "aria-atomic"],
+    requiredAttributes: ["aria-live"],
+    isLiveRegion: true,
+  },
 ];
 
 export function AriaGenerator() {
@@ -290,6 +345,8 @@ export function AriaGenerator() {
   const [copied, setCopied] = useState(false);
   const [outputFormat, setOutputFormat] = useState<"html" | "jsx">("html");
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(["html"]));
+  const [customId, setCustomId] = useState("");
+  const [customClass, setCustomClass] = useState("");
 
   const selected = patterns.find((p) => p.id === selectedId)!;
 
@@ -302,7 +359,22 @@ export function AriaGenerator() {
       .replace(/\brole=/g, "role=");
   };
 
-  const displayCode = outputFormat === "jsx" ? htmlToJsx(selected.html) : selected.html;
+  const customizedHtml = (() => {
+    let html = selected.html;
+    if (customId) {
+      html = html.replace(/\bid="[^"]+"/g, `id="${customId}"`);
+    }
+    if (customClass) {
+      if (html.includes("class=")) {
+        html = html.replace(/class="([^"]+)"/, `class="$1 ${customClass}"`);
+      } else {
+        html = html.replace(/<div/, `<div class="${customClass}"`);
+      }
+    }
+    return html;
+  })();
+
+  const displayCode = outputFormat === "jsx" ? htmlToJsx(customizedHtml) : customizedHtml;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(displayCode);
@@ -362,12 +434,30 @@ export function AriaGenerator() {
           <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
             <h4 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">ARIA Attributes</h4>
             <div className="flex flex-wrap gap-2">
-              {selected.ariaAttributes.map((attr) => (
-                <code key={attr} className="rounded bg-indigo-100 px-2 py-1 text-xs font-medium text-indigo-800">
-                  {attr}
-                </code>
-              ))}
+              {selected.ariaAttributes.map((attr) => {
+                const isRequired = selected.requiredAttributes?.includes(attr);
+                return (
+                  <code key={attr} className={`rounded px-2 py-1 text-xs font-medium ${isRequired ? "bg-red-100 text-red-800 ring-1 ring-red-300" : "bg-indigo-100 text-indigo-800"}`}>
+                    {attr}{isRequired && " *"}
+                  </code>
+                );
+              })}
             </div>
+            {selected.requiredAttributes && selected.requiredAttributes.length > 0 && (
+              <p className="mt-2 text-xs text-red-600"><span className="font-semibold">*</span> Required attribute — must not be removed</p>
+            )}
+          </div>
+        </div>
+
+        {/* Custom ID/class inputs */}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label htmlFor="custom-id" className="block text-xs font-medium text-slate-600">Custom ID</label>
+            <input id="custom-id" type="text" value={customId} onChange={(e) => setCustomId(e.target.value)} placeholder="my-element" className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm font-mono focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500" />
+          </div>
+          <div>
+            <label htmlFor="custom-class" className="block text-xs font-medium text-slate-600">Custom CSS class</label>
+            <input id="custom-class" type="text" value={customClass} onChange={(e) => setCustomClass(e.target.value)} placeholder="my-class" className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm font-mono focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500" />
           </div>
         </div>
 
