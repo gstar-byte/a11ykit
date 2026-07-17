@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useCallback, useRef } from "react";
-import { Globe, AlertTriangle, CheckCircle, Info, Download, Loader2, LinkIcon, FileQuestion, ChevronRight, Network } from "lucide-react";
+import { Globe, AlertTriangle, CheckCircle, Info, Download, Loader2, LinkIcon, FileQuestion, ChevronRight, Network, Zap } from "lucide-react";
 import { exportAsJSON, exportAsMarkdown, exportAsHTML } from "@/lib/export-utils";
+import { runAxeScan } from "@/lib/axe-scan";
 
 interface ScanIssue {
   type: "error" | "warning" | "info" | "pass";
@@ -40,6 +41,9 @@ export function UrlScanner() {
   const [crawlMode, setCrawlMode] = useState(false);
   const [crawlProgress, setCrawlProgress] = useState<{ scanned: number; total: number; currentUrl: string } | null>(null);
   const [crawlPages, setCrawlPages] = useState<{ url: string; title: string; issues: ScanIssue[] }[]>([]);
+  const [axeIssues, setAxeIssues] = useState<ScanIssue[] | null>(null);
+  const [axeScanning, setAxeScanning] = useState(false);
+  const [axeError, setAxeError] = useState("");
 
   const scanHtml = useCallback((html: string, sourceUrl: string): ScanIssue[] => {
     const found: ScanIssue[] = [];
@@ -383,6 +387,38 @@ export function UrlScanner() {
     setScanning(false);
   }, [url, scanHtml]);
 
+  const handleAxeScan = useCallback(async () => {
+    if (!pageUrl) return;
+    setAxeScanning(true);
+    setAxeError("");
+    setAxeIssues(null);
+    try {
+      let html = "";
+      for (let i = 0; i < CORS_PROXIES.length; i++) {
+        try {
+          const proxyUrl = CORS_PROXIES[i](pageUrl);
+          const res = await fetch(proxyUrl, { signal: AbortSignal.timeout(15000) });
+          if (res.ok) {
+            html = await res.text();
+            if (html && html.length > 100) break;
+          }
+        } catch {
+          continue;
+        }
+      }
+      if (!html) {
+        setAxeError("Failed to fetch the page for axe-core scan.");
+        setAxeScanning(false);
+        return;
+      }
+      const results = await runAxeScan(html);
+      setAxeIssues(results);
+    } catch (e) {
+      setAxeError(e instanceof Error ? e.message : "axe-core scan failed.");
+    }
+    setAxeScanning(false);
+  }, [pageUrl]);
+
   const stats = {
     errors: issues.filter((i) => i.type === "error").length,
     warnings: issues.filter((i) => i.type === "warning").length,
@@ -494,6 +530,73 @@ export function UrlScanner() {
               );
             })}
           </div>
+        </div>
+      )}
+
+      {scanned && !crawlMode && (
+        <div className="rounded-xl border border-violet-200 bg-violet-50/50 p-6 shadow-sm">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="flex items-center gap-2 text-sm font-semibold text-slate-900">
+                <Zap className="h-4 w-4 text-violet-600" aria-hidden="true" />
+                axe-core Deep Scan (50+ WCAG rules)
+              </h3>
+              <p className="mt-1 text-xs text-slate-600">Runs the industry-standard axe-core engine for comprehensive WCAG 2.2 A/AA testing.</p>
+            </div>
+            <button
+              type="button"
+              onClick={handleAxeScan}
+              disabled={axeScanning}
+              className="inline-flex items-center gap-2 rounded-lg bg-violet-600 px-4 py-2 text-sm font-semibold text-white hover:bg-violet-500 disabled:opacity-50"
+            >
+              {axeScanning ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> Running axe-core...
+                </>
+              ) : (
+                <>
+                  <Zap className="h-4 w-4" aria-hidden="true" /> Run axe-core scan
+                </>
+              )}
+            </button>
+          </div>
+
+          {axeError && (
+            <p className="mt-3 text-sm text-red-600">{axeError}</p>
+          )}
+
+          {axeIssues && (
+            <ul className="mt-4 space-y-3">
+              {axeIssues.map((issue, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  {issue.type === "error" && (
+                    <AlertTriangle className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                  )}
+                  {issue.type === "warning" && (
+                    <AlertTriangle className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                  )}
+                  {issue.type === "pass" && (
+                    <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                  )}
+                  {issue.type === "info" && (
+                    <Info className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                  )}
+                  <div>
+                    <p className={`text-sm ${
+                      issue.type === "error" ? "text-red-700" :
+                      issue.type === "warning" ? "text-amber-700" :
+                      issue.type === "pass" ? "text-green-700" : "text-blue-700"
+                    }`}>
+                      {issue.message}
+                    </p>
+                    {issue.wcag && (
+                      <p className="text-xs text-slate-500 mt-0.5">WCAG {issue.wcag}</p>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       )}
 

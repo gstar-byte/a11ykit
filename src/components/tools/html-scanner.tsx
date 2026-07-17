@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { AlertTriangle, CheckCircle, Info, Download } from "lucide-react";
+import { useState, useMemo, useCallback } from "react";
+import { AlertTriangle, CheckCircle, Info, Download, Loader2, Zap } from "lucide-react";
 import { exportAsJSON, exportAsMarkdown, exportAsHTML } from "@/lib/export-utils";
+import { runAxeScan } from "@/lib/axe-scan";
 
 interface ScanIssue {
   type: "error" | "warning" | "info" | "pass";
@@ -39,6 +40,23 @@ const sampleHTML = `<!DOCTYPE html>
 
 export function HtmlScanner() {
   const [html, setHtml] = useState("");
+  const [axeIssues, setAxeIssues] = useState<ScanIssue[] | null>(null);
+  const [axeScanning, setAxeScanning] = useState(false);
+  const [axeError, setAxeError] = useState("");
+
+  const handleAxeScan = useCallback(async () => {
+    if (!html.trim()) return;
+    setAxeScanning(true);
+    setAxeError("");
+    setAxeIssues(null);
+    try {
+      const results = await runAxeScan(html);
+      setAxeIssues(results);
+    } catch (e) {
+      setAxeError(e instanceof Error ? e.message : "axe-core scan failed.");
+    }
+    setAxeScanning(false);
+  }, [html]);
 
   const { issues, stats } = useMemo(() => {
     if (!html.trim()) return { issues: [] as ScanIssue[], stats: { errors: 0, warnings: 0, passes: 0 } };
@@ -253,6 +271,22 @@ export function HtmlScanner() {
         >
           Load sample HTML
         </button>
+        <button
+          type="button"
+          onClick={handleAxeScan}
+          disabled={axeScanning || !html.trim()}
+          className="mt-2 ml-4 inline-flex items-center gap-2 rounded-lg bg-violet-600 px-4 py-2 text-sm font-semibold text-white hover:bg-violet-500 disabled:opacity-50"
+        >
+          {axeScanning ? (
+            <>
+              <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> Running axe-core...
+            </>
+          ) : (
+            <>
+              <Zap className="h-4 w-4" aria-hidden="true" /> Deep scan with axe-core (50+ rules)
+            </>
+          )}
+        </button>
       </div>
 
       {html.trim() && (
@@ -331,6 +365,70 @@ export function HtmlScanner() {
             </ul>
           </div>
         </>
+      )}
+
+      {axeError && (
+        <div className="flex items-start gap-3 rounded-lg bg-red-50 p-4 text-sm text-red-700">
+          <AlertTriangle className="h-5 w-5 flex-shrink-0 mt-0.5" aria-hidden="true" />
+          {axeError}
+        </div>
+      )}
+
+      {axeIssues && (
+        <div className="rounded-xl border border-violet-200 bg-violet-50/50 p-6 shadow-sm">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="flex items-center gap-2 text-sm font-semibold text-slate-900">
+              <Zap className="h-4 w-4 text-violet-600" aria-hidden="true" />
+              axe-core Deep Scan Results ({axeIssues.length} findings)
+            </h3>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => exportAsJSON(axeIssues, "axe-scanner")}
+                className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-100"
+              >
+                <Download className="h-3.5 w-3.5" aria-hidden="true" /> JSON
+              </button>
+              <button
+                type="button"
+                onClick={() => exportAsMarkdown(axeIssues, "axe-scanner")}
+                className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-100"
+              >
+                <Download className="h-3.5 w-3.5" aria-hidden="true" /> MD
+              </button>
+            </div>
+          </div>
+          <ul className="space-y-3">
+            {axeIssues.map((issue, i) => (
+              <li key={i} className="flex items-start gap-3">
+                {issue.type === "error" && (
+                  <AlertTriangle className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                )}
+                {issue.type === "warning" && (
+                  <AlertTriangle className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                )}
+                {issue.type === "pass" && (
+                  <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                )}
+                {issue.type === "info" && (
+                  <Info className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                )}
+                <div>
+                  <p className={`text-sm ${
+                    issue.type === "error" ? "text-red-700" :
+                    issue.type === "warning" ? "text-amber-700" :
+                    issue.type === "pass" ? "text-green-700" : "text-blue-700"
+                  }`}>
+                    {issue.message}
+                  </p>
+                  {issue.wcag && (
+                    <p className="text-xs text-slate-500 mt-0.5">WCAG {issue.wcag}</p>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </div>
   );
