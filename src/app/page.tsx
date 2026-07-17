@@ -59,41 +59,41 @@ export default function HomePage() {
       {/* Features bar */}
       <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-          <dl className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-            <div className="flex items-start gap-3">
+          <ul className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+            <li className="flex items-start gap-3">
               <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-teal-50">
                 <Zap className="h-5 w-5 text-teal-600" aria-hidden="true" />
               </div>
               <div>
-                <dt className="text-sm font-semibold text-slate-900">Instant results</dt>
-                <dd className="mt-1 text-sm text-slate-600">
+                <h3 className="text-sm font-semibold text-slate-900">Instant results</h3>
+                <p className="mt-1 text-sm text-slate-600">
                   Everything runs in your browser. No server round-trips, no waiting.
-                </dd>
+                </p>
               </div>
-            </div>
-            <div className="flex items-start gap-3">
+            </li>
+            <li className="flex items-start gap-3">
               <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-teal-50">
                 <Lock className="h-5 w-5 text-teal-600" aria-hidden="true" />
               </div>
               <div>
-                <dt className="text-sm font-semibold text-slate-900">100% private</dt>
-                <dd className="mt-1 text-sm text-slate-600">
+                <h3 className="text-sm font-semibold text-slate-900">100% private</h3>
+                <p className="mt-1 text-sm text-slate-600">
                   Your data never leaves your device. No tracking, no accounts.
-                </dd>
+                </p>
               </div>
-            </div>
-            <div className="flex items-start gap-3">
+            </li>
+            <li className="flex items-start gap-3">
               <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-teal-50">
                 <ShieldCheck className="h-5 w-5 text-teal-600" aria-hidden="true" />
               </div>
               <div>
-                <dt className="text-sm font-semibold text-slate-900">WCAG 2.2 aligned</dt>
-                <dd className="mt-1 text-sm text-slate-600">
+                <h3 className="text-sm font-semibold text-slate-900">WCAG 2.2 aligned</h3>
+                <p className="mt-1 text-sm text-slate-600">
                   Tools check against the latest WCAG 2.2 and EAA requirements.
-                </dd>
+                </p>
               </div>
-            </div>
-          </dl>
+            </li>
+          </ul>
         </div>
       </section>
 
