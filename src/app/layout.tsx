@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -66,25 +65,27 @@ export default function RootLayout({
         />
 
         {/* Google tag (gtag.js) */}
-        <Script
+        <script
+          async
           src="https://www.googletagmanager.com/gtag/js?id=G-T1R22CCHQK"
-          strategy="afterInteractive"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            
-            // 默认拒绝分析与广告的 Cookie 存储 (GDPR 合规最优解)
-            gtag('consent', 'default', {
-              'analytics_storage': 'denied',
-              'ad_storage': 'denied'
-            });
-            
-            gtag('js', new Date());
-            gtag('config', 'G-T1R22CCHQK');
-          `}
-        </Script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              
+              // 默认拒绝分析与广告的 Cookie 存储 (GDPR 合规最优解)
+              gtag('consent', 'default', {
+                'analytics_storage': 'denied',
+                'ad_storage': 'denied'
+              });
+              
+              gtag('js', new Date());
+              gtag('config', 'G-T1R22CCHQK');
+            `
+          }}
+        />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
