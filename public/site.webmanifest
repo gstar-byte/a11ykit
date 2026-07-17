@@ -1,16 +1,20 @@
 {
-  "name": "A11yKit",
+  "name": "A11yKit — Free Accessibility Tools",
   "short_name": "A11yKit",
-  "description": "Free accessibility tools for WCAG 2.2 and EAA compliance",
+  "description": "Free accessibility tools for WCAG 2.2 and EAA compliance. Works offline.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "any",
   "background_color": "#f8fafc",
   "theme_color": "#28151a",
+  "categories": ["developer", "productivity", "utilities"],
   "icons": [
     {
       "src": "/favicon.svg",
       "type": "image/svg+xml",
-      "sizes": "any"
+      "sizes": "any",
+      "purpose": "any maskable"
     }
   ]
 }

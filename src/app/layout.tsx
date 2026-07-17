@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { PrivacyBanner } from "@/components/privacy-banner";
+import { ServiceWorkerRegister } from "@/components/sw-register";
 
 /* ── 字体优化：使用 next/font 本地化托管，消除渲染阻塞 ── */
 const inter = Inter({
@@ -126,6 +127,7 @@ export default function RootLayout({
         <main id="main-content" className="flex-grow w-full">{children}</main>
         <Footer />
         <PrivacyBanner />
+        <ServiceWorkerRegister />
       </body>
     </html>
   );
