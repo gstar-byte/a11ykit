@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { AlertTriangle, CheckCircle } from "lucide-react";
+import { AlertTriangle, CheckCircle, Download } from "lucide-react";
+import { exportAsJSON, exportAsMarkdown, exportAsHTML } from "@/lib/export-utils";
 
 interface AltTextIssue {
   type: "error" | "warning" | "info";
@@ -189,7 +190,14 @@ export function AltTextChecker() {
           )}
 
           <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h3 className="text-sm font-semibold text-slate-900 mb-4">Image Alt Text Analysis</h3>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-sm font-semibold text-slate-900">Image Alt Text Analysis</h3>
+              <div className="flex items-center gap-2">
+                <button type="button" onClick={() => exportAsJSON(issues, "alt-text-checker")} className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-100"><Download className="h-3.5 w-3.5" aria-hidden="true" /> JSON</button>
+                <button type="button" onClick={() => exportAsMarkdown(issues, "alt-text-checker")} className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-100"><Download className="h-3.5 w-3.5" aria-hidden="true" /> MD</button>
+                <button type="button" onClick={() => exportAsHTML(issues, "alt-text-checker")} className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-100"><Download className="h-3.5 w-3.5" aria-hidden="true" /> HTML</button>
+              </div>
+            </div>
             <ul className="space-y-4">
               {issues.map((issue, i) => (
                 <li key={i} className="flex items-start gap-3 border-b border-slate-100 pb-3 last:border-0">

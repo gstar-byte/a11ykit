@@ -288,12 +288,24 @@ const patterns: Pattern[] = [
 export function AriaGenerator() {
   const [selectedId, setSelectedId] = useState(patterns[0].id);
   const [copied, setCopied] = useState(false);
+  const [outputFormat, setOutputFormat] = useState<"html" | "jsx">("html");
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(["html"]));
 
   const selected = patterns.find((p) => p.id === selectedId)!;
 
+  const htmlToJsx = (html: string): string => {
+    return html
+      .replace(/\bclass=/g, "className=")
+      .replace(/\bfor=/g, "htmlFor=")
+      .replace(/\btabindex=/g, "tabIndex=")
+      .replace(/\baria-([a-z]+)=/g, (_, attr) => `aria${attr.charAt(0).toUpperCase() + attr.slice(1)}=`)
+      .replace(/\brole=/g, "role=");
+  };
+
+  const displayCode = outputFormat === "jsx" ? htmlToJsx(selected.html) : selected.html;
+
   const handleCopy = () => {
-    navigator.clipboard.writeText(selected.html);
+    navigator.clipboard.writeText(displayCode);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -359,21 +371,43 @@ export function AriaGenerator() {
           </div>
         </div>
 
-        {/* HTML code */}
+        {/* HTML/JSX code */}
         <div className="rounded-xl border border-slate-200 bg-white shadow-sm">
           <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3">
-            <button
-              type="button"
-              onClick={() => toggleSection("html")}
-              className="flex items-center gap-2 text-sm font-semibold text-slate-900"
-            >
-              {expandedSections.has("html") ? (
-                <ChevronDown className="h-4 w-4" aria-hidden="true" />
-              ) : (
-                <ChevronRight className="h-4 w-4" aria-hidden="true" />
-              )}
-              HTML
-            </button>
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => toggleSection("html")}
+                className="flex items-center gap-2 text-sm font-semibold text-slate-900"
+              >
+                {expandedSections.has("html") ? (
+                  <ChevronDown className="h-4 w-4" aria-hidden="true" />
+                ) : (
+                  <ChevronRight className="h-4 w-4" aria-hidden="true" />
+                )}
+                Code
+              </button>
+              <div className="flex rounded-md border border-slate-200 overflow-hidden">
+                <button
+                  type="button"
+                  onClick={() => setOutputFormat("html")}
+                  className={`px-2.5 py-1 text-xs font-medium ${
+                    outputFormat === "html" ? "bg-teal-600 text-white" : "bg-white text-slate-600 hover:bg-slate-100"
+                  }`}
+                >
+                  HTML
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setOutputFormat("jsx")}
+                  className={`px-2.5 py-1 text-xs font-medium ${
+                    outputFormat === "jsx" ? "bg-teal-600 text-white" : "bg-white text-slate-600 hover:bg-slate-100"
+                  }`}
+                >
+                  JSX/React
+                </button>
+              </div>
+            </div>
             <button
               type="button"
               onClick={handleCopy}
@@ -392,7 +426,7 @@ export function AriaGenerator() {
           </div>
           {expandedSections.has("html") && (
             <pre className="overflow-x-auto p-4 text-sm text-slate-800">
-              <code>{selected.html}</code>
+              <code>{displayCode}</code>
             </pre>
           )}
         </div>

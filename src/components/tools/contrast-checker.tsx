@@ -39,6 +39,19 @@ function getContrastRatio(
   return (lighter + 0.05) / (darker + 0.05);
 }
 
+function compositeAlpha(
+  fg: [number, number, number],
+  fgAlpha: number,
+  bg: [number, number, number]
+): [number, number, number] {
+  const a = fgAlpha / 100;
+  return [
+    Math.round(fg[0] * a + bg[0] * (1 - a)),
+    Math.round(fg[1] * a + bg[1] * (1 - a)),
+    Math.round(fg[2] * a + bg[2] * (1 - a)),
+  ];
+}
+
 function isValidHex(hex: string): boolean {
   return /^#?[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/.test(hex);
 }
@@ -88,6 +101,7 @@ function PassFail({ pass, label }: { pass: boolean; label: string }) {
 export function ContrastChecker() {
   const [fg, setFg] = useState("#1e1b4b");
   const [bg, setBg] = useState("#ffffff");
+  const [fgAlpha, setFgAlpha] = useState(100);
   const [fontSize, setFontSize] = useState(18);
   const [fontWeight, setFontWeight] = useState(400);
   const [copied, setCopied] = useState(false);
@@ -100,15 +114,20 @@ export function ContrastChecker() {
     const fgRgb = hexToRgb(fg);
     const bgRgb = hexToRgb(bg);
     if (!fgRgb || !bgRgb) return null;
-    const ratio = getContrastRatio(fgRgb, bgRgb);
+    const effectiveFg = fgAlpha < 100 ? compositeAlpha(fgRgb, fgAlpha, bgRgb) : fgRgb;
+    const ratio = getContrastRatio(effectiveFg, bgRgb);
     return evaluateContrast(ratio);
-  }, [fg, bg, fgValid, bgValid])();
+  }, [fg, bg, fgAlpha, fgValid, bgValid])();
 
   const isLargeText = fontSize >= 18 && fontWeight >= 400 || fontSize >= 14 && fontWeight >= 700;
 
   const handleCopy = () => {
     if (!result) return;
-    const css = `color: ${fg};\nbackground-color: ${bg};\n/* Contrast ratio: ${result.ratio}:1 */`;
+    const fgRgb = hexToRgb(fg);
+    const colorValue = fgAlpha < 100 && fgRgb
+      ? `rgba(${fgRgb.join(", ")}, ${fgAlpha / 100})`
+      : fg;
+    const css = `color: ${colorValue};\nbackground-color: ${bg};\n/* Contrast ratio: ${result.ratio}:1 */`;
     navigator.clipboard.writeText(css);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -122,6 +141,7 @@ export function ContrastChecker() {
   const handleReset = () => {
     setFg("#1e1b4b");
     setBg("#ffffff");
+    setFgAlpha(100);
     setFontSize(18);
     setFontWeight(400);
   };
@@ -136,7 +156,7 @@ export function ContrastChecker() {
         <p
           className="mb-2"
           style={{
-            color: fgValid ? fg : "#000000",
+            color: fgValid ? (fgAlpha < 100 ? `rgba(${hexToRgb(fg)?.join(", ")}, ${fgAlpha / 100})` : fg) : "#000000",
             fontSize: `${fontSize}px`,
             fontWeight: fontWeight,
           }}
@@ -146,7 +166,7 @@ export function ContrastChecker() {
         <p
           className="mb-2"
           style={{
-            color: fgValid ? fg : "#000000",
+            color: fgValid ? (fgAlpha < 100 ? `rgba(${hexToRgb(fg)?.join(", ")}, ${fgAlpha / 100})` : fg) : "#000000",
             fontSize: `${Math.max(fontSize - 4, 12)}px`,
             fontWeight: 400,
           }}
@@ -156,9 +176,9 @@ export function ContrastChecker() {
         <button
           className="rounded-md px-4 py-2 text-sm font-medium"
           style={{
-            color: fgValid ? fg : "#000000",
+            color: fgValid ? (fgAlpha < 100 ? `rgba(${hexToRgb(fg)?.join(", ")}, ${fgAlpha / 100})` : fg) : "#000000",
             backgroundColor: bgValid ? bg : "#ffffff",
-            border: `2px solid ${fgValid ? fg : "#000000"}`,
+            border: `2px solid ${fgValid ? (fgAlpha < 100 ? `rgba(${hexToRgb(fg)?.join(", ")}, ${fgAlpha / 100})` : fg) : "#000000"}`,
           }}
         >
           {sampleTexts[2]}
@@ -192,6 +212,20 @@ export function ContrastChecker() {
           {!fgValid && (
             <p className="mt-2 text-xs text-red-600">Invalid hex color</p>
           )}
+          <div className="mt-3">
+            <label htmlFor="fg-alpha" className="block text-xs font-medium text-slate-600">
+              Foreground opacity: <span className="text-teal-700 font-semibold">{fgAlpha}%</span>
+            </label>
+            <input
+              id="fg-alpha"
+              type="range"
+              min={0}
+              max={100}
+              value={fgAlpha}
+              onChange={(e) => setFgAlpha(Number(e.target.value))}
+              className="mt-1 w-full accent-teal-700"
+            />
+          </div>
         </fieldset>
 
         <fieldset className="rounded-lg border border-slate-200 p-4">
@@ -339,6 +373,11 @@ export function ContrastChecker() {
               <strong>Current text size:</strong> {fontSize}px, weight {fontWeight} —
               classified as {isLargeText ? "large text" : "normal text"} per WCAG 1.4.3.
               Large text = ≥18px (or ≥14px bold).
+              {fgAlpha < 100 && (
+                <span className="block mt-1">
+                  <strong>Alpha note:</strong> Foreground opacity is {fgAlpha}%. Contrast is calculated against the composited (blended) color over the background, per WCAG guidance on transparency.
+                </span>
+              )}
             </p>
           </div>
         </div>

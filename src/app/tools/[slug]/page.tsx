@@ -13,6 +13,10 @@ import { HtmlScanner } from "@/components/tools/html-scanner";
 import { LinkTextChecker } from "@/components/tools/link-text-checker";
 import { FocusOrderChecker } from "@/components/tools/focus-order-checker";
 import { AltTextChecker } from "@/components/tools/alt-text-checker";
+import { UrlScanner } from "@/components/tools/url-scanner";
+import { PdfChecker } from "@/components/tools/pdf-checker";
+import { AltTextGenerator } from "@/components/tools/alt-text-generator";
+import { AccessibilityMonitor } from "@/components/tools/accessibility-monitor";
 
 export function generateStaticParams() {
   return tools
@@ -131,6 +135,10 @@ export default async function ToolPage({
         {slug === "link-text-checker" && <LinkTextChecker />}
         {slug === "focus-order-checker" && <FocusOrderChecker />}
         {slug === "alt-text-checker" && <AltTextChecker />}
+        {slug === "url-scanner" && <UrlScanner />}
+        {slug === "pdf-checker" && <PdfChecker />}
+        {slug === "alt-text-generator" && <AltTextGenerator />}
+        {slug === "accessibility-monitor" && <AccessibilityMonitor />}
       </div>
     </>
   );

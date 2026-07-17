@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { AlertTriangle, CheckCircle, ArrowRight } from "lucide-react";
+import { AlertTriangle, CheckCircle, ArrowRight, Download } from "lucide-react";
+import { exportAsJSON, exportAsMarkdown, exportAsHTML } from "@/lib/export-utils";
 
 interface FocusableElement {
   tag: string;
@@ -30,11 +31,11 @@ export function FocusOrderChecker() {
   const [html, setHtml] = useState("");
 
   const { elements, issues } = useMemo(() => {
-    if (!html.trim()) return { elements: [] as FocusableElement[], issues: [] as { type: string; message: string; wcag?: string }[] };
+    if (!html.trim()) return { elements: [] as FocusableElement[], issues: [] as { type: "error" | "warning" | "info" | "pass"; message: string; wcag?: string }[] };
 
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, "text/html");
-    const foundIssues: { type: string; message: string; wcag?: string }[] = [];
+    const foundIssues: { type: "error" | "warning" | "info" | "pass"; message: string; wcag?: string }[] = [];
 
     const focusableSelectors = [
       "a[href]", "button:not([disabled])", "input:not([disabled]):not([type='hidden'])",
@@ -179,7 +180,14 @@ export function FocusOrderChecker() {
           )}
 
           <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h3 className="text-sm font-semibold text-slate-900 mb-4">Issues Found</h3>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-sm font-semibold text-slate-900">Issues Found</h3>
+              <div className="flex items-center gap-2">
+                <button type="button" onClick={() => exportAsJSON(issues, "focus-order-checker")} className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-100"><Download className="h-3.5 w-3.5" aria-hidden="true" /> JSON</button>
+                <button type="button" onClick={() => exportAsMarkdown(issues, "focus-order-checker")} className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-100"><Download className="h-3.5 w-3.5" aria-hidden="true" /> MD</button>
+                <button type="button" onClick={() => exportAsHTML(issues, "focus-order-checker")} className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-100"><Download className="h-3.5 w-3.5" aria-hidden="true" /> HTML</button>
+              </div>
+            </div>
             <ul className="space-y-3">
               {issues.map((issue, i) => (
                 <li key={i} className="flex items-start gap-3">

@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { AlertTriangle, CheckCircle, Info } from "lucide-react";
+import { AlertTriangle, CheckCircle, Info, Download } from "lucide-react";
+import { exportAsJSON, exportAsMarkdown, exportAsHTML } from "@/lib/export-utils";
 
 interface ScanIssue {
   type: "error" | "warning" | "info" | "pass";
@@ -272,7 +273,32 @@ export function HtmlScanner() {
           </div>
 
           <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h3 className="text-sm font-semibold text-slate-900 mb-4">Scan Results</h3>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-sm font-semibold text-slate-900">Scan Results</h3>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => exportAsJSON(issues, "html-scanner")}
+                  className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-100"
+                >
+                  <Download className="h-3.5 w-3.5" aria-hidden="true" /> JSON
+                </button>
+                <button
+                  type="button"
+                  onClick={() => exportAsMarkdown(issues, "html-scanner")}
+                  className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-100"
+                >
+                  <Download className="h-3.5 w-3.5" aria-hidden="true" /> MD
+                </button>
+                <button
+                  type="button"
+                  onClick={() => exportAsHTML(issues, "html-scanner")}
+                  className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-100"
+                >
+                  <Download className="h-3.5 w-3.5" aria-hidden="true" /> HTML
+                </button>
+              </div>
+            </div>
             <ul className="space-y-3">
               {issues.map((issue, i) => (
                 <li key={i} className="flex items-start gap-3">

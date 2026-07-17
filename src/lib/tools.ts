@@ -10,6 +10,10 @@ import {
   Link2,
   MoveRight,
   Image,
+  Globe,
+  FileSearch,
+  Sparkles,
+  Activity,
   type LucideIcon,
 } from "lucide-react";
 
@@ -17,7 +21,8 @@ export type ToolCategory =
   | "check"
   | "fix"
   | "generate"
-  | "simulate";
+  | "simulate"
+  | "monitor";
 
 export interface Tool {
   slug: string;
@@ -36,6 +41,7 @@ export const categoryLabels: Record<ToolCategory, string> = {
   fix: "Fix",
   generate: "Generate",
   simulate: "Simulate",
+  monitor: "Monitor",
 };
 
 export const tools: Tool[] = [
@@ -180,6 +186,58 @@ export const tools: Tool[] = [
     icon: Image,
     category: "check",
     keywords: ["alt text", "alt attribute", "image", "img", "wcag 1.1.1", "non-text content"],
+    status: "live",
+  },
+  {
+    slug: "url-scanner",
+    title: "URL Website Scanner",
+    shortTitle: "URL Scanner",
+    description:
+      "Enter any public URL and get an instant accessibility scan. Checks lang, title, landmarks, headings, alt text, form labels, links, and more.",
+    longDescription:
+      "Scan any public website by URL. The page HTML is fetched via a CORS proxy and analyzed entirely in your browser. Checks for missing lang, title, skip links, landmark regions, heading hierarchy, image alt text, form labels, link text, button names, iframe titles, tabindex issues, and more — all against WCAG 2.2 criteria.",
+    icon: Globe,
+    category: "check",
+    keywords: ["url", "website", "scanner", "scan", "online", "wcag", "audit", "check"],
+    status: "live",
+  },
+  {
+    slug: "pdf-checker",
+    title: "PDF Accessibility Checker",
+    shortTitle: "PDF Checker",
+    description:
+      "Upload a PDF and check for tagging, language, title, bookmarks, and extractable text. Uses pdf.js for 100% client-side parsing.",
+    longDescription:
+      "Check PDF files for accessibility issues using pdf.js, entirely in your browser. Verifies PDF tagging (Marked flag), document language, title metadata, bookmark/outline structure for navigation, and whether pages contain extractable text or are scanned images needing OCR. Supports WCAG and PDF/UA requirements.",
+    icon: FileSearch,
+    category: "check",
+    keywords: ["pdf", "pdf/ua", "tagged pdf", "document", "accessibility", "screen reader", "ocr"],
+    status: "live",
+  },
+  {
+    slug: "alt-text-generator",
+    title: "AI Alt Text Generator",
+    shortTitle: "AI Alt Text",
+    description:
+      "Upload an image and generate descriptive alt text using AI. Uses your own OpenAI API key — no server involved.",
+    longDescription:
+      "Generate alt text for images using OpenAI's vision API. Upload an image, enter your API key, and get a concise, WCAG-compliant alt text suggestion. Your API key is used directly from your browser and never sent to our server. Always review AI-generated text before publishing.",
+    icon: Sparkles,
+    category: "generate",
+    keywords: ["alt text", "ai", "openai", "image", "automatic", "generate", "gpt-4o"],
+    status: "live",
+  },
+  {
+    slug: "accessibility-monitor",
+    title: "Accessibility Monitor",
+    shortTitle: "Monitor",
+    description:
+      "Track your website's accessibility score over time. Scan any URL and save results to your browser to monitor progress.",
+    longDescription:
+      "Monitor your website's accessibility over time. Each scan is saved to your browser's local storage with a timestamp, score, and issue counts. Scan the same URL periodically to track improvements or regressions, with trend indicators showing whether your score went up or down.",
+    icon: Activity,
+    category: "monitor",
+    keywords: ["monitor", "tracking", "history", "score", "progress", "trend", "dashboard"],
     status: "live",
   },
 ];

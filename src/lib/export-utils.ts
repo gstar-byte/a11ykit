@@ -1,0 +1,132 @@
+export interface ExportIssue {
+  type: "error" | "warning" | "info" | "pass";
+  message: string;
+  wcag?: string;
+}
+
+export function downloadFile(content: string, filename: string, mimeType: string) {
+  const blob = new Blob([content], { type: mimeType });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+export function exportAsJSON(issues: ExportIssue[], toolName: string, extra?: Record<string, unknown>) {
+  const data = {
+    tool: toolName,
+    date: new Date().toISOString(),
+    summary: {
+      errors: issues.filter((i) => i.type === "error").length,
+      warnings: issues.filter((i) => i.type === "warning").length,
+      passes: issues.filter((i) => i.type === "pass").length,
+      total: issues.length,
+    },
+    issues,
+    ...extra,
+  };
+  downloadFile(JSON.stringify(data, null, 2), `a11ykit-${toolName}-${Date.now()}.json`, "application/json");
+}
+
+export function exportAsMarkdown(issues: ExportIssue[], toolName: string, extra?: Record<string, unknown>) {
+  const date = new Date().toISOString();
+  const errors = issues.filter((i) => i.type === "error");
+  const warnings = issues.filter((i) => i.type === "warning");
+  const passes = issues.filter((i) => i.type === "pass");
+
+  let md = `# Accessibility Audit Report\n\n`;
+  md += `**Tool:** ${toolName}\n`;
+  md += `**Date:** ${date}\n\n`;
+  md += `## Summary\n\n`;
+  md += `| Severity | Count |\n|----------|-------|\n`;
+  md += `| Errors | ${errors.length} |\n`;
+  md += `| Warnings | ${warnings.length} |\n`;
+  md += `| Passed | ${passes.length} |\n`;
+  md += `| **Total** | **${issues.length}** |\n\n`;
+
+  if (errors.length > 0) {
+    md += `## Errors\n\n`;
+    errors.forEach((i, idx) => {
+      md += `${idx + 1}. ${i.message}${i.wcag ? ` _(WCAG ${i.wcag})_` : ""}\n`;
+    });
+    md += `\n`;
+  }
+
+  if (warnings.length > 0) {
+    md += `## Warnings\n\n`;
+    warnings.forEach((i, idx) => {
+      md += `${idx + 1}. ${i.message}${i.wcag ? ` _(WCAG ${i.wcag})_` : ""}\n`;
+    });
+    md += `\n`;
+  }
+
+  if (passes.length > 0) {
+    md += `## Passed Checks\n\n`;
+    passes.forEach((i, idx) => {
+      md += `${idx + 1}. ${i.message}\n`;
+    });
+    md += `\n`;
+  }
+
+  if (extra) {
+    md += `## Additional Data\n\n`;
+    md += `\`\`\`json\n${JSON.stringify(extra, null, 2)}\n\`\`\`\n`;
+  }
+
+  downloadFile(md, `a11ykit-${toolName}-${Date.now()}.md`, "text/markdown");
+}
+
+export function exportAsHTML(issues: ExportIssue[], toolName: string) {
+  const date = new Date().toISOString();
+  const errors = issues.filter((i) => i.type === "error");
+  const warnings = issues.filter((i) => i.type === "warning");
+  const passes = issues.filter((i) => i.type === "pass");
+
+  const issueRow = (i: ExportIssue, idx: number) => {
+    const color = i.type === "error" ? "#dc2626" : i.type === "warning" ? "#d97706" : i.type === "pass" ? "#16a34a" : "#2563eb";
+    const label = i.type === "error" ? "Error" : i.type === "warning" ? "Warning" : i.type === "pass" ? "Pass" : "Info";
+    return `<tr><td style="color:${color};font-weight:600">${label}</td><td>${i.message}</td><td>${i.wcag || ""}</td></tr>`;
+  };
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accessibility Audit Report — ${toolName}</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; color: #1e293b; }
+h1 { color: #0f766e; }
+table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+th { background: #f1f5f9; font-weight: 600; }
+.summary { display: flex; gap: 20px; margin: 20px 0; }
+.summary div { padding: 16px 24px; border-radius: 8px; text-align: center; }
+.summary .num { font-size: 28px; font-weight: 700; }
+.summary .label { font-size: 13px; color: #64748b; }
+</style>
+</head>
+<body>
+<h1>Accessibility Audit Report</h1>
+<p><strong>Tool:</strong> ${toolName}<br><strong>Date:</strong> ${date}</p>
+<div class="summary">
+<div style="background:#fef2f2"><div class="num" style="color:#dc2626">${errors.length}</div><div class="label">Errors</div></div>
+<div style="background:#fffbeb"><div class="num" style="color:#d97706">${warnings.length}</div><div class="label">Warnings</div></div>
+<div style="background:#f0fdf4"><div class="num" style="color:#16a34a">${passes.length}</div><div class="label">Passed</div></div>
+</div>
+<table>
+<thead><tr><th>Severity</th><th>Issue</th><th>WCAG</th></tr></thead>
+<tbody>
+${issues.map((i, idx) => issueRow(i, idx)).join("\n")}
+</tbody>
+</table>
+<p style="color:#64748b;font-size:13px;margin-top:40px">Generated by A11yKit — Free WCAG &amp; EAA Accessibility Tools</p>
+</body>
+</html>`;
+
+  downloadFile(html, `a11ykit-${toolName}-${Date.now()}.html`, "text/html");
+}
