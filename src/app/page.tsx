@@ -6,12 +6,12 @@ import { tools, liveTools, categoryLabels } from "@/lib/tools";
 export const metadata: Metadata = {
   title: "A11yKit — Free WCAG & EAA Accessibility Tools",
   description:
-    "11 free online accessibility tools for WCAG 2.2 and EAA compliance. Contrast checker, WCAG checklist, accessibility statement generator, ARIA generator, and more. No signup, 100% client-side.",
+    "15 free online accessibility tools for WCAG 2.2 and EAA compliance. Contrast checker, WCAG checklist, accessibility statement generator, ARIA generator, and more. No signup, 100% client-side.",
   alternates: { canonical: "https://a11ykit.site" },
   openGraph: {
     title: "A11yKit — Free WCAG & EAA Accessibility Tools",
     description:
-      "11 free online accessibility tools for WCAG 2.2 and EAA compliance. No signup, 100% client-side.",
+      "15 free online accessibility tools for WCAG 2.2 and EAA compliance. No signup, 100% client-side.",
     images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "A11yKit" }],
   },
 };
@@ -33,7 +33,7 @@ export default function HomePage() {
               <span className="block text-teal-400">for WCAG 2.2 & EAA</span>
             </h1>
             <p className="mt-6 text-lg text-slate-300 sm:text-xl">
-              11 free tools to check, fix, and generate accessible web content.
+              15 free tools to check, fix, and generate accessible web content.
               Contrast checker, WCAG checklist, accessibility statement
               generator, and more. No signup. 100% client-side.
             </p>
