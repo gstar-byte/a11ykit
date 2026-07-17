@@ -40,7 +40,7 @@ export default function HomePage() {
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
                 href="/tools/contrast-checker"
-                className="inline-flex items-center gap-2 rounded-lg bg-teal-600 px-6 py-3 text-base font-semibold text-white shadow-lg shadow-teal-600/30 transition hover:bg-teal-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400"
+                className="inline-flex items-center gap-2 rounded-lg bg-teal-700 px-6 py-3 text-base font-semibold text-white shadow-lg shadow-teal-700/30 transition hover:bg-teal-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500"
               >
                 Try Contrast Checker
                 <ArrowRight className="h-5 w-5" aria-hidden="true" />
@@ -62,10 +62,10 @@ export default function HomePage() {
           <ul className="grid grid-cols-1 gap-6 sm:grid-cols-3">
             <li className="flex items-start gap-3">
               <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-teal-50">
-                <Zap className="h-5 w-5 text-teal-600" aria-hidden="true" />
+                <Zap className="h-5 w-5 text-teal-700" aria-hidden="true" />
               </div>
               <div>
-                <h3 className="text-sm font-semibold text-slate-900">Instant results</h3>
+                <p className="text-sm font-semibold text-slate-900">Instant results</p>
                 <p className="mt-1 text-sm text-slate-600">
                   Everything runs in your browser. No server round-trips, no waiting.
                 </p>
@@ -73,10 +73,10 @@ export default function HomePage() {
             </li>
             <li className="flex items-start gap-3">
               <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-teal-50">
-                <Lock className="h-5 w-5 text-teal-600" aria-hidden="true" />
+                <Lock className="h-5 w-5 text-teal-700" aria-hidden="true" />
               </div>
               <div>
-                <h3 className="text-sm font-semibold text-slate-900">100% private</h3>
+                <p className="text-sm font-semibold text-slate-900">100% private</p>
                 <p className="mt-1 text-sm text-slate-600">
                   Your data never leaves your device. No tracking, no accounts.
                 </p>
@@ -84,10 +84,10 @@ export default function HomePage() {
             </li>
             <li className="flex items-start gap-3">
               <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-teal-50">
-                <ShieldCheck className="h-5 w-5 text-teal-600" aria-hidden="true" />
+                <ShieldCheck className="h-5 w-5 text-teal-700" aria-hidden="true" />
               </div>
               <div>
-                <h3 className="text-sm font-semibold text-slate-900">WCAG 2.2 aligned</h3>
+                <p className="text-sm font-semibold text-slate-900">WCAG 2.2 aligned</p>
                 <p className="mt-1 text-sm text-slate-600">
                   Tools check against the latest WCAG 2.2 and EAA requirements.
                 </p>
@@ -117,7 +117,7 @@ export default function HomePage() {
               const cardContent = (
                 <>
                   <div className="flex items-center gap-3">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-teal-50 text-teal-600 transition group-hover:bg-teal-100">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-teal-50 text-teal-700 transition group-hover:bg-teal-100">
                       <Icon className="h-6 w-6" aria-hidden="true" />
                     </div>
                     <div className="flex flex-col">
@@ -135,14 +135,14 @@ export default function HomePage() {
                       )}
                     </div>
                   </div>
-                  <h3 className="mt-4 text-lg font-semibold text-slate-900 group-hover:text-teal-600">
+                  <h3 className="mt-4 text-lg font-semibold text-slate-900 group-hover:text-teal-700">
                     {tool.title}
                   </h3>
                   <p className="mt-2 flex-grow text-sm text-slate-600">
                     {tool.description}
                   </p>
                   {isLive && (
-                    <div className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-teal-600">
+                    <div className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-teal-700">
                       Open tool
                       <ArrowRight
                         className="h-4 w-4 transition group-hover:translate-x-1"

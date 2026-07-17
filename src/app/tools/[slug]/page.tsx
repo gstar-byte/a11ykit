@@ -85,13 +85,13 @@ export default async function ToolPage({
 
       <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
         <nav aria-label="Breadcrumb" className="mb-6">
-          <ol className="flex items-center gap-2 text-sm text-slate-500">
+          <ol className="flex items-center gap-2 text-sm text-slate-600">
             <li>
-              <Link href="/" className="hover:text-teal-600">Home</Link>
+              <Link href="/" className="hover:text-teal-700">Home</Link>
             </li>
             <li aria-hidden="true">/</li>
             <li>
-              <Link href="/tools" className="hover:text-teal-600">Tools</Link>
+              <Link href="/tools" className="hover:text-teal-700">Tools</Link>
             </li>
             <li aria-hidden="true">/</li>
             <li aria-current="page" className="text-slate-900 font-medium">
@@ -101,7 +101,7 @@ export default async function ToolPage({
         </nav>
 
         <header className="mb-8 flex items-start gap-4">
-          <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-teal-50 text-teal-600">
+          <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-teal-50 text-teal-700">
             <Icon className="h-7 w-7" aria-hidden="true" />
           </div>
           <div>

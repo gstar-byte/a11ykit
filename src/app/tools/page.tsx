@@ -46,7 +46,7 @@ export default function ToolsPage() {
                 const cardContent = (
                   <>
                     <div className="flex items-center justify-between">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-teal-50 text-teal-600 transition group-hover:bg-teal-100">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-teal-50 text-teal-700 transition group-hover:bg-teal-100">
                         <Icon className="h-6 w-6" aria-hidden="true" />
                       </div>
                       {isLive ? (
@@ -59,14 +59,14 @@ export default function ToolsPage() {
                         </span>
                       )}
                     </div>
-                    <h3 className="mt-4 text-lg font-semibold text-slate-900 group-hover:text-teal-600">
+                    <h3 className="mt-4 text-lg font-semibold text-slate-900 group-hover:text-teal-700">
                       {tool.title}
                     </h3>
                     <p className="mt-2 flex-grow text-sm text-slate-600">
                       {tool.description}
                     </p>
                     {isLive && (
-                      <div className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-teal-600">
+                      <div className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-teal-700">
                         Open tool
                         <ArrowRight
                           className="h-4 w-4 transition group-hover:translate-x-1"

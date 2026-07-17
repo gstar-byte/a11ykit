@@ -296,7 +296,7 @@ export function PrivacyBanner({ position = "right" }: PrivacyBannerProps) {
           <div className="mt-4 flex flex-wrap gap-2 items-center justify-between">
             <Link
               href="/about"
-              className="text-[11px] font-medium text-slate-600 hover:text-teal-600 dark:text-slate-300 dark:hover:text-teal-400 underline underline-offset-2 transition-colors"
+              className="text-[11px] font-medium text-slate-600 hover:text-teal-700 dark:text-slate-300 dark:hover:text-teal-400 underline underline-offset-2 transition-colors"
             >
               {currentLang.privacyPolicy}
             </Link>
@@ -312,7 +312,7 @@ export function PrivacyBanner({ position = "right" }: PrivacyBannerProps) {
                   </button>
                   <button
                     onClick={handleAcceptAll}
-                    className="px-3 py-1.5 text-xs font-semibold rounded-lg text-white bg-teal-600 hover:bg-teal-700 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-sm cursor-pointer"
+                    className="px-3 py-1.5 text-xs font-semibold rounded-lg text-white bg-teal-700 hover:bg-teal-800 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-sm cursor-pointer"
                   >
                     {currentLang.acceptAll}
                   </button>
@@ -327,7 +327,7 @@ export function PrivacyBanner({ position = "right" }: PrivacyBannerProps) {
                   </button>
                   <button
                     onClick={handleCustomSave}
-                    className="px-3 py-1.5 text-xs font-semibold rounded-lg text-white bg-teal-600 hover:bg-teal-700 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-sm cursor-pointer"
+                    className="px-3 py-1.5 text-xs font-semibold rounded-lg text-white bg-teal-700 hover:bg-teal-800 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-sm cursor-pointer"
                   >
                     {currentLang.saveSettings}
                   </button>

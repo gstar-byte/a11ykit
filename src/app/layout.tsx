@@ -92,9 +92,11 @@ export default function RootLayout({
         {/* Google tag (gtag.js) */}
         <script
           async
+          defer
           src="https://www.googletagmanager.com/gtag/js?id=G-T1R22CCHQK"
         />
         <script
+          defer
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
@@ -116,7 +118,7 @@ export default function RootLayout({
         {/* Skip-to-content 无障碍跳转链接 */}
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:rounded-lg focus:bg-teal-600 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white focus:shadow-lg"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:rounded-lg focus:bg-teal-700 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white focus:shadow-lg"
         >
           Skip to content
         </a>

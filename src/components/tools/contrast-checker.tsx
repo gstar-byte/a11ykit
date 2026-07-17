@@ -226,7 +226,7 @@ export function ContrastChecker() {
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
         <div>
           <label htmlFor="font-size" className="block text-sm font-medium text-slate-700">
-            Font size: <span className="text-teal-600">{fontSize}px</span>
+            Font size: <span className="text-teal-700 font-semibold">{fontSize}px</span>
           </label>
           <input
             id="font-size"
@@ -235,34 +235,34 @@ export function ContrastChecker() {
             max={48}
             value={fontSize}
             onChange={(e) => setFontSize(Number(e.target.value))}
-            className="mt-2 w-full"
+            className="mt-2 w-full accent-teal-700"
           />
+          <div className="mt-3 text-sm font-medium text-slate-700">
+            Font weight: <span className="text-teal-700 font-semibold">{fontWeight}</span>
+          </div>
+          <div className="mt-1 flex gap-2">
+            {([400, 700] as const).map((w) => (
+              <button
+                key={w}
+                type="button"
+                onClick={() => setFontWeight(w)}
+                className={`rounded-md px-3 py-1 text-xs font-medium border ${
+                  fontWeight === w
+                    ? "border-teal-700 bg-teal-50 text-teal-800 font-semibold"
+                    : "border-slate-300 text-slate-700 hover:bg-slate-100"
+                }`}
+              >
+                {w === 400 ? "Regular (400)" : "Bold (700)"}
+              </button>
+            ))}
+          </div>
         </div>
-        <div>
-          <label htmlFor="font-weight" className="block text-sm font-medium text-slate-700">
-            Font weight: <span className="text-teal-600">{fontWeight}</span>
-          </label>
-          <input
-            id="font-weight"
-            type="range"
-            min={400}
-            max={700}
-            step={300}
-            value={fontWeight}
-            onChange={(e) => setFontWeight(Number(e.target.value))}
-            className="mt-2 w-full"
-          />
-        </div>
-        <div className="flex items-end gap-2">
+
+        {/* Copy CSS */}
+        <div className="flex items-end justify-end gap-2">
           <button
+            type="button"
             onClick={handleSwap}
-            className="rounded-md border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
-          >
-            Swap colors
-          </button>
-          <button
-            onClick={handleReset}
-            className="rounded-md border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
             aria-label="Reset to defaults"
           >
             <RotateCcw className="h-4 w-4" aria-hidden="true" />

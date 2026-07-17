@@ -27,11 +27,11 @@ export function Navbar() {
           className="flex items-center gap-2 font-bold text-lg text-slate-900"
           onClick={() => setMobileOpen(false)}
         >
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-600 text-white">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-700 text-white">
             <Accessibility className="h-5 w-5" aria-hidden="true" />
           </span>
           <span>
-            A11y<span className="text-teal-600">Kit</span>
+            A11y<span className="text-teal-700">Kit</span>
           </span>
         </Link>
 

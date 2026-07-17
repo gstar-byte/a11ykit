@@ -321,7 +321,7 @@ ${contactHtml}
           <div className="flex gap-2">
             <button
               onClick={handleCopy}
-              className="inline-flex items-center gap-2 rounded-md bg-teal-600 px-3 py-2 text-sm font-medium text-white hover:bg-teal-500"
+              className="inline-flex items-center gap-2 rounded-md bg-teal-700 px-3 py-2 text-sm font-medium text-white hover:bg-teal-600"
             >
               {copied ? (
                 <>

@@ -9,11 +9,11 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           <div className="md:col-span-2">
             <div className="flex items-center gap-2 font-bold text-lg text-slate-900">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-600 text-white">
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-700 text-white">
                 <Accessibility className="h-5 w-5" aria-hidden="true" />
               </span>
               <span>
-                A11y<span className="text-teal-600">Kit</span>
+                A11y<span className="text-teal-700">Kit</span>
               </span>
             </div>
             <p className="mt-4 max-w-md text-sm text-slate-600">
@@ -30,7 +30,7 @@ export function Footer() {
                 <li key={tool.slug}>
                   <Link
                     href={`/tools/${tool.slug}`}
-                    className="text-sm text-slate-600 hover:text-teal-600"
+                    className="text-sm text-slate-600 hover:text-teal-700"
                   >
                     {tool.shortTitle}
                   </Link>
@@ -52,7 +52,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/about"
-                  className="text-sm text-slate-600 hover:text-teal-600"
+                  className="text-sm text-slate-600 hover:text-teal-700"
                 >
                   About
                 </Link>
@@ -62,7 +62,7 @@ export function Footer() {
                   href="https://www.w3.org/WAI/standards-guidelines/wcag/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-slate-600 hover:text-teal-600"
+                  className="text-sm text-slate-600 hover:text-teal-700"
                 >
                   WCAG 2.2 Guidelines ↗
                 </a>
@@ -72,7 +72,7 @@ export function Footer() {
                   href="https://commission.europa.eu/strategy-and-policy/policies/justice-and-fundamental-rights/disability/european-accessibility-act-eaa_en"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-slate-600 hover:text-teal-600"
+                  className="text-sm text-slate-600 hover:text-teal-700"
                 >
                   European Accessibility Act ↗
                 </a>

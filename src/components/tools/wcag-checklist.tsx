@@ -261,7 +261,7 @@ export function WcagChecklist() {
         </div>
         <div className="mt-4 h-3 overflow-hidden rounded-full bg-slate-200">
           <div
-            className="h-full rounded-full bg-teal-600 transition-all duration-300"
+            className="h-full rounded-full bg-teal-700 transition-all duration-300"
             style={{ width: `${stats.percent}%` }}
             role="progressbar"
             aria-valuenow={stats.percent}
@@ -331,7 +331,7 @@ export function WcagChecklist() {
                   type="checkbox"
                   checked={isChecked}
                   onChange={() => toggle(c.id)}
-                  className="mt-1 h-5 w-5 rounded border-slate-300 text-teal-600 focus:ring-teal-500"
+                  className="mt-1 h-5 w-5 rounded border-slate-300 text-teal-700 focus:ring-teal-600"
                 />
                 <div className="flex-1">
                   <div className="flex flex-wrap items-center gap-2">
