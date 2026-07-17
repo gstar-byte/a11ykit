@@ -59,7 +59,7 @@ export function Navbar() {
                     <ChevronDown className="h-3.5 w-3.5" aria-hidden="true" />
                   </Link>
                   <div className="invisible absolute right-0 top-full z-50 mt-1 w-64 rounded-lg border border-slate-200 bg-white p-2 opacity-0 shadow-lg transition-all duration-150 group-hover:visible group-hover:opacity-100">
-                    <div className="grid grid-cols-1 gap-0.5 max-h-[28rem] overflow-y-auto">
+                    <div className="grid grid-cols-1 gap-0.5">
                       {liveTools.map((tool) => {
         const toolActive = pathname === `/tools/${tool.slug}`;
         return (
