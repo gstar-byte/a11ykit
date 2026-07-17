@@ -24,7 +24,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h2 className="text-sm font-semibold text-slate-900">Tools</h2>
+            <h3 className="text-sm font-semibold text-slate-900">Tools</h3>
             <ul className="mt-4 space-y-2">
               {liveTools.map((tool) => (
                 <li key={tool.slug}>
@@ -47,7 +47,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h2 className="text-sm font-semibold text-slate-900">Resources</h2>
+            <h3 className="text-sm font-semibold text-slate-900">Resources</h3>
             <ul className="mt-4 space-y-2">
               <li>
                 <Link

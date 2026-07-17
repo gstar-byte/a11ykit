@@ -1,6 +1,20 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ShieldCheck, Zap, Lock, ArrowRight } from "lucide-react";
 import { tools, liveTools, categoryLabels } from "@/lib/tools";
+
+export const metadata: Metadata = {
+  title: "A11yKit — Free WCAG & EAA Accessibility Tools",
+  description:
+    "11 free online accessibility tools for WCAG 2.2 and EAA compliance. Contrast checker, WCAG checklist, accessibility statement generator, ARIA generator, and more. No signup, 100% client-side.",
+  alternates: { canonical: "https://a11ykit.site" },
+  openGraph: {
+    title: "A11yKit — Free WCAG & EAA Accessibility Tools",
+    description:
+      "11 free online accessibility tools for WCAG 2.2 and EAA compliance. No signup, 100% client-side.",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "A11yKit" }],
+  },
+};
 
 export default function HomePage() {
   return (
@@ -100,15 +114,8 @@ export default function HomePage() {
             {tools.map((tool) => {
               const Icon = tool.icon;
               const isLive = tool.status === "live";
-              return (
-                <Link
-                  key={tool.slug}
-                  href={isLive ? `/tools/${tool.slug}` : "/tools"}
-                  className={`group relative flex flex-col rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md ${
-                    isLive ? "hover:border-teal-300" : "opacity-75"
-                  }`}
-                  aria-label={isLive ? tool.title : `${tool.title} (coming soon)`}
-                >
+              const cardContent = (
+                <>
                   <div className="flex items-center gap-3">
                     <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-teal-50 text-teal-600 transition group-hover:bg-teal-100">
                       <Icon className="h-6 w-6" aria-hidden="true" />
@@ -143,7 +150,26 @@ export default function HomePage() {
                       />
                     </div>
                   )}
+                </>
+              );
+
+              return isLive ? (
+                <Link
+                  key={tool.slug}
+                  href={`/tools/${tool.slug}`}
+                  className="group relative flex flex-col rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-teal-300"
+                  aria-label={tool.title}
+                >
+                  {cardContent}
                 </Link>
+              ) : (
+                <div
+                  key={tool.slug}
+                  className="group relative flex flex-col rounded-xl border border-slate-200 bg-white p-6 shadow-sm opacity-75 cursor-default"
+                  aria-label={`${tool.title} (coming soon)`}
+                >
+                  {cardContent}
+                </div>
               );
             })}
           </div>

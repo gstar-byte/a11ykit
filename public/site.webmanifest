@@ -1,0 +1,16 @@
+{
+  "name": "A11yKit",
+  "short_name": "A11yKit",
+  "description": "Free accessibility tools for WCAG 2.2 and EAA compliance",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#28151a",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ]
+}

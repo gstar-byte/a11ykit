@@ -8,6 +8,12 @@ export const metadata: Metadata = {
   description:
     "Browse all 11 free WCAG and EAA accessibility tools. Contrast checker, WCAG 2.2 checklist, accessibility statement generator, ARIA generator, heading analyzer, and more.",
   alternates: { canonical: "https://a11ykit.site/tools" },
+  openGraph: {
+    title: "All Accessibility Tools — A11yKit",
+    description:
+      "Browse all 11 free WCAG and EAA accessibility tools. Contrast checker, WCAG 2.2 checklist, accessibility statement generator, ARIA generator, heading analyzer, and more.",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "A11yKit Tools" }],
+  },
 };
 
 const categoryOrder: ToolCategory[] = ["check", "fix", "generate", "simulate"];
@@ -37,14 +43,8 @@ export default function ToolsPage() {
               {catTools.map((tool) => {
                 const Icon = tool.icon;
                 const isLive = tool.status === "live";
-                return (
-                  <Link
-                    key={tool.slug}
-                    href={isLive ? `/tools/${tool.slug}` : "/tools"}
-                    className={`group flex flex-col rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md ${
-                      isLive ? "hover:border-teal-300" : "opacity-75"
-                    }`}
-                  >
+                const cardContent = (
+                  <>
                     <div className="flex items-center justify-between">
                       <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-teal-50 text-teal-600 transition group-hover:bg-teal-100">
                         <Icon className="h-6 w-6" aria-hidden="true" />
@@ -74,7 +74,24 @@ export default function ToolsPage() {
                         />
                       </div>
                     )}
+                  </>
+                );
+
+                return isLive ? (
+                  <Link
+                    key={tool.slug}
+                    href={`/tools/${tool.slug}`}
+                    className="group flex flex-col rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-teal-300"
+                  >
+                    {cardContent}
                   </Link>
+                ) : (
+                  <div
+                    key={tool.slug}
+                    className="group flex flex-col rounded-xl border border-slate-200 bg-white p-6 shadow-sm opacity-75 cursor-default"
+                  >
+                    {cardContent}
+                  </div>
                 );
               })}
             </div>

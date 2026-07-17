@@ -5,6 +5,12 @@ export const metadata: Metadata = {
   description:
     "A11yKit is a free, open accessibility toolkit for WCAG 2.2 and EAA compliance. Learn about our mission and why these tools matter.",
   alternates: { canonical: "https://a11ykit.site/about" },
+  openGraph: {
+    title: "About — A11yKit",
+    description:
+      "A11yKit is a free, open accessibility toolkit for WCAG 2.2 and EAA compliance. Learn about our mission and why these tools matter.",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "About A11yKit" }],
+  },
 };
 
 export default function AboutPage() {
