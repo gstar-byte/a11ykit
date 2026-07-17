@@ -17,6 +17,7 @@ import { UrlScanner } from "@/components/tools/url-scanner";
 import { PdfChecker } from "@/components/tools/pdf-checker";
 import { AltTextGenerator } from "@/components/tools/alt-text-generator";
 import { AccessibilityMonitor } from "@/components/tools/accessibility-monitor";
+import { ToolContent } from "@/components/tool-content";
 
 export function generateStaticParams() {
   return tools
@@ -139,6 +140,8 @@ export default async function ToolPage({
         {slug === "pdf-checker" && <PdfChecker />}
         {slug === "alt-text-generator" && <AltTextGenerator />}
         {slug === "accessibility-monitor" && <AccessibilityMonitor />}
+
+        <ToolContent tool={{ ...tool, icon: undefined }} />
       </div>
     </>
   );
