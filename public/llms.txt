@@ -1,4 +1,11 @@
-# A11yKit
+# A11yKit — Free WCAG & EAA Accessibility Tools
+
+> URL: https://a11ykit.site/
+> Title: A11yKit — Free WCAG 2.2 & EAA Compliance Accessibility Tools
+> Description: 11 free online accessibility tools for WCAG 2.2 and EAA compliance. Contrast checker, WCAG checklist, accessibility statement generator, ARIA generator, and more. 100% client-side, no account required.
+> Author: A11yKit Team
+> Version: 1.0.0
+> Full Content: https://a11ykit.site/llms-full.txt
 
 A11yKit is a free, open accessibility toolkit containing free online tools for WCAG 2.2 and EAA (European Accessibility Act) compliance. All tools run 100% client-side in your browser — no account is required, no data is sent to any server, no analytics are collected on tool inputs, and no tracking cookies are used.
 
@@ -9,27 +16,27 @@ A11yKit is a free, open accessibility toolkit containing free online tools for W
 
 ## Tools (Live)
 
-### [Color Contrast Checker](/tools/contrast-checker)
+### [Color Contrast Checker](https://a11ykit.site/tools/contrast-checker)
 Verify foreground/background contrast ratios for text and graphical UI components.
-- Calculates precise contrast ratios.
+- Calculates precise contrast ratios conforming to WCAG 2.2 relative luminance formulas.
 - Pass/Fail indicators for WCAG 2.1 AA, WCAG 2.2 AA, and WCAG AAA levels.
 - Real-time text preview under different contrast profiles.
 
-### [WCAG 2.2 Compliance Checklist](/tools/wcag-checklist)
+### [WCAG 2.2 Compliance Checklist](https://a11ykit.site/tools/wcag-checklist)
 Interactive compliance checklist covering all 86 success criteria under WCAG 2.2.
 - Covers Success Criteria across A, AA, and AAA compliance levels.
 - Tracks audit progress, automatically saving state locally in your browser.
-- Filters criteria by POWR principles (Perceivable, Operable, Understandable, Robust).
+- Filters criteria by POUR principles (Perceivable, Operable, Understandable, Robust).
 - Exports final reports as Markdown or JSON documents.
 
-### [Accessibility Statement Generator](/tools/accessibility-statement)
+### [Accessibility Statement Generator](https://a11ykit.site/tools/accessibility-statement)
 Wizard to generate a legally compliant accessibility statement/declaration.
-- Aligns with EAA (EU), ADA (US), and Section 508 requirements.
+- Aligns with EAA (EU Directive 2019/882), ADA (US), and Section 508 requirements.
 - Step-by-step assistant configuring organization info, conformance target, and contact options.
 - Exports a ready-to-publish semantic HTML document.
 
 ## Upcoming Tools (Coming Soon)
-- **ARIA Role & Attribute Generator**: Get valid, compliant ARIA markup and keyboard behavior instructions for standard components (tabs, accordions, dialogs).
+- **ARIA Role & Attribute Generator**: Get valid, compliant ARIA markup and keyboard behavior instructions for standard components.
 - **Heading Structure Analyzer**: Check document outlines, flagging skipped heading levels and missing or duplicate H1 headings.
 - **Form Label Checker**: Validate label-input associations, fieldset/legends, and correct placeholder configurations.
 - **Color Blindness Simulator**: Process images locally through HTML5 canvas to preview them through 8 types of color vision deficiencies.

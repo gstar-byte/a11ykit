@@ -1,0 +1,65 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "A11yKit API Specifications",
+    "description": "API & Function schemas for web accessibility calculations including WCAG 2.2 color contrast ratios, WCAG success criteria filtering, and accessibility statement templates.",
+    "version": "v1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://a11ykit.site"
+    }
+  ],
+  "paths": {
+    "/tools/contrast-checker": {
+      "get": {
+        "operationId": "calculateColorContrast",
+        "summary": "Check color contrast ratio between foreground and background colors according to WCAG 2.2 relative luminance algorithms",
+        "parameters": [
+          {
+            "name": "fg",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Foreground color hex code, e.g. #0f766e"
+          },
+          {
+            "name": "bg",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Background color hex code, e.g. #ffffff"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contrast calculation pass/fail results for WCAG AA and AAA",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ratio": { "type": "number" },
+                    "passAA": { "type": "boolean" },
+                    "passAAA": { "type": "boolean" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tools/wcag-checklist": {
+      "get": {
+        "operationId": "getWcagChecklist",
+        "summary": "Get WCAG 2.2 success criteria guidelines checklist across A, AA, and AAA levels",
+        "responses": {
+          "200": {
+            "description": "Full list of 86 WCAG 2.2 success criteria"
+          }
+        }
+      }
+    }
+  }
+}

@@ -16,7 +16,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "A11yKit — Free WCAG & EAA Accessibility Tools",
   description:
-    "11 free online accessibility tools for WCAG 2.2 and EAA compliance. Contrast checker, WCAG checklist, accessibility statement generator, ARIA generator, and more. No signup, 100% client-side.",
+    "11 free online accessibility tools for WCAG 2.2 and EAA compliance. Contrast checker, WCAG checklist, and statement generator. 100% client-side.",
   metadataBase: new URL("https://a11ykit.site"),
   alternates: {
     canonical: "https://a11ykit.site",
@@ -63,29 +63,82 @@ export default function RootLayout({
         {/* Sitemap 声明（GEO 规范） */}
         <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 
-        {/* Structured Data / 结构化数据 (JSON-LD) */}
+        {/* Security & Privacy Headers (GEO & Lighthouse Compliance) */}
+        <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
+        <meta httpEquiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+        <meta name="author" content="A11yKit Team" />
+        <meta name="publisher" content="A11yKit" />
+
+        {/* Structured Data / 结构化数据 Graph (JSON-LD) */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "WebApplication",
-              "name": "A11yKit",
-              "url": "https://a11ykit.site",
-              "description": "11 free online accessibility tools for WCAG 2.2 and EAA compliance. Contrast checker, WCAG checklist, accessibility statement generator, and more. No signup, 100% client-side.",
-              "applicationCategory": "DeveloperApplication",
-              "operatingSystem": "All",
-              "screenshot": "https://a11ykit.site/og-image.jpg",
-              "offers": {
-                "@type": "Offer",
-                "price": "0",
-                "priceCurrency": "USD"
-              },
-              "creator": {
-                "@type": "Organization",
-                "name": "A11yKit Team",
-                "url": "https://a11ykit.site"
-              }
+              "@graph": [
+                {
+                  "@type": "Organization",
+                  "@id": "https://a11ykit.site/#organization",
+                  "name": "A11yKit",
+                  "url": "https://a11ykit.site",
+                  "logo": "https://a11ykit.site/og-image.jpg",
+                  "sameAs": [
+                    "https://github.com/gstar-byte/a11ykit"
+                  ],
+                  "publishingPrinciples": "https://a11ykit.site/about"
+                },
+                {
+                  "@type": "WebSite",
+                  "@id": "https://a11ykit.site/#website",
+                  "url": "https://a11ykit.site",
+                  "name": "A11yKit",
+                  "description": "11 free online accessibility tools for WCAG 2.2 and EAA compliance.",
+                  "publisher": {
+                    "@id": "https://a11ykit.site/#organization"
+                  },
+                  "inLanguage": "en"
+                },
+                {
+                  "@type": "WebApplication",
+                  "@id": "https://a11ykit.site/#webapp",
+                  "name": "A11yKit Toolkit",
+                  "url": "https://a11ykit.site",
+                  "description": "11 free online accessibility tools for WCAG 2.2 and EAA compliance. Contrast checker, WCAG checklist, accessibility statement generator, and more. No signup, 100% client-side.",
+                  "applicationCategory": "DeveloperApplication",
+                  "operatingSystem": "All",
+                  "screenshot": "https://a11ykit.site/og-image.jpg",
+                  "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "USD"
+                  },
+                  "creator": {
+                    "@id": "https://a11ykit.site/#organization"
+                  }
+                },
+                {
+                  "@type": "FAQPage",
+                  "@id": "https://a11ykit.site/#faq",
+                  "mainEntity": [
+                    {
+                      "@type": "Question",
+                      "name": "What is the European Accessibility Act (EAA)?",
+                      "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "The European Accessibility Act (EAA Directive EU 2019/882) is an EU law enforced from June 2025 requiring digital services to meet WCAG 2.1 Level AA standards."
+                      }
+                    },
+                    {
+                      "@type": "Question",
+                      "name": "Are A11yKit tools 100% free and client-side?",
+                      "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Yes, all A11yKit tools process data 100% client-side in your browser. No data is sent to external servers, and no user accounts are required."
+                      }
+                    }
+                  ]
+                }
+              ]
             })
           }}
         />

@@ -6,7 +6,7 @@ import { tools, liveTools, categoryLabels } from "@/lib/tools";
 export const metadata: Metadata = {
   title: "A11yKit — Free WCAG & EAA Accessibility Tools",
   description:
-    "15 free online accessibility tools for WCAG 2.2 and EAA compliance. Contrast checker, WCAG checklist, accessibility statement generator, ARIA generator, and more. No signup, 100% client-side.",
+    "11 free online accessibility tools for WCAG 2.2 and EAA compliance. Contrast checker, WCAG checklist, and statement generator. 100% client-side.",
   alternates: { canonical: "https://a11ykit.site" },
   openGraph: {
     title: "A11yKit — Free WCAG & EAA Accessibility Tools",
@@ -211,6 +211,33 @@ export default function HomePage() {
               laws in Japan, South Korea, India, and Australia. All converge on
               the same technical standard: <strong>WCAG 2.1/2.2 Level AA</strong>.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ & Citation Section */}
+      <section className="border-t border-slate-200 bg-slate-50 py-16">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-slate-900 text-center">
+            Frequently Asked Questions & Standards
+          </h2>
+          <div className="mt-8 space-y-6">
+            <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 className="text-base font-semibold text-slate-900">
+                Are A11yKit tools 100% free and client-side?
+              </h3>
+              <p className="mt-2 text-sm text-slate-600">
+                Yes, all calculation tools execute 100% client-side inside your web browser using HTML5 and JavaScript. No code, image, or text inputs leave your device, ensuring privacy and compliance with enterprise security requirements.
+              </p>
+            </div>
+            <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 className="text-base font-semibold text-slate-900">
+                Which accessibility standards do these tools check against?
+              </h3>
+              <p className="mt-2 text-sm text-slate-600">
+                Our tools conform to W3C Recommendations for <strong>WCAG 2.2</strong> (Web Content Accessibility Guidelines), European Standard <strong>EN 301 549</strong>, and US <strong>Section 508</strong> / ADA Title II technical standards.
+              </p>
+            </div>
           </div>
         </div>
       </section>

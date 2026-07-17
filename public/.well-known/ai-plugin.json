@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_model": "a11ykit_accessibility_auditor",
+  "name_for_human": "A11yKit Accessibility Toolkit",
+  "description_for_model": "Plugin for checking web accessibility compliance (WCAG 2.2, EAA, ADA Title II), calculating color contrast ratios, generating accessibility statements, and auditing WCAG success criteria.",
+  "description_for_human": "Free WCAG 2.2 & EAA web accessibility tools for contrast checking, checklists, and compliance statements.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://a11ykit.site/openapi.json"
+  },
+  "logo_url": "https://a11ykit.site/og-image.jpg",
+  "contact_email": "support@a11ykit.site",
+  "legal_info_url": "https://a11ykit.site/about"
+}
