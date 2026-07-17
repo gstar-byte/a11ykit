@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef } from "react";
-import { Globe, AlertTriangle, CheckCircle, Info, Download, Loader2, LinkIcon, FileQuestion, ChevronRight } from "lucide-react";
+import { Globe, AlertTriangle, CheckCircle, Info, Download, Loader2, LinkIcon, FileQuestion, ChevronRight, Network } from "lucide-react";
 import { exportAsJSON, exportAsMarkdown, exportAsHTML } from "@/lib/export-utils";
 
 interface ScanIssue {
@@ -37,6 +37,9 @@ export function UrlScanner() {
   const [eaaAnswers, setEaaAnswers] = useState<Record<number, boolean>>({});
   const [eaaResult, setEaaResult] = useState<null | { applies: boolean; summary: string }>(null);
   const pageTitleRef = useRef("");
+  const [crawlMode, setCrawlMode] = useState(false);
+  const [crawlProgress, setCrawlProgress] = useState<{ scanned: number; total: number; currentUrl: string } | null>(null);
+  const [crawlPages, setCrawlPages] = useState<{ url: string; title: string; issues: ScanIssue[] }[]>([]);
 
   const scanHtml = useCallback((html: string, sourceUrl: string): ScanIssue[] => {
     const found: ScanIssue[] = [];
@@ -223,6 +226,105 @@ export function UrlScanner() {
     return found;
   }, []);
 
+  const fetchPage = async (targetUrl: string): Promise<string | null> => {
+    for (let i = 0; i < CORS_PROXIES.length; i++) {
+      try {
+        const proxyUrl = CORS_PROXIES[i](targetUrl);
+        const res = await fetch(proxyUrl, { signal: AbortSignal.timeout(15000) });
+        if (res.ok) {
+          const html = await res.text();
+          if (html && html.length > 100) return html;
+        }
+      } catch {
+        continue;
+      }
+    }
+    return null;
+  };
+
+  const extractSameDomainLinks = (html: string, baseUrl: string): string[] => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, "text/html");
+    const baseOrigin = new URL(baseUrl).origin;
+    const links = new Set<string>();
+    for (const a of Array.from(doc.querySelectorAll("a[href]"))) {
+      const href = a.getAttribute("href");
+      if (!href) continue;
+      try {
+        const resolved = new URL(href, baseUrl).href;
+        if (resolved.startsWith(baseOrigin) && !resolved.includes("#") && !resolved.match(/\.(pdf|jpg|png|gif|svg|css|js|ico)$/i)) {
+          links.add(resolved);
+        }
+      } catch {
+        // invalid URL
+      }
+    }
+    return Array.from(links);
+  };
+
+  const handleCrawlScan = useCallback(async () => {
+    if (!url.trim()) return;
+    setError("");
+    setScanning(true);
+    setScanned(false);
+    setIssues([]);
+    setCrawlPages([]);
+
+    let scanUrl = url.trim();
+    if (!scanUrl.startsWith("http://") && !scanUrl.startsWith("https://")) {
+      scanUrl = "https://" + scanUrl;
+    }
+    setPageUrl(scanUrl);
+
+    const maxPages = 10;
+    const visited = new Set<string>();
+    const queue: string[] = [scanUrl];
+    const allPages: { url: string; title: string; issues: ScanIssue[] }[] = [];
+    let allIssues: ScanIssue[] = [];
+
+    try {
+      while (queue.length > 0 && visited.size < maxPages) {
+        const currentUrl = queue.shift()!;
+        if (visited.has(currentUrl)) continue;
+        visited.add(currentUrl);
+
+        setCrawlProgress({ scanned: visited.size, total: Math.min(visited.size + queue.length, maxPages), currentUrl });
+
+        const html = await fetchPage(currentUrl);
+        if (!html) continue;
+
+        const pageIssues = scanHtml(html, currentUrl);
+        const title = pageTitleRef.current || currentUrl;
+        allPages.push({ url: currentUrl, title, issues: pageIssues });
+        allIssues = allIssues.concat(pageIssues.map((i) => ({ ...i, message: `[${currentUrl.replace(scanUrl, "")}] ${i.message}` })));
+
+        const newLinks = extractSameDomainLinks(html, currentUrl);
+        for (const link of newLinks) {
+          if (!visited.has(link) && !queue.includes(link)) {
+            queue.push(link);
+          }
+        }
+      }
+
+      setCrawlProgress(null);
+      setIssues(allIssues);
+      setCrawlPages(allPages);
+      setScanned(true);
+
+      try {
+        const existing = JSON.parse(localStorage.getItem("a11ykit-scan-results") || "[]");
+        existing.unshift({ url: scanUrl, title: `${allPages.length} pages crawled`, issues: allIssues, date: new Date().toISOString() });
+        if (existing.length > 10) existing.length = 10;
+        localStorage.setItem("a11ykit-scan-results", JSON.stringify(existing));
+      } catch {
+        // localStorage may be unavailable
+      }
+    } catch {
+      setError("An error occurred during crawl. Please check the URL and try again.");
+    }
+    setScanning(false);
+  }, [url, scanHtml]);
+
   const handleScan = useCallback(async () => {
     if (!url.trim()) return;
     setError("");
@@ -308,23 +410,43 @@ export function UrlScanner() {
           </div>
           <button
             type="button"
-            onClick={handleScan}
+            onClick={crawlMode ? handleCrawlScan : handleScan}
             disabled={scanning || !url.trim()}
             className="inline-flex items-center gap-2 rounded-lg bg-teal-600 px-6 py-2.5 text-sm font-semibold text-white hover:bg-teal-500 disabled:opacity-50"
           >
             {scanning ? (
               <>
-                <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> Scanning...
+                <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> {crawlMode ? "Crawling..." : "Scanning..."}
               </>
             ) : (
               <>
-                <Globe className="h-4 w-4" aria-hidden="true" /> Scan
+                {crawlMode ? <Network className="h-4 w-4" aria-hidden="true" /> : <Globe className="h-4 w-4" aria-hidden="true" />} {crawlMode ? "Crawl Scan" : "Scan"}
               </>
             )}
           </button>
         </div>
+        <div className="mt-3 flex items-center gap-4">
+          <div className="flex rounded-md border border-slate-200 overflow-hidden">
+            <button
+              type="button"
+              onClick={() => setCrawlMode(false)}
+              className={`px-3 py-1.5 text-xs font-medium ${!crawlMode ? "bg-teal-600 text-white" : "bg-white text-slate-600 hover:bg-slate-100"}`}
+            >
+              <Globe className="mr-1 inline h-3.5 w-3.5" aria-hidden="true" /> Single page
+            </button>
+            <button
+              type="button"
+              onClick={() => setCrawlMode(true)}
+              className={`px-3 py-1.5 text-xs font-medium ${crawlMode ? "bg-teal-600 text-white" : "bg-white text-slate-600 hover:bg-slate-100"}`}
+            >
+              <Network className="mr-1 inline h-3.5 w-3.5" aria-hidden="true" /> Crawl site (max 10 pages)
+            </button>
+          </div>
+        </div>
         <p className="mt-3 text-xs text-slate-500">
-          Enter any public URL. The page HTML is fetched via a CORS proxy and scanned entirely in your browser — no data is stored.
+          {crawlMode
+            ? "Crawl mode: scans the starting page and follows same-domain links up to 10 pages. Each page is scanned individually and results are combined."
+            : "Enter any public URL. The page HTML is fetched via a CORS proxy and scanned entirely in your browser — no data is stored."}
         </p>
       </div>
 
@@ -332,6 +454,46 @@ export function UrlScanner() {
         <div className="flex items-start gap-3 rounded-lg bg-red-50 p-4 text-sm text-red-700">
           <AlertTriangle className="h-5 w-5 flex-shrink-0 mt-0.5" aria-hidden="true" />
           {error}
+        </div>
+      )}
+
+      {crawlProgress && (
+        <div className="rounded-lg bg-teal-50 p-4">
+          <div className="flex items-center gap-2 text-sm font-medium text-teal-800">
+            <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+            Crawling: {crawlProgress.scanned}/{crawlProgress.total} pages
+          </div>
+          <p className="mt-1 truncate text-xs text-teal-600">{crawlProgress.currentUrl}</p>
+          <div className="mt-2 h-2 overflow-hidden rounded-full bg-teal-100">
+            <div
+              className="h-full bg-teal-600 transition-all"
+              style={{ width: `${(crawlProgress.scanned / crawlProgress.total) * 100}%` }}
+            />
+          </div>
+        </div>
+      )}
+
+      {scanned && crawlPages.length > 1 && (
+        <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+          <h3 className="mb-3 text-sm font-semibold text-slate-900">Crawled Pages ({crawlPages.length})</h3>
+          <div className="space-y-2">
+            {crawlPages.map((page, i) => {
+              const pageErrors = page.issues.filter((i) => i.type === "error").length;
+              const pageWarnings = page.issues.filter((i) => i.type === "warning").length;
+              return (
+                <div key={i} className="flex items-center justify-between rounded-md border border-slate-100 px-3 py-2 text-sm">
+                  <a href={page.url} target="_blank" rel="noopener noreferrer" className="truncate text-teal-700 hover:underline">
+                    {page.url}
+                  </a>
+                  <span className="ml-2 flex-shrink-0 flex gap-2 text-xs">
+                    {pageErrors > 0 && <span className="text-red-600">{pageErrors} err</span>}
+                    {pageWarnings > 0 && <span className="text-amber-600">{pageWarnings} warn</span>}
+                    {pageErrors === 0 && pageWarnings === 0 && <span className="text-green-600">clean</span>}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
         </div>
       )}
 

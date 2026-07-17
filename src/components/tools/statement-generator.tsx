@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import { Copy, Check, Download, Award, FileText, FileCode, Upload } from "lucide-react";
+import { Copy, Check, Download, Award, FileText, FileCode, Upload, Sparkles, Loader2, Key } from "lucide-react";
 import { downloadFile } from "@/lib/export-utils";
 
 type Regulation = "EAA" | "ADA" | "Section508" | "AODA" | "Generic";
@@ -93,6 +93,10 @@ export function StatementGenerator() {
   const [copied, setCopied] = useState(false);
   const [template, setTemplate] = useState<TemplateType>("comprehensive");
   const [scanResults, setScanResults] = useState<{ url: string; title: string; issues: { type: string; message: string; wcag?: string }[]; date: string }[]>([]);
+  const [apiKey, setApiKey] = useState("");
+  const [showKey, setShowKey] = useState(false);
+  const [aiGenerating, setAiGenerating] = useState(false);
+  const [aiError, setAiError] = useState("");
 
   useEffect(() => {
     try {
@@ -117,6 +121,67 @@ export function StatementGenerator() {
       orgUrl: scan.url,
       knownLimitations: limitations.length > 0 ? limitations.join("\n") : "No significant accessibility issues were found during automated scanning.",
     }));
+  };
+
+  const handleAiGenerate = async () => {
+    if (!apiKey.trim()) {
+      setAiError("Please enter your OpenAI API key.");
+      return;
+    }
+    if (!form.orgName.trim()) {
+      setAiError("Please enter your organization name first.");
+      return;
+    }
+    setAiError("");
+    setAiGenerating(true);
+
+    try {
+      const scanContext = scanResults.length > 0
+        ? `\n\nPrevious scan results for ${scanResults[0].url}:\n${scanResults[0].issues.filter((i) => i.type === "error" || i.type === "warning").map((i) => `- ${i.message}`).join("\n")}`
+        : "";
+
+      const prompt = `You are an accessibility consultant. Generate content for an accessibility statement for "${form.orgName}" (website: ${form.orgUrl || "N/A"}, regulation: ${regulationLabels[form.regulation]}, conformance: WCAG 2.2 Level ${form.conformanceLevel}).${scanContext}\n\nReturn ONLY a JSON object with two keys:\n- "measuresTaken": array of 5-8 strings, each a concrete accessibility measure taken\n- "knownLimitations": array of 2-4 strings, each a realistic known limitation\n\nDo not include any text outside the JSON.`;
+
+      const res = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          model: "gpt-4o-mini",
+          messages: [{ role: "user", content: prompt }],
+          temperature: 0.7,
+        }),
+        signal: AbortSignal.timeout(30000),
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        setAiError(err?.error?.message || `API error: ${res.status}`);
+        setAiGenerating(false);
+        return;
+      }
+
+      const data = await res.json();
+      const content = data.choices?.[0]?.message?.content || "";
+      const jsonMatch = content.match(/\{[\s\S]*\}/);
+      if (!jsonMatch) {
+        setAiError("AI response was not valid JSON. Try again.");
+        setAiGenerating(false);
+        return;
+      }
+
+      const parsed = JSON.parse(jsonMatch[0]);
+      setForm((prev) => ({
+        ...prev,
+        measuresTaken: Array.isArray(parsed.measuresTaken) ? parsed.measuresTaken.join("\n") : prev.measuresTaken,
+        knownLimitations: Array.isArray(parsed.knownLimitations) ? parsed.knownLimitations.join("\n") : prev.knownLimitations,
+      }));
+    } catch {
+      setAiError("Network error. Check your API key and connection.");
+    }
+    setAiGenerating(false);
   };
 
   const update = (field: keyof FormData, value: string) => {
@@ -328,6 +393,58 @@ It does not constitute legal certification. Independent verification is recommen
               </div>
             </div>
           )}
+        </div>
+
+        {/* AI Auto-Generate */}
+        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <h2 className="mb-3 flex items-center gap-2 text-lg font-semibold text-slate-900">
+            <Sparkles className="h-5 w-5 text-teal-600" aria-hidden="true" />
+            AI Auto-Generate Content
+          </h2>
+          <p className="mb-3 text-sm text-slate-600">
+            Enter your OpenAI API key and we'll generate measures and limitations based on your organization info and scan results.
+            Your key is used directly from your browser and never sent to our server.
+          </p>
+          <div className="flex gap-3">
+            <input
+              type={showKey ? "text" : "password"}
+              value={apiKey}
+              onChange={(e) => setApiKey(e.target.value)}
+              className="flex-1 rounded-md border border-slate-300 px-3 py-2 text-sm font-mono focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
+              placeholder="sk-..."
+              autoComplete="off"
+            />
+            <button
+              type="button"
+              onClick={() => setShowKey(!showKey)}
+              className="rounded-md border border-slate-300 px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100"
+            >
+              {showKey ? "Hide" : "Show"}
+            </button>
+          </div>
+          {aiError && (
+            <p className="mt-2 text-sm text-red-600">{aiError}</p>
+          )}
+          <button
+            type="button"
+            onClick={handleAiGenerate}
+            disabled={aiGenerating || !apiKey.trim() || !form.orgName.trim()}
+            className="mt-3 inline-flex items-center gap-2 rounded-lg bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-500 disabled:opacity-50"
+          >
+            {aiGenerating ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> Generating...
+              </>
+            ) : (
+              <>
+                <Sparkles className="h-4 w-4" aria-hidden="true" /> Generate with AI
+              </>
+            )}
+          </button>
+          <p className="mt-2 flex items-start gap-1.5 text-xs text-slate-500">
+            <Key className="h-3.5 w-3.5 flex-shrink-0 mt-0.5" aria-hidden="true" />
+            <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer" className="text-teal-700 underline">Get your API key →</a>
+          </p>
         </div>
 
           <h2 className="mb-4 text-lg font-semibold text-slate-900">Organization Details</h2>
