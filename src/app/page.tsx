@@ -59,13 +59,14 @@ export default function HomePage() {
       {/* Features bar */}
       <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+          <h2 className="sr-only">Why choose A11yKit</h2>
           <ul className="grid grid-cols-1 gap-6 sm:grid-cols-3">
             <li className="flex items-start gap-3">
               <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-teal-50">
                 <Zap className="h-5 w-5 text-teal-700" aria-hidden="true" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-slate-900">Instant results</p>
+                <h3 className="text-sm font-semibold text-slate-900">Instant results</h3>
                 <p className="mt-1 text-sm text-slate-600">
                   Everything runs in your browser. No server round-trips, no waiting.
                 </p>
@@ -76,7 +77,7 @@ export default function HomePage() {
                 <Lock className="h-5 w-5 text-teal-700" aria-hidden="true" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-slate-900">100% private</p>
+                <h3 className="text-sm font-semibold text-slate-900">100% private</h3>
                 <p className="mt-1 text-sm text-slate-600">
                   Your data never leaves your device. No tracking, no accounts.
                 </p>
@@ -87,7 +88,7 @@ export default function HomePage() {
                 <ShieldCheck className="h-5 w-5 text-teal-700" aria-hidden="true" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-slate-900">WCAG 2.2 aligned</p>
+                <h3 className="text-sm font-semibold text-slate-900">WCAG 2.2 aligned</h3>
                 <p className="mt-1 text-sm text-slate-600">
                   Tools check against the latest WCAG 2.2 and EAA requirements.
                 </p>
@@ -176,10 +177,7 @@ export default function HomePage() {
 
           <div className="mt-12 rounded-xl bg-teal-50 p-8 text-center">
             <p className="text-lg font-medium text-slate-900">
-              {liveTools.length} tools live now · {tools.length - liveTools.length} more coming soon
-            </p>
-            <p className="mt-2 text-sm text-slate-600">
-              All tools are free forever. No account required.
+              {liveTools.length} tools — all free, all client-side, no signup required.
             </p>
           </div>
         </div>
@@ -199,12 +197,14 @@ export default function HomePage() {
               products or services to EU consumers to ensure their websites and
               apps meet WCAG 2.1 Level AA accessibility standards.
             </p>
+            <h3 className="text-lg font-semibold text-slate-900 mt-6">Penalties for non-compliance</h3>
             <p>
               Non-compliance can result in fines up to €1,000,000 (Spain), 5% of
               annual turnover (Italy), or court-ordered remediation with daily
               penalties — as seen in the 2026 Carrefour case (€500/day
               astreinte).
             </p>
+            <h3 className="text-lg font-semibold text-slate-900 mt-6">Global convergence on WCAG</h3>
             <p>
               Similar laws exist or are being enacted worldwide: ADA Title II
               (US, 2027-2028), ACA (Canada), AODA (Ontario), and accessibility
