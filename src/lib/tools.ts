@@ -89,7 +89,7 @@ export const tools: Tool[] = [
     icon: Accessibility,
     category: "generate",
     keywords: ["aria", "roles", "attributes", "wai-aria", "screen reader", "html"],
-    status: "coming-soon",
+    status: "live",
   },
   {
     slug: "heading-analyzer",
@@ -102,7 +102,7 @@ export const tools: Tool[] = [
     icon: Heading,
     category: "check",
     keywords: ["heading", "h1", "h2", "structure", "outline", "html", "semantic"],
-    status: "coming-soon",
+    status: "live",
   },
   {
     slug: "form-label-checker",
@@ -115,7 +115,7 @@ export const tools: Tool[] = [
     icon: FormInput,
     category: "check",
     keywords: ["form", "label", "input", "fieldset", "legend", "wcag", "accessible"],
-    status: "coming-soon",
+    status: "live",
   },
   {
     slug: "color-blind-simulator",
@@ -128,7 +128,7 @@ export const tools: Tool[] = [
     icon: Eye,
     category: "simulate",
     keywords: ["color blind", "daltonism", "protanopia", "deuteranopia", "tritanopia", "simulation"],
-    status: "coming-soon",
+    status: "live",
   },
   {
     slug: "html-scanner",
@@ -141,7 +141,7 @@ export const tools: Tool[] = [
     icon: Code2,
     category: "check",
     keywords: ["html", "scanner", "audit", "scan", "alt text", "aria", "semantic", "wcag"],
-    status: "coming-soon",
+    status: "live",
   },
   {
     slug: "link-text-checker",
@@ -154,7 +154,7 @@ export const tools: Tool[] = [
     icon: Link2,
     category: "check",
     keywords: ["link", "anchor", "click here", "read more", "link text", "wcag 2.4.4"],
-    status: "coming-soon",
+    status: "live",
   },
   {
     slug: "focus-order-checker",
@@ -167,7 +167,7 @@ export const tools: Tool[] = [
     icon: MoveRight,
     category: "check",
     keywords: ["focus", "tab order", "keyboard", "navigation", "wcag 2.4.3", "focusable"],
-    status: "coming-soon",
+    status: "live",
   },
   {
     slug: "alt-text-checker",
@@ -180,7 +180,7 @@ export const tools: Tool[] = [
     icon: Image,
     category: "check",
     keywords: ["alt text", "alt attribute", "image", "img", "wcag 1.1.1", "non-text content"],
-    status: "coming-soon",
+    status: "live",
   },
 ];
 

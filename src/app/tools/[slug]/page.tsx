@@ -5,6 +5,14 @@ import { tools, getToolBySlug } from "@/lib/tools";
 import { ContrastChecker } from "@/components/tools/contrast-checker";
 import { WcagChecklist } from "@/components/tools/wcag-checklist";
 import { StatementGenerator } from "@/components/tools/statement-generator";
+import { AriaGenerator } from "@/components/tools/aria-generator";
+import { HeadingAnalyzer } from "@/components/tools/heading-analyzer";
+import { FormLabelChecker } from "@/components/tools/form-label-checker";
+import { ColorBlindSimulator } from "@/components/tools/color-blind-simulator";
+import { HtmlScanner } from "@/components/tools/html-scanner";
+import { LinkTextChecker } from "@/components/tools/link-text-checker";
+import { FocusOrderChecker } from "@/components/tools/focus-order-checker";
+import { AltTextChecker } from "@/components/tools/alt-text-checker";
 
 export function generateStaticParams() {
   return tools
@@ -115,6 +123,14 @@ export default async function ToolPage({
         {slug === "contrast-checker" && <ContrastChecker />}
         {slug === "wcag-checklist" && <WcagChecklist />}
         {slug === "accessibility-statement" && <StatementGenerator />}
+        {slug === "aria-generator" && <AriaGenerator />}
+        {slug === "heading-analyzer" && <HeadingAnalyzer />}
+        {slug === "form-label-checker" && <FormLabelChecker />}
+        {slug === "color-blind-simulator" && <ColorBlindSimulator />}
+        {slug === "html-scanner" && <HtmlScanner />}
+        {slug === "link-text-checker" && <LinkTextChecker />}
+        {slug === "focus-order-checker" && <FocusOrderChecker />}
+        {slug === "alt-text-checker" && <AltTextChecker />}
       </div>
     </>
   );
