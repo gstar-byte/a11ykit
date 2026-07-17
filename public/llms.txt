@@ -1,0 +1,43 @@
+# A11yKit
+
+A11yKit is a free, open accessibility toolkit containing free online tools for WCAG 2.2 and EAA (European Accessibility Act) compliance. All tools run 100% client-side in your browser — no account is required, no data is sent to any server, no analytics are collected on tool inputs, and no tracking cookies are used.
+
+## Core Features
+- **100% Client-side**: Your HTML, CSS, colors, and data never leave your browser. Perfect for auditing internal, secure, or staging environments.
+- **EAA & WCAG Aligned**: Built to align with WCAG 2.2 Success Criteria, ADA Title II, European standard EN 301 549, and US Section 508.
+- **Zero Friction**: Free forever, no signup or registration, no ads, and 100% private.
+
+## Tools (Live)
+
+### [Color Contrast Checker](/tools/contrast-checker)
+Verify foreground/background contrast ratios for text and graphical UI components.
+- Calculates precise contrast ratios.
+- Pass/Fail indicators for WCAG 2.1 AA, WCAG 2.2 AA, and WCAG AAA levels.
+- Real-time text preview under different contrast profiles.
+
+### [WCAG 2.2 Compliance Checklist](/tools/wcag-checklist)
+Interactive compliance checklist covering all 86 success criteria under WCAG 2.2.
+- Covers Success Criteria across A, AA, and AAA compliance levels.
+- Tracks audit progress, automatically saving state locally in your browser.
+- Filters criteria by POWR principles (Perceivable, Operable, Understandable, Robust).
+- Exports final reports as Markdown or JSON documents.
+
+### [Accessibility Statement Generator](/tools/accessibility-statement)
+Wizard to generate a legally compliant accessibility statement/declaration.
+- Aligns with EAA (EU), ADA (US), and Section 508 requirements.
+- Step-by-step assistant configuring organization info, conformance target, and contact options.
+- Exports a ready-to-publish semantic HTML document.
+
+## Upcoming Tools (Coming Soon)
+- **ARIA Role & Attribute Generator**: Get valid, compliant ARIA markup and keyboard behavior instructions for standard components (tabs, accordions, dialogs).
+- **Heading Structure Analyzer**: Check document outlines, flagging skipped heading levels and missing or duplicate H1 headings.
+- **Form Label Checker**: Validate label-input associations, fieldset/legends, and correct placeholder configurations.
+- **Color Blindness Simulator**: Process images locally through HTML5 canvas to preview them through 8 types of color vision deficiencies.
+- **HTML Accessibility Scanner**: Run complete semantic audits for image alt text, headings, and ARIA roles.
+- **Link Text Checker**: Clean up ambiguous link texts ("click here", "read more").
+- **Focus Order Checker**: Analyze and visualize keyboard focus patterns and tab sequences.
+- **Alt Text Checker**: Audit images for descriptive or missing alt text structures.
+
+## System Info & Standards
+- Primary Standards Supported: WCAG 2.2, EAA (Directive EU 2019/882), EN 301 549, ADA, Section 508.
+- Tech Stack: Pure client-side HTML, CSS, React, TypeScript.

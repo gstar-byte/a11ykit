@@ -36,6 +36,35 @@ export default function RootLayout({
         <meta name="theme-color" content="#28151a" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         
+        {/* Sitemap 声明（GEO 规范） */}
+        <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+
+        {/* Structured Data / 结构化数据 (JSON-LD) */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebApplication",
+              "name": "A11yKit",
+              "url": "https://a11ykit.site",
+              "description": "11 free online accessibility tools for WCAG 2.2 and EAA compliance. Contrast checker, WCAG checklist, accessibility statement generator, and more. No signup, 100% client-side.",
+              "applicationCategory": "DeveloperApplication",
+              "operatingSystem": "All",
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+              },
+              "creator": {
+                "@type": "Organization",
+                "name": "A11yKit Team",
+                "url": "https://a11ykit.site"
+              }
+            })
+          }}
+        />
+
         {/* Google tag (gtag.js) */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-T1R22CCHQK"
