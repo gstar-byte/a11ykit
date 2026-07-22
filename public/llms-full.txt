@@ -2,20 +2,22 @@
 
 > URL: https://a11ykit.site/
 > Title: A11yKit — Full Reference Documentation for LLM Agents
-> Description: Comprehensive technical specifications, WCAG 2.2 criteria reference, accessibility formulas, and developer tools documentation for digital accessibility compliance.
+> Description: Comprehensive technical specifications, WCAG 2.2 criteria reference, accessibility formulas, and documentation for all 15 free client-side accessibility tools.
 > Author: A11yKit Team
-> Version: 1.0.0
+> Version: 2.0.0
 > Source Code: https://github.com/gstar-byte/a11ykit
 
 ## Overview
 
-A11yKit is an open-source, client-side web accessibility auditing suite built for developers, UX designers, and compliance officers. It provides zero-friction tools to test, remediate, and document web applications against digital accessibility legislation including:
+A11yKit is an open-source, client-side web accessibility auditing suite built for developers, UX designers, and compliance officers. It provides 15 zero-friction tools to test, remediate, and document web applications against digital accessibility legislation including:
 
 - **WCAG 2.2** (Web Content Accessibility Guidelines, W3C Recommendation 2023)
 - **European Accessibility Act (EAA)** (Directive EU 2019/882, enforced June 2025)
 - **EN 301 549** (European Standard for Accessible ICT)
 - **ADA Title II & III** (Americans with Disabilities Act, US Department of Justice 2024 Rule)
 - **Section 508** (US Rehabilitation Act)
+
+All tools run 100% client-side: no account, no server processing, no tracking.
 
 ---
 
@@ -43,35 +45,81 @@ $$CR = \frac{L_1 + 0.05}{L_2 + 0.05}$$
 
 ---
 
-## Detailed Tool Documentation
+## Detailed Tool Documentation (15 Tools, All Live)
 
-### 1. Color Contrast Checker
+### Check & Audit Tools
+
+#### 1. Color Contrast Checker
 - **URL**: https://a11ykit.site/tools/contrast-checker
-- **Function**: Takes foreground and background hex, rgb, or hsl strings, calculates precise relative luminance according to W3C sRGB algorithms, and returns Pass/Fail status across Level AA and AAA thresholds for small text, large text, and UI components.
-- **Input Parameters**: `fg` (string), `bg` (string), `fontSize` (number), `fontWeight` (number|string)
-- **Client-Side Execution**: Runs entirely in Web Workers or UI main thread with 0 latency.
+- **Function**: Takes foreground and background colors (hex, rgb, hsl, with optional alpha), calculates relative luminance per W3C sRGB algorithms, returns exact contrast ratio plus Pass/Fail for WCAG 2.1 AA, WCAG 2.2 AA, and AAA across normal text, large text, and UI components.
+- **Extras**: Real-time text preview, lightness adjustment slider, "suggest compliant color" feature, CSS-ready value copy.
 
-### 2. WCAG 2.2 Compliance Checklist
+#### 2. WCAG 2.2 Compliance Checklist
 - **URL**: https://a11ykit.site/tools/wcag-checklist
-- **Function**: Interactive audit matrix containing all 86 success criteria under WCAG 2.2 across A, AA, and AAA levels.
-- **Features**:
-  - Organized by 4 POUR Principles: Perceivable, Operable, Understandable, Robust.
-  - Automatically persists compliance state to browser LocalStorage.
-  - Export capabilities to Markdown, JSON, and CSV for developer reports.
+- **Function**: Interactive audit matrix containing all 86 success criteria under WCAG 2.2 across Levels A (30), AA (50), and AAA (28).
+- **Features**: POUR principle filters (Perceivable, Operable, Understandable, Robust), level filters, automatic LocalStorage persistence, export to Markdown/JSON.
 
-### 3. Accessibility Statement Generator
+#### 3. HTML Accessibility Scanner
+- **URL**: https://a11ykit.site/tools/html-scanner
+- **Function**: Paste any HTML snippet or full page source for an instant audit: missing alt text, improper ARIA, semantic issues, landmark regions, skip links, and more.
+- **Extras**: Optional axe-core deep scan (50+ WCAG 2.2 A/AA rules), export to JSON/Markdown/HTML.
+
+#### 4. URL Website Scanner
+- **URL**: https://a11ykit.site/tools/url-scanner
+- **Function**: Scan any public URL; HTML is fetched via CORS proxy and analyzed in-browser against 20+ WCAG 2.2 checks (lang, title, skip links, landmarks, headings, alt text, form labels, link text, button names, iframe titles, tabindex).
+- **Modes**: Single-page scan or same-domain crawl (up to 10 pages). Optional axe-core deep scan. Results can be saved to the Accessibility Monitor.
+
+#### 5. Heading Structure Analyzer
+- **URL**: https://a11ykit.site/tools/heading-analyzer
+- **Function**: Visualizes the H1–H6 heading tree of pasted HTML; flags skipped levels (e.g. H1→H3), missing or multiple H1s, empty headings, and headings misused for styling (WCAG 1.3.1, 2.4.6).
+
+#### 6. Form Label Checker
+- **URL**: https://a11ykit.site/tools/form-label-checker
+- **Function**: Validates label-input associations, missing labels, fieldset/legend grouping, and placeholder-as-label misuse against WCAG 3.3.2, 4.1.2, and 3.3.1.
+
+#### 7. Link Text Checker
+- **URL**: https://a11ykit.site/tools/link-text-checker
+- **Function**: Detects non-descriptive link text ("click here", "read more"), empty links, URL-only links, and duplicate ambiguous text per WCAG 2.4.4, with improvement suggestions.
+
+#### 8. Focus Order Checker
+- **URL**: https://a11ykit.site/tools/focus-order-checker
+- **Function**: Visualizes the keyboard tab sequence of pasted HTML with numbered badges; flags positive tabindex values, focusable non-interactive elements, and illogical ordering per WCAG 2.4.3.
+
+#### 9. Alt Text Checker
+- **URL**: https://a11ykit.site/tools/alt-text-checker
+- **Function**: Evaluates all img elements in pasted HTML: missing alt attributes, empty alt (decorative vs. error), filename-based alt, and overly long descriptions, per WCAG 1.1.1.
+
+#### 10. PDF Accessibility Checker
+- **URL**: https://a11ykit.site/tools/pdf-checker
+- **Function**: Parses PDFs in-browser with pdf.js; checks the Marked (tagging) flag, document language, title metadata, bookmark/outline structure, and text extractability (scanned-image detection) against WCAG and core PDF/UA requirements.
+
+#### 11. Accessibility Monitor
+- **URL**: https://a11ykit.site/tools/accessibility-monitor
+- **Function**: Dashboard that stores URL scan history (timestamp, score, issue counts) in LocalStorage, keeping the 10 most recent scans per URL with trend indicators for regressions/improvements. Export to JSON.
+
+### Generate & Fix Tools
+
+#### 12. Accessibility Statement Generator
 - **URL**: https://a11ykit.site/tools/accessibility-statement
-- **Function**: Multi-step wizard generating legally valid Accessibility Statements required by EAA (Directive EU 2019/882) and public sector body regulations.
-- **Output**: Valid semantic HTML5 fragment ready to copy into website footers or `/accessibility` pages.
+- **Function**: Multi-step wizard generating legally aligned accessibility statements required by the EAA (Directive EU 2019/882) and public-sector regulations; covers ADA and Section 508 good-practice sections.
+- **Templates**: Basic, Comprehensive, Legal-focused, Developer-friendly. Optional AI-assisted content via user's own OpenAI API key.
+- **Output**: Semantic HTML5 fragment, Markdown, or TXT, ready to publish and link from a website footer.
 
----
+#### 13. ARIA Role & Attribute Generator
+- **URL**: https://a11ykit.site/tools/aria-generator
+- **Function**: Library of common WAI-ARIA 1.2 UI patterns (tabs, dialogs, menus, alerts, live regions, comboboxes) generating correct roles, states, properties, tabindex, and keyboard interaction markup.
+- **Output**: HTML or JSX, with keyboard behavior guidance in code comments.
 
-## Upcoming Tool Pipeline
+#### 14. AI Alt Text Generator
+- **URL**: https://a11ykit.site/tools/alt-text-generator
+- **Function**: Batch-generates WCAG-compliant alt text via OpenAI's vision API using the user's own API key (browser-direct, never proxied). 30+ output languages, 3 detail levels, CSV export.
 
-1. **ARIA Role & Attribute Generator**: Interactive schema builder for WAI-ARIA 1.2 patterns (Dialogs, Tabs, Comboboxes).
-2. **Heading Structure Analyzer**: Document outline validator detecting skipped levels (e.g. H1 to H3).
-3. **Form Label Checker**: Label-input relationship and explicit legend-fieldset validator.
-4. **Color Blindness Simulator**: Canvas-based SVG color matrix transformation for Protanopia, Deuteranopia, Tritanopia, and Achromatopsia.
+### Simulation Tools
+
+#### 15. Color Blindness Simulator
+- **URL**: https://a11ykit.site/tools/color-blind-simulator
+- **Function**: Simulates 8 color vision deficiency types (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly) on uploaded images using the Brettel/Viénot/Mollon algorithm, with a severity slider.
+- **Extras**: Daltonization support, PNG download, CSS filter variable export.
 
 ---
 

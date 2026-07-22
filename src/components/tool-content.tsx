@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
 import { ChevronDown, HelpCircle, ListChecks, Lightbulb, Wrench } from "lucide-react";
 import type { Tool, FAQItem, HowToStep, ToolCategory } from "@/lib/tools";
@@ -73,8 +70,10 @@ function HowToUse({ steps }: { steps: HowToStep[] }) {
 }
 
 function FAQSection({ faqs }: { faqs: FAQItem[] }) {
-  const [openIdx, setOpenIdx] = useState<number | null>(0);
-
+  /*
+   * 使用原生 <details>/<summary>：所有答案都渲染进静态 HTML，
+   * 搜索引擎与不执行 JS 的 AI 爬虫（GPTBot/ClaudeBot 等）均可读取。
+   */
   return (
     <section>
       <h2 className="flex items-center gap-2 text-lg font-semibold text-slate-900">
@@ -83,25 +82,18 @@ function FAQSection({ faqs }: { faqs: FAQItem[] }) {
       </h2>
       <div className="mt-4 divide-y divide-slate-200 rounded-xl border border-slate-200 bg-white">
         {faqs.map((faq, i) => (
-          <div key={i}>
-            <button
-              type="button"
-              onClick={() => setOpenIdx(openIdx === i ? null : i)}
-              className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
-              aria-expanded={openIdx === i}
-            >
+          <details key={i} className="group" open={i === 0}>
+            <summary className="flex w-full cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-left [&::-webkit-details-marker]:hidden">
               <span className="text-sm font-medium text-slate-900">{faq.question}</span>
               <ChevronDown
-                className={`h-4 w-4 flex-shrink-0 text-slate-400 transition-transform ${openIdx === i ? "rotate-180" : ""}`}
+                className="h-4 w-4 flex-shrink-0 text-slate-400 transition-transform group-open:rotate-180"
                 aria-hidden="true"
               />
-            </button>
-            {openIdx === i && (
-              <div className="px-5 pb-4">
-                <p className="text-sm leading-relaxed text-slate-600">{faq.answer}</p>
-              </div>
-            )}
-          </div>
+            </summary>
+            <div className="px-5 pb-4">
+              <p className="text-sm leading-relaxed text-slate-600">{faq.answer}</p>
+            </div>
+          </details>
         ))}
       </div>
     </section>

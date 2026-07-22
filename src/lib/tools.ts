@@ -39,6 +39,7 @@ export interface Tool {
   title: string;
   shortTitle: string;
   description: string;
+  metaDescription: string;
   longDescription: string;
   icon: LucideIcon;
   category: ToolCategory;
@@ -64,6 +65,8 @@ export const tools: Tool[] = [
     shortTitle: "Contrast Checker",
     description:
       "Check WCAG 2.1/2.2 contrast ratios for text and UI components. Supports AA and AAA levels with live preview.",
+    metaDescription:
+      "Check color contrast ratios for WCAG 2.1/2.2 AA and AAA compliance. Live preview, alpha support, and compliant color suggestions. Free, 100% client-side.",
     longDescription:
       "Calculate contrast ratios between foreground and background colors. Get instant pass/fail results for WCAG 2.1 AA, WCAG 2.2 AA, and WCAG AAA standards. Preview text in real-time and copy CSS-ready values.",
     icon: Contrast,
@@ -90,6 +93,8 @@ export const tools: Tool[] = [
     shortTitle: "WCAG Checklist",
     description:
       "Interactive checklist with all 86 WCAG 2.2 success criteria. Track progress, filter by level, and export your audit results.",
+    metaDescription:
+      "Interactive WCAG 2.2 checklist with all 86 success criteria. Filter by level or POUR principle, track progress, export Markdown/JSON. Free.",
     longDescription:
       "Work through every WCAG 2.2 success criterion (Levels A, AA, and AAA) with an interactive checklist. Progress saves automatically in your browser. Filter by conformance level or POUR principle, and export results as Markdown or JSON.",
     icon: ListChecks,
@@ -116,6 +121,8 @@ export const tools: Tool[] = [
     shortTitle: "Statement Generator",
     description:
       "Generate a compliant accessibility statement for EAA, ADA, and Section 508. Fill in the form, get a ready-to-publish statement.",
+    metaDescription:
+      "Generate a compliant accessibility statement for EAA, ADA, and Section 508. Step-by-step wizard with ready-to-publish HTML. Free and private.",
     longDescription:
       "Create a legally-aligned accessibility statement covering EAA (EU), ADA (US), and Section 508 requirements. The wizard walks you through organization details, conformance level, known limitations, and contact information, then outputs a ready-to-publish HTML statement.",
     icon: FileText,
@@ -143,6 +150,8 @@ export const tools: Tool[] = [
     shortTitle: "ARIA Generator",
     description:
       "Generate accessible ARIA roles, states, and properties for common UI patterns. Copy-paste ready HTML with proper ARIA markup.",
+    metaDescription:
+      "Generate correct WAI-ARIA 1.2 roles, states, and keyboard patterns for tabs, dialogs, menus, and more. HTML or JSX output. Free tool.",
     longDescription:
       "Browse a library of common UI patterns (tabs, dialogs, menus, alerts, etc.) and generate properly structured ARIA markup. Each pattern includes the correct roles, states, properties, and keyboard interaction patterns per WAI-ARIA 1.2.",
     icon: Accessibility,
@@ -169,6 +178,8 @@ export const tools: Tool[] = [
     shortTitle: "Heading Analyzer",
     description:
       "Paste your HTML and visualize the heading hierarchy. Detect skipped levels, missing H1s, and structural issues.",
+    metaDescription:
+      "Visualize your HTML heading structure. Detect skipped levels, missing or multiple H1s, and outline issues. Free WCAG checker, client-side.",
     longDescription:
       "Analyze the heading structure of any HTML document. The tool visualizes your heading tree, flags skipped levels (e.g., H1 to H3), detects missing or multiple H1s, and identifies headings used for styling instead of structure.",
     icon: Heading,
@@ -194,6 +205,8 @@ export const tools: Tool[] = [
     shortTitle: "Form Checker",
     description:
       "Check HTML forms for missing labels, improper associations, and other WCAG form accessibility violations.",
+    metaDescription:
+      "Check HTML forms for missing labels, bad associations, and fieldset/legend issues against WCAG 2.1. Instant results, 100% client-side.",
     longDescription:
       "Paste your HTML form code and get an instant accessibility audit. The tool checks for missing labels, improper label-input associations, missing fieldset/legend groups, and other WCAG 2.1 form accessibility requirements.",
     icon: FormInput,
@@ -218,6 +231,8 @@ export const tools: Tool[] = [
     shortTitle: "Color Blind Simulator",
     description:
       "Simulate how your website or image appears to users with 8 types of color vision deficiencies. Pure client-side Canvas processing.",
+    metaDescription:
+      "Simulate 8 types of color vision deficiency on any image. Brettel algorithm, severity slider, CSS filter export. Free, private, client-side.",
     longDescription:
       "Upload an image or paste a URL to see how it appears under 8 types of color vision deficiency: Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, and Achromatomaly. Uses the Brettel/Viénot/Mollon algorithm for accurate simulation.",
     icon: Eye,
@@ -244,6 +259,8 @@ export const tools: Tool[] = [
     shortTitle: "HTML Scanner",
     description:
       "Paste HTML and get an instant accessibility audit. Checks for missing alt text, ARIA issues, semantic HTML problems, and more.",
+    metaDescription:
+      "Paste HTML for an instant accessibility audit: alt text, ARIA, landmarks, semantics. Optional axe-core deep scan. Free, no server upload.",
     longDescription:
       "Run a comprehensive accessibility scan on any HTML snippet or full page. The tool checks for missing alt text, improper ARIA usage, semantic HTML issues, landmark regions, skip links, and dozens of other WCAG requirements — all in your browser, no data sent to any server.",
     icon: Code2,
@@ -269,6 +286,8 @@ export const tools: Tool[] = [
     shortTitle: "Link Checker",
     description:
       "Find problematic link text like 'click here', 'read more', or empty links. Get suggestions for descriptive, accessible link text.",
+    metaDescription:
+      "Find 'click here' and other ambiguous link text violating WCAG 2.4.4. Get fix suggestions instantly. Free, 100% client-side tool.",
     longDescription:
       "Scan your HTML for non-descriptive link text that violates WCAG 2.1 Success Criterion 2.4.4 (Link Purpose). Identifies 'click here', 'read more', 'learn more', empty links, URL-only links, and other common issues, with suggestions for improvement.",
     icon: Link2,
@@ -293,6 +312,8 @@ export const tools: Tool[] = [
     shortTitle: "Focus Checker",
     description:
       "Visualize the tab order of your HTML elements. Detect illogical focus sequences that confuse keyboard and screen reader users.",
+    metaDescription:
+      "Visualize keyboard tab order in your HTML. Detect illogical focus sequences per WCAG 2.4.3. Free accessibility tool, runs in your browser.",
     longDescription:
       "Paste your HTML and see a visual representation of the keyboard focus order. The tool detects elements that are focusable, shows their tab sequence, and flags any illogical ordering that would confuse keyboard-only users per WCAG 2.4.3 (Focus Order).",
     icon: MoveRight,
@@ -318,6 +339,8 @@ export const tools: Tool[] = [
     shortTitle: "Alt Text Checker",
     description:
       "Check images in your HTML for missing, empty, or problematic alt text. Get WCAG-compliant suggestions for improvement.",
+    metaDescription:
+      "Audit images for missing, empty, or weak alt text per WCAG 1.1.1. Instant findings with fix guidance. Free, private, client-side.",
     longDescription:
       "Scan HTML for all img elements and evaluate their alt text. Flags missing alt attributes, empty alt text (which may be intentional for decorative images but is often an error), filename-based alt text, and overly long descriptions. Provides WCAG 1.1.1 compliance guidance.",
     icon: Image,
@@ -342,6 +365,8 @@ export const tools: Tool[] = [
     shortTitle: "URL Scanner",
     description:
       "Enter any public URL and get an instant accessibility scan. Checks lang, title, landmarks, headings, alt text, form labels, links, and more.",
+    metaDescription:
+      "Scan any public URL for 20+ WCAG 2.2 accessibility checks. Single page or 10-page crawl, axe-core deep scan. Free, browser-based.",
     longDescription:
       "Scan any public website by URL. The page HTML is fetched via a CORS proxy and analyzed entirely in your browser. Checks for missing lang, title, skip links, landmark regions, heading hierarchy, image alt text, form labels, link text, button names, iframe titles, tabindex issues, and more — all against WCAG 2.2 criteria.",
     icon: Globe,
@@ -369,6 +394,8 @@ export const tools: Tool[] = [
     shortTitle: "PDF Checker",
     description:
       "Upload a PDF and check for tagging, language, title, bookmarks, and extractable text. Uses pdf.js for 100% client-side parsing.",
+    metaDescription:
+      "Check PDFs for tagging, language, title, bookmarks, and extractable text. Client-side pdf.js analysis per WCAG and PDF/UA. Free.",
     longDescription:
       "Check PDF files for accessibility issues using pdf.js, entirely in your browser. Verifies PDF tagging (Marked flag), document language, title metadata, bookmark/outline structure for navigation, and whether pages contain extractable text or are scanned images needing OCR. Supports WCAG and PDF/UA requirements.",
     icon: FileSearch,
@@ -393,6 +420,8 @@ export const tools: Tool[] = [
     shortTitle: "AI Alt Text",
     description:
       "Upload an image and generate descriptive alt text using AI. Uses your own OpenAI API key — no server involved.",
+    metaDescription:
+      "Generate WCAG-compliant alt text with AI in 30+ languages. Batch image processing with your own OpenAI key, browser-direct. Free tool.",
     longDescription:
       "Generate alt text for images using OpenAI's vision API. Upload an image, enter your API key, and get a concise, WCAG-compliant alt text suggestion. Your API key is used directly from your browser and never sent to our server. Always review AI-generated text before publishing.",
     icon: Sparkles,
@@ -419,6 +448,8 @@ export const tools: Tool[] = [
     shortTitle: "Monitor",
     description:
       "Track your website's accessibility score over time. Scan any URL and save results to your browser to monitor progress.",
+    metaDescription:
+      "Track website accessibility scores over time. Local scan history, trend indicators, JSON export. Free monitoring tool, 100% client-side.",
     longDescription:
       "Monitor your website's accessibility over time. Each scan is saved to your browser's local storage with a timestamp, score, and issue counts. Scan the same URL periodically to track improvements or regressions, with trend indicators showing whether your score went up or down.",
     icon: Activity,

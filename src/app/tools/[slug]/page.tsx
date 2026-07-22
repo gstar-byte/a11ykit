@@ -36,12 +36,20 @@ export async function generateMetadata({
 
   return {
     title: `${tool.title} — A11yKit`,
-    description: tool.longDescription,
+    description: tool.metaDescription,
     alternates: { canonical: `https://a11ykit.site/tools/${tool.slug}` },
     openGraph: {
       title: `${tool.title} — A11yKit`,
-      description: tool.longDescription,
+      description: tool.metaDescription,
+      type: "website",
+      url: `https://a11ykit.site/tools/${tool.slug}`,
       images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: tool.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${tool.title} — A11yKit`,
+      description: tool.metaDescription,
+      images: ["/og-image.jpg"],
     },
   };
 }
@@ -67,14 +75,28 @@ export default async function ToolPage({
             "@context": "https://schema.org",
             "@type": "SoftwareApplication",
             "name": tool.title,
-            "description": tool.longDescription,
+            "description": tool.metaDescription,
             "url": `https://a11ykit.site/tools/${tool.slug}`,
             "applicationCategory": "DeveloperApplication",
             "operatingSystem": "All",
+            "browserRequirements": "Requires JavaScript. Multi-browser HTML5 compatible.",
+            "featureList": [
+              "100% Client-side processing",
+              "WCAG 2.2 & EAA compliance checking",
+              "Zero data transmission",
+              "No account required"
+            ],
+            "dateModified": new Date().toISOString().split("T")[0],
             "offers": {
               "@type": "Offer",
               "price": "0",
               "priceCurrency": "USD"
+            },
+            "creator": {
+              "@id": "https://a11ykit.site/#organization"
+            },
+            "isPartOf": {
+              "@id": "https://a11ykit.site/#webapp"
             }
           })
         }}
@@ -95,6 +117,48 @@ export default async function ToolPage({
           })
         }}
       />
+
+      {/* FAQPage 结构化数据（与页面可见 FAQ 完全同源） */}
+      {tool.faq && tool.faq.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": tool.faq.map((item) => ({
+                "@type": "Question",
+                "name": item.question,
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": item.answer
+                }
+              }))
+            })
+          }}
+        />
+      )}
+
+      {/* HowTo 结构化数据（与页面可见步骤完全同源） */}
+      {tool.howToUse && tool.howToUse.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "HowTo",
+              "name": `How to use the ${tool.title}`,
+              "description": tool.description,
+              "step": tool.howToUse.map((s, i) => ({
+                "@type": "HowToStep",
+                "position": i + 1,
+                "name": s.step,
+                "text": s.description
+              }))
+            })
+          }}
+        />
+      )}
 
       <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
         <nav aria-label="Breadcrumb" className="mb-6">

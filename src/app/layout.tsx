@@ -5,6 +5,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { PrivacyBanner } from "@/components/privacy-banner";
 import { ServiceWorkerRegister } from "@/components/sw-register";
+import { liveTools } from "@/lib/tools";
 
 /* ── 字体优化：使用 next/font 本地化托管，消除渲染阻塞 ── */
 const inter = Inter({
@@ -13,10 +14,13 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
+const toolCount = liveTools.length;
+const siteDescription = `${toolCount} free online accessibility tools for WCAG 2.2 and EAA compliance. Contrast checker, WCAG checklist, and statement generator. 100% client-side.`;
+const siteDescriptionShort = `${toolCount} free online accessibility tools for WCAG 2.2 and EAA compliance. No signup, 100% client-side.`;
+
 export const metadata: Metadata = {
   title: "A11yKit — Free WCAG & EAA Accessibility Tools",
-  description:
-    "11 free online accessibility tools for WCAG 2.2 and EAA compliance. Contrast checker, WCAG checklist, and statement generator. 100% client-side.",
+  description: siteDescription,
   metadataBase: new URL("https://a11ykit.site"),
   alternates: {
     canonical: "https://a11ykit.site",
@@ -24,9 +28,9 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
   openGraph: {
     title: "A11yKit — Free WCAG & EAA Accessibility Tools",
-    description:
-      "11 free online accessibility tools for WCAG 2.2 and EAA compliance. No signup, 100% client-side.",
+    description: siteDescriptionShort,
     type: "website",
+    locale: "en_US",
     url: "https://a11ykit.site",
     images: [
       {
@@ -40,8 +44,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "A11yKit — Free WCAG & EAA Accessibility Tools",
-    description:
-      "11 free online accessibility tools for WCAG 2.2 and EAA compliance. No signup, 100% client-side.",
+    description: siteDescriptionShort,
     images: ["/og-image.jpg"],
   },
 };
@@ -60,8 +63,11 @@ export default function RootLayout({
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="manifest" href="/site.webmanifest" />
 
-        {/* Sitemap 声明（GEO 规范） */}
+        {/* Sitemap 与 LLM 知识库入口声明（GEO 极致规范） */}
         <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+        <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM Summary" />
+        <link rel="alternate" type="text/plain" href="/llms-full.txt" title="Full LLM Knowledge Base" />
+        <link rel="apple-touch-icon" href="/favicon.svg" />
 
         {/* Security & Privacy Headers (GEO & Lighthouse Compliance) */}
         <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
@@ -92,7 +98,7 @@ export default function RootLayout({
                   "@id": "https://a11ykit.site/#website",
                   "url": "https://a11ykit.site",
                   "name": "A11yKit",
-                  "description": "11 free online accessibility tools for WCAG 2.2 and EAA compliance.",
+                  "description": `${toolCount} free online accessibility tools for WCAG 2.2 and EAA compliance.`,
                   "publisher": {
                     "@id": "https://a11ykit.site/#organization"
                   },
@@ -103,7 +109,7 @@ export default function RootLayout({
                   "@id": "https://a11ykit.site/#webapp",
                   "name": "A11yKit Toolkit",
                   "url": "https://a11ykit.site",
-                  "description": "11 free online accessibility tools for WCAG 2.2 and EAA compliance. Contrast checker, WCAG checklist, accessibility statement generator, and more. No signup, 100% client-side.",
+                  "description": `${toolCount} free online accessibility tools for WCAG 2.2 and EAA compliance. Contrast checker, WCAG checklist, accessibility statement generator, and more. No signup, 100% client-side.`,
                   "applicationCategory": "DeveloperApplication",
                   "operatingSystem": "All",
                   "screenshot": "https://a11ykit.site/og-image.jpg",
@@ -115,28 +121,6 @@ export default function RootLayout({
                   "creator": {
                     "@id": "https://a11ykit.site/#organization"
                   }
-                },
-                {
-                  "@type": "FAQPage",
-                  "@id": "https://a11ykit.site/#faq",
-                  "mainEntity": [
-                    {
-                      "@type": "Question",
-                      "name": "What is the European Accessibility Act (EAA)?",
-                      "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "The European Accessibility Act (EAA Directive EU 2019/882) is an EU law enforced from June 2025 requiring digital services to meet WCAG 2.1 Level AA standards."
-                      }
-                    },
-                    {
-                      "@type": "Question",
-                      "name": "Are A11yKit tools 100% free and client-side?",
-                      "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Yes, all A11yKit tools process data 100% client-side in your browser. No data is sent to external servers, and no user accounts are required."
-                      }
-                    }
-                  ]
                 }
               ]
             })

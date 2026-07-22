@@ -5,20 +5,51 @@ import { tools, liveTools, categoryLabels } from "@/lib/tools";
 
 export const metadata: Metadata = {
   title: "A11yKit — Free WCAG & EAA Accessibility Tools",
-  description:
-    "11 free online accessibility tools for WCAG 2.2 and EAA compliance. Contrast checker, WCAG checklist, and statement generator. 100% client-side.",
+  description: `${liveTools.length} free online accessibility tools for WCAG 2.2 and EAA compliance. Contrast checker, WCAG checklist, and statement generator. 100% client-side.`,
   alternates: { canonical: "https://a11ykit.site" },
   openGraph: {
     title: "A11yKit — Free WCAG & EAA Accessibility Tools",
-    description:
-      "15 free online accessibility tools for WCAG 2.2 and EAA compliance. No signup, 100% client-side.",
+    description: `${liveTools.length} free online accessibility tools for WCAG 2.2 and EAA compliance. No signup, 100% client-side.`,
     images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "A11yKit" }],
   },
 };
 
+/* 首页 FAQ —— 可见内容与 FAQPage 结构化数据同源，保持一致 */
+const homeFaqs = [
+  {
+    question: "Are A11yKit tools 100% free and client-side?",
+    answer:
+      "Yes, all calculation tools execute 100% client-side inside your web browser using HTML5 and JavaScript. No code, image, or text inputs leave your device, ensuring privacy and compliance with enterprise security requirements.",
+  },
+  {
+    question: "Which accessibility standards do these tools check against?",
+    answer:
+      "Our tools conform to W3C Recommendations for WCAG 2.2 (Web Content Accessibility Guidelines), European Standard EN 301 549, and US Section 508 / ADA Title II technical standards.",
+  },
+];
+
 export default function HomePage() {
   return (
     <>
+      {/* FAQPage 结构化数据（与下方可见 FAQ 完全同源） */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "@id": "https://a11ykit.site/#faq",
+            "mainEntity": homeFaqs.map((faq) => ({
+              "@type": "Question",
+              "name": faq.question,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.answer,
+              },
+            })),
+          }),
+        }}
+      />
       {/* Hero */}
       <section className="hero-gradient relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-slate-700/[0.2]" aria-hidden="true" />
@@ -33,7 +64,7 @@ export default function HomePage() {
               <span className="block text-teal-400">for WCAG 2.2 & EAA</span>
             </h1>
             <p className="mt-6 text-lg text-slate-300 sm:text-xl">
-              15 free tools to check, fix, and generate accessible web content.
+              {liveTools.length} free tools to check, fix, and generate accessible web content.
               Contrast checker, WCAG checklist, accessibility statement
               generator, and more. No signup. 100% client-side.
             </p>
@@ -222,22 +253,17 @@ export default function HomePage() {
             Frequently Asked Questions & Standards
           </h2>
           <div className="mt-8 space-y-6">
-            <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-              <h3 className="text-base font-semibold text-slate-900">
-                Are A11yKit tools 100% free and client-side?
-              </h3>
-              <p className="mt-2 text-sm text-slate-600">
-                Yes, all calculation tools execute 100% client-side inside your web browser using HTML5 and JavaScript. No code, image, or text inputs leave your device, ensuring privacy and compliance with enterprise security requirements.
-              </p>
-            </div>
-            <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-              <h3 className="text-base font-semibold text-slate-900">
-                Which accessibility standards do these tools check against?
-              </h3>
-              <p className="mt-2 text-sm text-slate-600">
-                Our tools conform to W3C Recommendations for <strong>WCAG 2.2</strong> (Web Content Accessibility Guidelines), European Standard <strong>EN 301 549</strong>, and US <strong>Section 508</strong> / ADA Title II technical standards.
-              </p>
-            </div>
+            {homeFaqs.map((faq) => (
+              <div
+                key={faq.question}
+                className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm"
+              >
+                <h3 className="text-base font-semibold text-slate-900">
+                  {faq.question}
+                </h3>
+                <p className="mt-2 text-sm text-slate-600">{faq.answer}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

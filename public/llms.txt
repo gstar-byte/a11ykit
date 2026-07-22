@@ -2,49 +2,42 @@
 
 > URL: https://a11ykit.site/
 > Title: A11yKit — Free WCAG 2.2 & EAA Compliance Accessibility Tools
-> Description: 11 free online accessibility tools for WCAG 2.2 and EAA compliance. Contrast checker, WCAG checklist, accessibility statement generator, ARIA generator, and more. 100% client-side, no account required.
+> Description: 15 free online accessibility tools for WCAG 2.2 and EAA compliance. Contrast checker, WCAG checklist, accessibility statement generator, ARIA generator, and more. 100% client-side, no account required.
 > Author: A11yKit Team
-> Version: 1.0.0
+> Version: 2.0.0
 > Full Content: https://a11ykit.site/llms-full.txt
 
-A11yKit is a free, open accessibility toolkit containing free online tools for WCAG 2.2 and EAA (European Accessibility Act) compliance. All tools run 100% client-side in your browser — no account is required, no data is sent to any server, no analytics are collected on tool inputs, and no tracking cookies are used.
+A11yKit is a free, open accessibility toolkit containing 15 free online tools for WCAG 2.2 and EAA (European Accessibility Act) compliance. All tools run 100% client-side in your browser — no account is required, no data is sent to any server, no analytics are collected on tool inputs, and no tracking cookies are used.
 
 ## Core Features
 - **100% Client-side**: Your HTML, CSS, colors, and data never leave your browser. Perfect for auditing internal, secure, or staging environments.
 - **EAA & WCAG Aligned**: Built to align with WCAG 2.2 Success Criteria, ADA Title II, European standard EN 301 549, and US Section 508.
 - **Zero Friction**: Free forever, no signup or registration, no ads, and 100% private.
 
-## Tools (Live)
+## Tools (All Live)
 
-### [Color Contrast Checker](https://a11ykit.site/tools/contrast-checker)
-Verify foreground/background contrast ratios for text and graphical UI components.
-- Calculates precise contrast ratios conforming to WCAG 2.2 relative luminance formulas.
-- Pass/Fail indicators for WCAG 2.1 AA, WCAG 2.2 AA, and WCAG AAA levels.
-- Real-time text preview under different contrast profiles.
+### Check & Audit
+- [Color Contrast Checker](https://a11ykit.site/tools/contrast-checker): Verify foreground/background contrast ratios against WCAG 2.1/2.2 AA and AAA thresholds, with live preview and compliant color suggestions.
+- [WCAG 2.2 Compliance Checklist](https://a11ykit.site/tools/wcag-checklist): Interactive checklist covering all 86 WCAG 2.2 success criteria (A/AA/AAA), POUR filters, local progress saving, Markdown/JSON export.
+- [HTML Accessibility Scanner](https://a11ykit.site/tools/html-scanner): Paste HTML for an instant audit of alt text, ARIA usage, landmarks, and semantics; optional axe-core deep scan with 50+ WCAG 2.2 A/AA rules.
+- [URL Website Scanner](https://a11ykit.site/tools/url-scanner): Scan any public URL (single page or 10-page crawl) for 20+ WCAG 2.2 checks, with axe-core deep scan and export.
+- [Heading Structure Analyzer](https://a11ykit.site/tools/heading-analyzer): Visualize heading outlines, flag skipped levels, missing or multiple H1s, and headings used for styling.
+- [Form Label Checker](https://a11ykit.site/tools/form-label-checker): Validate label-input associations, fieldset/legend grouping, and placeholder misuse against WCAG 2.1.
+- [Link Text Checker](https://a11ykit.site/tools/link-text-checker): Find ambiguous link text ("click here", "read more"), empty links, and URL-only links per WCAG 2.4.4.
+- [Focus Order Checker](https://a11ykit.site/tools/focus-order-checker): Visualize keyboard tab sequences and flag illogical focus order per WCAG 2.4.3.
+- [Alt Text Checker](https://a11ykit.site/tools/alt-text-checker): Audit images for missing, empty, filename-based, or overly long alt text per WCAG 1.1.1.
+- [PDF Accessibility Checker](https://a11ykit.site/tools/pdf-checker): Client-side pdf.js checks for tagging, language, title metadata, bookmarks, and extractable text (WCAG / PDF/UA).
+- [Accessibility Monitor](https://a11ykit.site/tools/accessibility-monitor): Track a website's accessibility score over time with locally stored scan history and trend indicators.
 
-### [WCAG 2.2 Compliance Checklist](https://a11ykit.site/tools/wcag-checklist)
-Interactive compliance checklist covering all 86 success criteria under WCAG 2.2.
-- Covers Success Criteria across A, AA, and AAA compliance levels.
-- Tracks audit progress, automatically saving state locally in your browser.
-- Filters criteria by POUR principles (Perceivable, Operable, Understandable, Robust).
-- Exports final reports as Markdown or JSON documents.
+### Generate & Fix
+- [Accessibility Statement Generator](https://a11ykit.site/tools/accessibility-statement): Wizard that produces a publish-ready accessibility statement aligned with EAA (EU 2019/882), ADA, and Section 508.
+- [ARIA Role & Attribute Generator](https://a11ykit.site/tools/aria-generator): Generate correct WAI-ARIA 1.2 markup (roles, states, keyboard patterns) for common UI patterns, in HTML or JSX.
+- [AI Alt Text Generator](https://a11ykit.site/tools/alt-text-generator): Batch-generate WCAG-compliant alt text in 30+ languages using your own OpenAI API key, directly from the browser.
 
-### [Accessibility Statement Generator](https://a11ykit.site/tools/accessibility-statement)
-Wizard to generate a legally compliant accessibility statement/declaration.
-- Aligns with EAA (EU Directive 2019/882), ADA (US), and Section 508 requirements.
-- Step-by-step assistant configuring organization info, conformance target, and contact options.
-- Exports a ready-to-publish semantic HTML document.
-
-## Upcoming Tools (Coming Soon)
-- **ARIA Role & Attribute Generator**: Get valid, compliant ARIA markup and keyboard behavior instructions for standard components.
-- **Heading Structure Analyzer**: Check document outlines, flagging skipped heading levels and missing or duplicate H1 headings.
-- **Form Label Checker**: Validate label-input associations, fieldset/legends, and correct placeholder configurations.
-- **Color Blindness Simulator**: Process images locally through HTML5 canvas to preview them through 8 types of color vision deficiencies.
-- **HTML Accessibility Scanner**: Run complete semantic audits for image alt text, headings, and ARIA roles.
-- **Link Text Checker**: Clean up ambiguous link texts ("click here", "read more").
-- **Focus Order Checker**: Analyze and visualize keyboard focus patterns and tab sequences.
-- **Alt Text Checker**: Audit images for descriptive or missing alt text structures.
+### Simulate
+- [Color Blindness Simulator](https://a11ykit.site/tools/color-blind-simulator): Preview images through 8 types of color vision deficiency (Brettel/Viénot/Mollon algorithm), with severity slider and CSS filter export.
 
 ## System Info & Standards
-- Primary Standards Supported: WCAG 2.2, EAA (Directive EU 2019/882), EN 301 549, ADA, Section 508.
+- Primary Standards Supported: WCAG 2.2, EAA (Directive EU 2019/882), EN 301 549, ADA Title II, Section 508, WAI-ARIA 1.2.
 - Tech Stack: Pure client-side HTML, CSS, React, TypeScript.
+- Repository: https://github.com/gstar-byte/a11ykit

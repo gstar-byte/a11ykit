@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { liveTools } from "@/lib/tools";
 
 export const metadata: Metadata = {
   title: "About — A11yKit",
@@ -15,7 +16,34 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "AboutPage",
+                "@id": "https://a11ykit.site/about/#webpage",
+                "url": "https://a11ykit.site/about",
+                "name": "About A11yKit",
+                "description": "A11yKit is a free, open accessibility toolkit for WCAG 2.2 and EAA compliance.",
+                "isPartOf": { "@id": "https://a11ykit.site/#website" },
+                "inLanguage": "en"
+              },
+              {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                  { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://a11ykit.site" },
+                  { "@type": "ListItem", "position": 2, "name": "About", "item": "https://a11ykit.site/about" }
+                ]
+              }
+            ]
+          })
+        }}
+      />
+      <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
       <h1 className="text-4xl font-bold tracking-tight text-slate-900">
         About A11yKit
       </h1>
@@ -40,7 +68,7 @@ export default function AboutPage() {
           free toolkit.
         </p>
         <p>
-          A11yKit fills that gap with 11 tools covering the full compliance
+          A11yKit fills that gap with {liveTools.length} tools covering the full compliance
           workflow: from checking contrast ratios to generating accessibility
           statements, from auditing heading structure to simulating color
           blindness.
@@ -75,5 +103,6 @@ export default function AboutPage() {
         </p>
       </div>
     </div>
+    </>
   );
 }

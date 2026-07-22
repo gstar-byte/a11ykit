@@ -15,7 +15,21 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://a11ykit.site" },
+              { "@type": "ListItem", "position": 2, "name": "Privacy Policy", "item": "https://a11ykit.site/privacy" }
+            ]
+          })
+        }}
+      />
+      <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
       <nav aria-label="Breadcrumb" className="mb-6">
         <ol className="flex items-center gap-2 text-sm text-slate-600">
           <li>
@@ -218,5 +232,6 @@ export default function PrivacyPage() {
         </section>
       </div>
     </div>
+    </>
   );
 }

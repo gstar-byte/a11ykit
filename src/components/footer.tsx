@@ -84,6 +84,14 @@ export function Footer() {
               </li>
               <li>
                 <a
+                  href="/llms.txt"
+                  className="text-sm text-slate-600 hover:text-teal-700"
+                >
+                  llms.txt (AI)
+                </a>
+              </li>
+              <li>
+                <a
                   href="https://www.w3.org/WAI/standards-guidelines/wcag/"
                   target="_blank"
                   rel="noopener noreferrer"

@@ -1,40 +1,74 @@
 User-agent: *
 Allow: /
 
+# OpenAI (training + ChatGPT search citation)
 User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
 Allow: /
 
 User-agent: ChatGPT-User
 Allow: /
 
+# Perplexity
 User-agent: PerplexityBot
 Allow: /
 
+User-agent: Perplexity-User
+Allow: /
+
+# Anthropic / Claude
 User-agent: ClaudeBot
 Allow: /
 
-User-agent: Claude-Web
+User-agent: Claude-User
 Allow: /
 
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Google AI Overviews / Gemini
 User-agent: Google-Extended
 Allow: /
 
+# Apple Intelligence
+User-agent: Applebot-Extended
+Allow: /
+
+# Meta AI
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+# Other AI crawlers
 User-agent: Bytespider
 Allow: /
 
 User-agent: CCBot
 Allow: /
 
-User-agent: Cohere-ai
+User-agent: cohere-ai
+Allow: /
+
+User-agent: cohere-training-data-crawler
 Allow: /
 
 User-agent: Diffbot
 Allow: /
 
-User-agent: FacebookBot
+User-agent: Omgilibot
 Allow: /
 
-User-agent: Omgilibot
+User-agent: DuckAssistBot
+Allow: /
+
+User-agent: YouBot
 Allow: /
 
 Sitemap: https://a11ykit.site/sitemap.xml

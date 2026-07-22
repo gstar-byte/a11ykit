@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { tools, categoryLabels, type ToolCategory } from "@/lib/tools";
+import { tools, liveTools, categoryLabels, type ToolCategory } from "@/lib/tools";
 
 export const metadata: Metadata = {
   title: "All Accessibility Tools — A11yKit",
@@ -20,7 +20,47 @@ const categoryOrder: ToolCategory[] = ["check", "fix", "generate", "simulate", "
 
 export default function ToolsPage() {
   return (
-    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <>
+      {/* CollectionPage & ItemList 结构化数据 (GEO / SEO 卡片索引) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "CollectionPage",
+                "@id": "https://a11ykit.site/tools/#collection",
+                "url": "https://a11ykit.site/tools",
+                "name": "All Accessibility Tools — A11yKit",
+                "description": "Browse all 15 free WCAG and EAA accessibility tools.",
+                "isPartOf": { "@id": "https://a11ykit.site/#website" },
+                "inLanguage": "en"
+              },
+              {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                  { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://a11ykit.site" },
+                  { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://a11ykit.site/tools" }
+                ]
+              },
+              {
+                "@type": "ItemList",
+                "name": "A11yKit Tool Collection",
+                "numberOfItems": liveTools.length,
+                "itemListElement": liveTools.map((t, idx) => ({
+                  "@type": "ListItem",
+                  "position": idx + 1,
+                  "name": t.title,
+                  "url": `https://a11ykit.site/tools/${t.slug}`,
+                  "description": t.description
+                }))
+              }
+            ]
+          })
+        }}
+      />
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="mb-12 text-center">
         <h1 className="text-4xl font-bold tracking-tight text-slate-900">
           All Accessibility Tools
@@ -99,5 +139,6 @@ export default function ToolsPage() {
         );
       })}
     </div>
+    </>
   );
 }
