@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X, Accessibility, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { liveTools } from "@/lib/tools";
@@ -16,6 +16,20 @@ const navLinks = [
 export function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  // 路由改变时自动收起所有菜单
+  useEffect(() => {
+    setMobileOpen(false);
+    setDropdownOpen(false);
+  }, [pathname]);
+
+  const closeDropdown = () => {
+    setDropdownOpen(false);
+    if (typeof document !== "undefined" && document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-slate-200 bg-white/80 backdrop-blur-md">
@@ -26,7 +40,10 @@ export function Navbar() {
         <Link
           href="/"
           className="flex items-center gap-2 font-bold text-lg text-slate-900"
-          onClick={() => setMobileOpen(false)}
+          onClick={() => {
+            setMobileOpen(false);
+            closeDropdown();
+          }}
         >
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-700 text-white">
             <Accessibility className="h-5 w-5" aria-hidden="true" />
@@ -44,7 +61,12 @@ export function Navbar() {
                 : pathname.startsWith(link.href);
             if (link.href === "/tools") {
               return (
-                <li key={link.href} className="relative group">
+                <li
+                  key={link.href}
+                  className="relative"
+                  onMouseEnter={() => setDropdownOpen(true)}
+                  onMouseLeave={() => setDropdownOpen(false)}
+                >
                   <Link
                     href={link.href}
                     className={cn(
@@ -53,30 +75,49 @@ export function Navbar() {
                         ? "bg-teal-50 text-teal-700"
                         : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
                     )}
+                    onClick={() => closeDropdown()}
+                    aria-expanded={dropdownOpen}
+                    aria-haspopup="true"
                     aria-current={isActive ? "page" : undefined}
                   >
                     {link.label}
-                    <ChevronDown className="h-3.5 w-3.5" aria-hidden="true" />
+                    <ChevronDown
+                      className={cn(
+                        "h-3.5 w-3.5 transition-transform duration-200",
+                        dropdownOpen && "rotate-180"
+                      )}
+                      aria-hidden="true"
+                    />
                   </Link>
-                  <div className="invisible absolute right-0 top-full z-50 mt-1 w-64 rounded-lg border border-slate-200 bg-white p-2 opacity-0 shadow-lg transition-all duration-150 group-hover:visible group-hover:opacity-100">
+
+                  {/* Dropdown Menu */}
+                  <div
+                    className={cn(
+                      "absolute right-0 top-full z-50 mt-1 w-64 rounded-lg border border-slate-200 bg-white p-2 shadow-lg transition-all duration-150",
+                      dropdownOpen
+                        ? "visible opacity-100 translate-y-0"
+                        : "invisible opacity-0 -translate-y-1 pointer-events-none"
+                    )}
+                  >
                     <div className="grid grid-cols-1 gap-0.5">
                       {liveTools.map((tool) => {
-        const toolActive = pathname === `/tools/${tool.slug}`;
-        return (
-          <Link
-            key={tool.slug}
-            href={`/tools/${tool.slug}`}
-            className={cn(
-              "block rounded-md px-3 py-1.5 text-sm transition-colors",
-              toolActive
-                ? "bg-teal-50 text-teal-700 font-medium"
-                : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
-            )}
-          >
-            {tool.shortTitle}
-          </Link>
-        );
-      })}
+                        const toolActive = pathname === `/tools/${tool.slug}`;
+                        return (
+                          <Link
+                            key={tool.slug}
+                            href={`/tools/${tool.slug}`}
+                            className={cn(
+                              "block rounded-md px-3 py-1.5 text-sm transition-colors",
+                              toolActive
+                                ? "bg-teal-50 text-teal-700 font-medium"
+                                : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                            )}
+                            onClick={() => closeDropdown()}
+                          >
+                            {tool.shortTitle}
+                          </Link>
+                        );
+                      })}
                     </div>
                   </div>
                 </li>
@@ -92,6 +133,7 @@ export function Navbar() {
                       ? "bg-teal-50 text-teal-700"
                       : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
                   )}
+                  onClick={() => closeDropdown()}
                   aria-current={isActive ? "page" : undefined}
                 >
                   {link.label}
