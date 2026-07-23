@@ -1,0 +1,3229 @@
+{
+  "summary": {
+    "scanDate": "2026-07-23T06:24:06.770Z",
+    "totalSites": 52,
+    "successfulScans": 48,
+    "failedScans": 4,
+    "totalViolations": 70,
+    "totalErrors": 67,
+    "totalWarnings": 3,
+    "avgViolationsPerSite": "1.5",
+    "mostCommonViolations": {
+      "color-contrast": 9,
+      "image-alt": 6,
+      "link-name": 6,
+      "aria-allowed-attr": 5,
+      "target-size": 5,
+      "list": 4,
+      "html-has-lang": 4,
+      "meta-viewport": 3,
+      "nested-interactive": 3,
+      "document-title": 3,
+      "button-name": 3,
+      "listitem": 3,
+      "aria-required-children": 3,
+      "aria-required-parent": 2,
+      "label": 1,
+      "html-lang-valid": 1,
+      "blink": 1,
+      "meta-refresh": 1,
+      "aria-roles": 1,
+      "autocomplete-valid": 1,
+      "frame-title": 1,
+      "role-img-alt": 1,
+      "select-name": 1,
+      "link-in-text-block": 1,
+      "aria-valid-attr-value": 1
+    },
+    "byCategory": {
+      "Search": {
+        "sites": 1,
+        "totalViolations": 0,
+        "avgViolations": "0.0"
+      },
+      "Streaming": {
+        "sites": 5,
+        "totalViolations": 15,
+        "avgViolations": "3.0"
+      },
+      "Reference": {
+        "sites": 1,
+        "totalViolations": 0,
+        "avgViolations": "0.0"
+      },
+      "Social": {
+        "sites": 7,
+        "totalViolations": 9,
+        "avgViolations": "1.3"
+      },
+      "E-commerce": {
+        "sites": 7,
+        "totalViolations": 8,
+        "avgViolations": "1.1"
+      },
+      "News": {
+        "sites": 5,
+        "totalViolations": 4,
+        "avgViolations": "0.8"
+      },
+      "Tech": {
+        "sites": 8,
+        "totalViolations": 9,
+        "avgViolations": "1.1"
+      },
+      "Productivity": {
+        "sites": 6,
+        "totalViolations": 11,
+        "avgViolations": "1.8"
+      },
+      "Finance": {
+        "sites": 4,
+        "totalViolations": 5,
+        "avgViolations": "1.3"
+      },
+      "Travel": {
+        "sites": 2,
+        "totalViolations": 1,
+        "avgViolations": "0.5"
+      },
+      "Health": {
+        "sites": 1,
+        "totalViolations": 7,
+        "avgViolations": "7.0"
+      },
+      "Education": {
+        "sites": 1,
+        "totalViolations": 1,
+        "avgViolations": "1.0"
+      }
+    },
+    "byImpact": {
+      "critical": 24,
+      "serious": 43,
+      "moderate": 3,
+      "minor": 0
+    }
+  },
+  "sites": [
+    {
+      "url": "https://www.google.com",
+      "name": "Google",
+      "category": "Search",
+      "scannedAt": "2026-07-23T06:20:11.771Z",
+      "status": "completed",
+      "violations": [],
+      "violationCount": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {},
+      "loadTime": 3924,
+      "pageTitle": "Google",
+      "error": null
+    },
+    {
+      "url": "https://www.youtube.com",
+      "name": "YouTube",
+      "category": "Streaming",
+      "scannedAt": "2026-07-23T06:20:11.765Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "aria-allowed-attr",
+          "impact": "critical",
+          "help": "Elements must only use supported ARIA attributes",
+          "description": "Ensure an element's role supports its ARIA attributes",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/aria-allowed-attr?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag412"
+          ],
+          "nodeCount": 4,
+          "nodes": [
+            {
+              "target": [
+                "a[title=\"Home\"]"
+              ],
+              "html": "<a id=\"endpoint\" class=\"yt-simple-endpoint style-scope ytd-mini-guide-entry-renderer\" aria-selected=\"true\" aria-label=\"Home\" title=\"Home\" href=\"/\">",
+              "failureSummary": "Fix all of the following:\n  ARIA attribute is not allowed: aria-selected=\"true\""
+            },
+            {
+              "target": [
+                "a[title=\"Shorts\"]"
+              ],
+              "html": "<a id=\"endpoint\" class=\"yt-simple-endpoint style-scope ytd-mini-guide-entry-renderer\" aria-selected=\"false\" aria-label=\"Shorts\" title=\"Shorts\" href=\"/shorts/\">",
+              "failureSummary": "Fix all of the following:\n  ARIA attribute is not allowed: aria-selected=\"false\""
+            },
+            {
+              "target": [
+                "a[title=\"Subscriptions\"]"
+              ],
+              "html": "<a id=\"endpoint\" class=\"yt-simple-endpoint style-scope ytd-mini-guide-entry-renderer\" aria-selected=\"false\" aria-label=\"Subscriptions\" title=\"Subscriptions\" href=\"/feed/subscriptions\">",
+              "failureSummary": "Fix all of the following:\n  ARIA attribute is not allowed: aria-selected=\"false\""
+            }
+          ]
+        },
+        {
+          "id": "image-alt",
+          "impact": "critical",
+          "help": "Images must have alternative text",
+          "description": "Ensure <img> elements have alternative text or a role of none or presentation",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/image-alt?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag111"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                "#start > ytd-topbar-logo-renderer > a[title=\"YouTube Home\"] > ytd-yoodle-renderer > picture > img[src=\"\"]"
+              ],
+              "html": "<img class=\"style-scope ytd-yoodle-renderer\" src=\"\">",
+              "failureSummary": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        },
+        {
+          "id": "label",
+          "impact": "critical",
+          "help": "Form elements must have labels",
+          "description": "Ensure every form element has a label",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/label?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag412"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                ".ytSearchboxComponentInput"
+              ],
+              "html": "<input class=\"ytSearchboxComponentInput yt-searchbox-input title\" name=\"search_query\" aria-controls=\"i0\" aria-expanded=\"true\" type=\"text\" autocomplete=\"off\" autocorrect=\"off\" spellcheck=\"false\" aria-a",
+              "failureSummary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        },
+        {
+          "id": "link-name",
+          "impact": "serious",
+          "help": "Links must have discernible text",
+          "description": "Ensure links have discernible text",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/link-name?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag244",
+            "wcag412"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                "#start > ytd-topbar-logo-renderer > a[title=\"YouTube Home\"]"
+              ],
+              "html": "<a class=\"yt-simple-endpoint style-scope ytd-topbar-logo-renderer\" id=\"logo\" aria-label=\"\" href=\"/\">",
+              "failureSummary": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+            }
+          ]
+        }
+      ],
+      "violationCount": 4,
+      "errorCount": 4,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 3,
+        "serious": 1,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {
+        "aria-allowed-attr": 4,
+        "image-alt": 1,
+        "label": 1,
+        "link-name": 1
+      },
+      "loadTime": 9644,
+      "pageTitle": "YouTube",
+      "error": null
+    },
+    {
+      "url": "https://www.wikipedia.org",
+      "name": "Wikipedia",
+      "category": "Reference",
+      "scannedAt": "2026-07-23T06:20:11.910Z",
+      "status": "completed",
+      "violations": [],
+      "violationCount": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {},
+      "loadTime": 3033,
+      "pageTitle": "Wikipedia",
+      "error": null
+    },
+    {
+      "url": "https://www.facebook.com",
+      "name": "Facebook",
+      "category": "Social",
+      "scannedAt": "2026-07-23T06:20:11.921Z",
+      "status": "completed",
+      "violations": [],
+      "violationCount": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {},
+      "loadTime": 7341,
+      "pageTitle": "Facebook",
+      "error": null
+    },
+    {
+      "url": "https://www.twitter.com",
+      "name": "Twitter/X",
+      "category": "Social",
+      "scannedAt": "2026-07-23T06:20:11.903Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "meta-viewport",
+          "impact": "moderate",
+          "help": "Zooming and scaling must not be disabled",
+          "description": "Ensure <meta name=\"viewport\"> does not disable text scaling and zooming",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/meta-viewport?application=axeAPI",
+          "tags": [
+            "wcag2aa",
+            "wcag144"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                "meta[name=\"viewport\"]"
+              ],
+              "html": "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover\" nonce=\"eXF9F9vcJHfkqIz2YgkHOw==\">",
+              "failureSummary": "Fix any of the following:\n  user-scalable on <meta> tag disables zooming on mobile devices"
+            }
+          ]
+        }
+      ],
+      "violationCount": 1,
+      "errorCount": 0,
+      "warningCount": 1,
+      "byImpact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 1,
+        "minor": 0
+      },
+      "byRule": {
+        "meta-viewport": 1
+      },
+      "loadTime": 10878,
+      "pageTitle": "X. It’s what’s happening / X",
+      "error": null
+    },
+    {
+      "url": "https://www.instagram.com",
+      "name": "Instagram",
+      "category": "Social",
+      "scannedAt": "2026-07-23T06:20:27.768Z",
+      "status": "completed",
+      "violations": [],
+      "violationCount": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {},
+      "loadTime": 6476,
+      "pageTitle": "Instagram",
+      "error": null
+    },
+    {
+      "url": "https://www.linkedin.com",
+      "name": "LinkedIn",
+      "category": "Social",
+      "scannedAt": "2026-07-23T06:20:27.769Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "list",
+          "impact": "serious",
+          "help": "<ul> and <ol> must only directly contain <li>, <script> or <template> elements",
+          "description": "Ensure that lists are structured correctly",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/list?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag131"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                ".li-footer__list"
+              ],
+              "html": "<ul class=\"li-footer__list flex flex-wrap flex-row items-start justify-start w-full h-auto min-h-[50px] my-[0px] mx-auto py-3 px-2 papabear:p-0\">",
+              "failureSummary": "Fix all of the following:\n  List element has direct children that are not allowed: [role=presentation]"
+            }
+          ]
+        },
+        {
+          "id": "nested-interactive",
+          "impact": "serious",
+          "help": "Interactive controls must not be nested",
+          "description": "Ensure interactive controls are not nested as they are not always announced by screen readers or can cause focus problems for assistive technologies",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/nested-interactive?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag412"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                ".google-auth-button__placeholder"
+              ],
+              "html": "<div class=\"google-auth-button__placeholder mx-auto\n          \" data-theme=\"filled_blue\" data-logo-alignment=\"center\" data-locale=\"en_US\" role=\"button\" aria-label=\"Continue with google\" data-safe-to-s",
+              "failureSummary": "Fix any of the following:\n  Element has focusable descendants"
+            }
+          ]
+        }
+      ],
+      "violationCount": 2,
+      "errorCount": 2,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 2,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {
+        "list": 1,
+        "nested-interactive": 1
+      },
+      "loadTime": 6142,
+      "pageTitle": "LinkedIn: Log In or Sign Up",
+      "error": null
+    },
+    {
+      "url": "https://www.reddit.com",
+      "name": "Reddit",
+      "category": "Social",
+      "scannedAt": "2026-07-23T06:20:27.769Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "document-title",
+          "impact": "serious",
+          "help": "Documents must have <title> element to aid in navigation",
+          "description": "Ensure each HTML document contains a non-empty <title> element",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/document-title?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag242"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                "html"
+              ],
+              "html": "<html>",
+              "failureSummary": "Fix any of the following:\n  Document does not have a non-empty <title> element"
+            }
+          ]
+        },
+        {
+          "id": "html-has-lang",
+          "impact": "serious",
+          "help": "<html> element must have a lang attribute",
+          "description": "Ensure every HTML document has a lang attribute",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/html-has-lang?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag311"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                "html"
+              ],
+              "html": "<html>",
+              "failureSummary": "Fix any of the following:\n  The <html> element does not have a lang attribute"
+            }
+          ]
+        },
+        {
+          "id": "image-alt",
+          "impact": "critical",
+          "help": "Images must have alternative text",
+          "description": "Ensure <img> elements have alternative text or a role of none or presentation",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/image-alt?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag111"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                "img"
+              ],
+              "html": "<img src=\"data:image/png;base6...\">",
+              "failureSummary": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        }
+      ],
+      "violationCount": 3,
+      "errorCount": 3,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 1,
+        "serious": 2,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {
+        "document-title": 1,
+        "html-has-lang": 1,
+        "image-alt": 1
+      },
+      "loadTime": 2069,
+      "pageTitle": "",
+      "error": null
+    },
+    {
+      "url": "https://www.pinterest.com",
+      "name": "Pinterest",
+      "category": "Social",
+      "scannedAt": "2026-07-23T06:20:27.769Z",
+      "status": "completed",
+      "violations": [],
+      "violationCount": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {},
+      "loadTime": 9742,
+      "pageTitle": "Pinterest",
+      "error": null
+    },
+    {
+      "url": "https://www.tiktok.com",
+      "name": "TikTok",
+      "category": "Social",
+      "scannedAt": "2026-07-23T06:20:27.763Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "aria-allowed-attr",
+          "impact": "critical",
+          "help": "Elements must only use supported ARIA attributes",
+          "description": "Ensure an element's role supports its ARIA attributes",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/aria-allowed-attr?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag412"
+          ],
+          "nodeCount": 2,
+          "nodes": [
+            {
+              "target": [
+                ".css-1464rs-7937d88b--DivTriggerButtonWrapper"
+              ],
+              "html": "<div aria-expanded=\"false\" aria-haspopup=\"dialog\" class=\"css-1464rs-7937d88b--DivTriggerButtonWrapper e8wzh870\">",
+              "failureSummary": "Fix all of the following:\n  ARIA attribute is not allowed: aria-expanded=\"false\""
+            },
+            {
+              "target": [
+                "button[data-e2e=\"nav-more-menu\"]"
+              ],
+              "html": "<button class=\"TUXButton TUXButton--default TUXButton--medium TUXButton--secondary css-1t1gyuu-7937d88b--StyledTUXNavButton elec8m60\" aria-disabled=\"false\" type=\"button\" data-e2e=\"nav-more-menu\" aria-",
+              "failureSummary": "Fix all of the following:\n  ARIA attribute is not allowed: aria-pressed=\"false\""
+            }
+          ]
+        },
+        {
+          "id": "aria-required-parent",
+          "impact": "critical",
+          "help": "Certain ARIA roles must be contained by particular parents",
+          "description": "Ensure elements with an ARIA role that require parent roles are contained by them",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/aria-required-parent?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag131"
+          ],
+          "nodeCount": 8,
+          "nodes": [
+            {
+              "target": [
+                ".css-1nj9u0d-7937d88b--StyledTUXNavButton"
+              ],
+              "html": "<button class=\"TUXButton TUXButton--default TUXButton--medium TUXButton--secondary css-1nj9u0d-7937d88b--StyledTUXNavButton elec8m60\" aria-disabled=\"false\" type=\"button\" aria-label=\"For You\" role=\"lis",
+              "failureSummary": "Fix any of the following:\n  Required ARIA parent role not present: list"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Shop\"]"
+              ],
+              "html": "<button class=\"TUXButton TUXButton--default TUXButton--medium TUXButton--secondary css-1t1gyuu-7937d88b--StyledTUXNavButton elec8m60\" aria-disabled=\"false\" type=\"button\" aria-label=\"Shop\" role=\"listit",
+              "failureSummary": "Fix any of the following:\n  Required ARIA parent role not present: list"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Explore\"]"
+              ],
+              "html": "<button class=\"TUXButton TUXButton--default TUXButton--medium TUXButton--secondary css-1t1gyuu-7937d88b--StyledTUXNavButton elec8m60\" aria-disabled=\"false\" type=\"button\" aria-label=\"Explore\" role=\"lis",
+              "failureSummary": "Fix any of the following:\n  Required ARIA parent role not present: list"
+            }
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/color-contrast?application=axeAPI",
+          "tags": [
+            "wcag2aa",
+            "wcag143"
+          ],
+          "nodeCount": 8,
+          "nodes": [
+            {
+              "target": [
+                ".css-15kigdg-7937d88b--StyledTUXSearchButton > .TUXButton-content > .TUXButton-label"
+              ],
+              "html": "<div class=\"TUXButton-label\">Search</div>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.33 (foreground color: #a0a0a0, background color: #f2f2f2, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".css-1nj9u0d-7937d88b--StyledTUXNavButton > .TUXButton-content > .TUXButton-label"
+              ],
+              "html": "<div class=\"TUXButton-label\">For You</div>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.68 (foreground color: #fe2c55, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".css-z0yv3q-7937d88b--StyledLeftSidePrimaryButtonRedesign > .TUXButton-content > .TUXButton-label"
+              ],
+              "html": "<div class=\"TUXButton-label\">Log in</div>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.68 (foreground color: #ffffff, background color: #fe2c55, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        }
+      ],
+      "violationCount": 3,
+      "errorCount": 3,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 2,
+        "serious": 1,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {
+        "aria-allowed-attr": 2,
+        "aria-required-parent": 8,
+        "color-contrast": 8
+      },
+      "loadTime": 12805,
+      "pageTitle": "TikTok - Make Your Day",
+      "error": null
+    },
+    {
+      "url": "https://www.amazon.com",
+      "name": "Amazon",
+      "category": "E-commerce",
+      "scannedAt": "2026-07-23T06:20:41.330Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "document-title",
+          "impact": "serious",
+          "help": "Documents must have <title> element to aid in navigation",
+          "description": "Ensure each HTML document contains a non-empty <title> element",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/document-title?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag242"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                "html"
+              ],
+              "html": "<html lang=\"en\">",
+              "failureSummary": "Fix any of the following:\n  Document does not have a non-empty <title> element"
+            }
+          ]
+        }
+      ],
+      "violationCount": 1,
+      "errorCount": 1,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 1,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {
+        "document-title": 1
+      },
+      "loadTime": 2643,
+      "pageTitle": "",
+      "error": null
+    },
+    {
+      "url": "https://www.ebay.com",
+      "name": "eBay",
+      "category": "E-commerce",
+      "scannedAt": "2026-07-23T06:20:41.331Z",
+      "status": "error",
+      "violations": [],
+      "violationCount": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {},
+      "loadTime": 4990,
+      "pageTitle": "",
+      "error": "Execution context was destroyed, most likely because of a navigation."
+    },
+    {
+      "url": "https://www.walmart.com",
+      "name": "Walmart",
+      "category": "E-commerce",
+      "scannedAt": "2026-07-23T06:20:41.332Z",
+      "status": "completed",
+      "violations": [],
+      "violationCount": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {},
+      "loadTime": 13474,
+      "pageTitle": "Walmart | Save Money. Live better.",
+      "error": null
+    },
+    {
+      "url": "https://www.shopify.com",
+      "name": "Shopify",
+      "category": "E-commerce",
+      "scannedAt": "2026-07-23T06:20:41.331Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "link-name",
+          "impact": "serious",
+          "help": "Links must have discernible text",
+          "description": "Ensure links have discernible text",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/link-name?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag244",
+            "wcag412"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                ".max-lg\\:\\[\\&\\>picture\\]\\:hidden"
+              ],
+              "html": "<a href=\"/editions/spring2026\" class=\"self-center overflow...\" data-component-name=\"button\" target=\"\">",
+              "failureSummary": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+            }
+          ]
+        }
+      ],
+      "violationCount": 1,
+      "errorCount": 1,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 1,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {
+        "link-name": 1
+      },
+      "loadTime": 9164,
+      "pageTitle": "Shopify: The All-in-One Commerce Platform for Businesses - Shopify",
+      "error": null
+    },
+    {
+      "url": "https://www.etsy.com",
+      "name": "Etsy",
+      "category": "E-commerce",
+      "scannedAt": "2026-07-23T06:20:41.330Z",
+      "status": "completed",
+      "violations": [],
+      "violationCount": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {},
+      "loadTime": 1995,
+      "pageTitle": "etsy.com",
+      "error": null
+    },
+    {
+      "url": "https://www.aliexpress.com",
+      "name": "AliExpress",
+      "category": "E-commerce",
+      "scannedAt": "2026-07-23T06:20:55.771Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "button-name",
+          "impact": "critical",
+          "help": "Buttons must have discernible text",
+          "description": "Ensure buttons have discernible text",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/button-name?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag412"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                "._39qI5 > button"
+              ],
+              "html": "<button style=\"padding: 0px; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; background: none;\"><img src=\"https://ae-pic-a1.aliexpress-media.com/kf/S6534f83e4",
+              "failureSummary": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/color-contrast?application=axeAPI",
+          "tags": [
+            "wcag2aa",
+            "wcag143"
+          ],
+          "nodeCount": 7,
+          "nodes": [
+            {
+              "target": [
+                ".cosmos-input-label"
+              ],
+              "html": "<span class=\"cosmos-input-label\">Email</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.92 (foreground color: #979797, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Trouble signing in?\"]"
+              ],
+              "html": "<button aria-label=\"Trouble signing in?\" style=\"padding: 0px; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; background: none; text-decoration: underline;\">T",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.92 (foreground color: #979797, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "label"
+              ],
+              "html": "<label class=\"_3XmG8\">Or continue with</label>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.92 (foreground color: #979797, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        {
+          "id": "html-lang-valid",
+          "impact": "serious",
+          "help": "<html> element must have a valid value for the lang attribute",
+          "description": "Ensure the lang attribute of the <html> element has a valid value",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/html-lang-valid?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag311"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                "html"
+              ],
+              "html": "<html lang=\"en_US\">",
+              "failureSummary": "Fix all of the following:\n  Value of lang attribute not included in the list of valid languages"
+            }
+          ]
+        },
+        {
+          "id": "image-alt",
+          "impact": "critical",
+          "help": "Images must have alternative text",
+          "description": "Ensure <img> elements have alternative text or a role of none or presentation",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/image-alt?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag111"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                ".slick-current > div > ._1iC74 > ._2WMja > .r5eZB"
+              ],
+              "html": "<img class=\"r5eZB\" src=\"https://ae-pic-a1.aliexpress-media.com/kf/S99589468c949452ebfb153afafc8fcfba/1920x1720.png\">",
+              "failureSummary": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        },
+        {
+          "id": "listitem",
+          "impact": "serious",
+          "help": "<li> elements must be contained in a <ul> or <ol>",
+          "description": "Ensure <li> elements are used semantically",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/listitem?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag131"
+          ],
+          "nodeCount": 4,
+          "nodes": [
+            {
+              "target": [
+                "li:nth-child(1)"
+              ],
+              "html": "<li class=\"\"><button>1</button></li>",
+              "failureSummary": "Fix any of the following:\n  List item does not have a <ul>, <ol> parent element"
+            },
+            {
+              "target": [
+                "li:nth-child(2)"
+              ],
+              "html": "<li class=\"\"><button>2</button></li>",
+              "failureSummary": "Fix any of the following:\n  List item does not have a <ul>, <ol> parent element"
+            },
+            {
+              "target": [
+                "li:nth-child(3)"
+              ],
+              "html": "<li class=\"\"><button>3</button></li>",
+              "failureSummary": "Fix any of the following:\n  List item does not have a <ul>, <ol> parent element"
+            }
+          ]
+        }
+      ],
+      "violationCount": 5,
+      "errorCount": 5,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 2,
+        "serious": 3,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {
+        "button-name": 1,
+        "color-contrast": 7,
+        "html-lang-valid": 1,
+        "image-alt": 1,
+        "listitem": 4
+      },
+      "loadTime": 10757,
+      "pageTitle": "Buy Products Online from China Wholesalers at Aliexpress.com",
+      "error": null
+    },
+    {
+      "url": "https://www.target.com",
+      "name": "Target",
+      "category": "E-commerce",
+      "scannedAt": "2026-07-23T06:20:55.772Z",
+      "status": "completed",
+      "violations": [],
+      "violationCount": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {},
+      "loadTime": 19163,
+      "pageTitle": "Target : Expect More. Pay Less.",
+      "error": null
+    },
+    {
+      "url": "https://www.homedepot.com",
+      "name": "Home Depot",
+      "category": "E-commerce",
+      "scannedAt": "2026-07-23T06:20:55.772Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "document-title",
+          "impact": "serious",
+          "help": "Documents must have <title> element to aid in navigation",
+          "description": "Ensure each HTML document contains a non-empty <title> element",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/document-title?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag242"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                "html"
+              ],
+              "html": "<html lang=\"en\">",
+              "failureSummary": "Fix any of the following:\n  Document does not have a non-empty <title> element"
+            }
+          ]
+        }
+      ],
+      "violationCount": 1,
+      "errorCount": 1,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 1,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {
+        "document-title": 1
+      },
+      "loadTime": 3519,
+      "pageTitle": "",
+      "error": null
+    },
+    {
+      "url": "https://www.cnn.com",
+      "name": "CNN",
+      "category": "News",
+      "scannedAt": "2026-07-23T06:20:55.796Z",
+      "status": "completed",
+      "violations": [],
+      "violationCount": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {},
+      "loadTime": 27578,
+      "pageTitle": "Breaking News, Latest News and Videos | CNN",
+      "error": null
+    },
+    {
+      "url": "https://www.bbc.com",
+      "name": "BBC",
+      "category": "News",
+      "scannedAt": "2026-07-23T06:20:55.772Z",
+      "status": "completed",
+      "violations": [],
+      "violationCount": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {},
+      "loadTime": 13934,
+      "pageTitle": "BBC Home - Breaking News, World News, US News, Sports, Business, Innovation, Climate, Culture, Travel, Video & Audio",
+      "error": null
+    },
+    {
+      "url": "https://www.nytimes.com",
+      "name": "NY Times",
+      "category": "News",
+      "scannedAt": "2026-07-23T06:21:24.819Z",
+      "status": "error",
+      "violations": [],
+      "violationCount": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {},
+      "loadTime": 0,
+      "pageTitle": "",
+      "error": "Navigation timeout of 30000 ms exceeded"
+    },
+    {
+      "url": "https://www.theguardian.com",
+      "name": "The Guardian",
+      "category": "News",
+      "scannedAt": "2026-07-23T06:21:24.818Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "button-name",
+          "impact": "critical",
+          "help": "Buttons must have discernible text",
+          "description": "Ensure buttons have discernible text",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/button-name?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag412"
+          ],
+          "nodeCount": 3,
+          "nodes": [
+            {
+              "target": [
+                ".dcr-19sq4do > gu-island[name=\"SelfHostedVideo\"][priority=\"critical\"][deferuntil=\"visible\"] > figure > .dcr-l97w7y > .dcr-179wty7 > .controls-container.dcr-13cdgkt > .play-pause-icon.dcr-19641bk[data-testid=\"play-icon\"]"
+              ],
+              "html": "<button type=\"button\" class=\"play-pause-icon dcr-19641bk\" data-link-name=\"gu-video-loop-play-b668c49c-ff0b-4c42-8143-0a4e7215cf75\" data-testid=\"play-icon\">",
+              "failureSummary": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            },
+            {
+              "target": [
+                ".dcr-1jjgo01 > gu-island[name=\"SelfHostedVideo\"][priority=\"critical\"][deferuntil=\"visible\"] > figure > .dcr-l97w7y > .dcr-179wty7 > .controls-container.dcr-13cdgkt > .play-pause-icon.dcr-19641bk[data-testid=\"play-icon\"]"
+              ],
+              "html": "<button type=\"button\" class=\"play-pause-icon dcr-19641bk\" data-link-name=\"gu-video-loop-play-161844de-c2ed-44d9-ac99-deb4d36327bb\" data-testid=\"play-icon\">",
+              "failureSummary": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            },
+            {
+              "target": [
+                ".dcr-6jojww > gu-island[name=\"SelfHostedVideo\"][priority=\"critical\"][deferuntil=\"visible\"] > figure > .dcr-l97w7y > .dcr-179wty7 > .controls-container.dcr-13cdgkt > .play-pause-icon.dcr-19641bk[data-testid=\"play-icon\"]"
+              ],
+              "html": "<button type=\"button\" class=\"play-pause-icon dcr-19641bk\" data-link-name=\"gu-video-loop-play-b668c49c-ff0b-4c42-8143-0a4e7215cf75\" data-testid=\"play-icon\">",
+              "failureSummary": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        },
+        {
+          "id": "list",
+          "impact": "serious",
+          "help": "<ul> and <ol> must only directly contain <li>, <script> or <template> elements",
+          "description": "Ensure that lists are structured correctly",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/list?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag131"
+          ],
+          "nodeCount": 2,
+          "nodes": [
+            {
+              "target": [
+                ".dcr-wde3dn"
+              ],
+              "html": "<ul data-link-name=\"container-0 | highlights\" data-component=\"highlights\" data-container-name=\"scrollable/highlights\" data-heatphan-type=\"carousel\" class=\"dcr-wde3dn\">",
+              "failureSummary": "Fix all of the following:\n  List element has direct children that are not allowed: [role=group]"
+            },
+            {
+              "target": [
+                ".dcr-5hgcub"
+              ],
+              "html": "<ul class=\"dcr-5hgcub\">",
+              "failureSummary": "Fix all of the following:\n  List element has direct children that are not allowed: div"
+            }
+          ]
+        },
+        {
+          "id": "listitem",
+          "impact": "serious",
+          "help": "<li> elements must be contained in a <ul> or <ol>",
+          "description": "Ensure <li> elements are used semantically",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/listitem?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag131"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                ".dcr-1mxm8te[data-format-theme=\"2\"][data-format-design=\"0\"] > li"
+              ],
+              "html": "<li>",
+              "failureSummary": "Fix any of the following:\n  List item does not have a <ul>, <ol> parent element"
+            }
+          ]
+        },
+        {
+          "id": "target-size",
+          "impact": "serious",
+          "help": "All touch targets must be 24px large, or leave sufficient space",
+          "description": "Ensure touch targets have sufficient size and space",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/target-size?application=axeAPI",
+          "tags": [
+            "wcag22aa",
+            "wcag258"
+          ],
+          "nodeCount": 3,
+          "nodes": [
+            {
+              "target": [
+                ".dcr-gsuzd0 > .dcr-1f3t7nq > .dcr-tj7a39[data-format-design=\"0\"][data-format-theme=\"0\"] > .dcr-1kd7xsm > .dcr-1y98a6f > .dcr-11ufk6s.sublinks > .dcr-wbofqq[data-link-name=\"sublinks | 2\"] > .dcr-tj7a39[data-format-design=\"0\"][data-format-theme=\"0\"] > .dcr-121irzg"
+              ],
+              "html": "<a href=\"/world/2026/jul/22/oil-price-increases-middle-east-conflict-escalates-us-iran\" class=\"dcr-121irzg\">",
+              "failureSummary": "Fix any of the following:\n  Target has insufficient size (460px by 18.2px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 18.2px instead of at least 24px."
+            },
+            {
+              "target": [
+                ".dcr-1mxm8te[data-format-theme=\"2\"][data-format-design=\"0\"] > .dcr-121irzg"
+              ],
+              "html": "<a href=\"/football/gallery/2026/jul/22/the-quirky-side-of-world-cup-2026-in-pictures\" class=\"dcr-121irzg\">",
+              "failureSummary": "Fix any of the following:\n  Target has insufficient size (460px by 18.2px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 18.2px instead of at least 24px."
+            },
+            {
+              "target": [
+                ".dcr-brmwc8:nth-child(3) > .dcr-xfgkr8 > .dcr-tj7a39[data-format-design=\"0\"][data-format-theme=\"0\"] > .dcr-1kd7xsm > .dcr-1y98a6f > .dcr-11ufk6s.sublinks > .dcr-wbofqq[data-link-name=\"sublinks | 1\"] > .dcr-tj7a39[data-format-design=\"0\"][data-format-theme=\"0\"] > .dcr-121irzg"
+              ],
+              "html": "<a href=\"/world/2026/jul/23/ukraine-war-briefing-wildberries-more-warehouses-attacked\" class=\"dcr-121irzg\">",
+              "failureSummary": "Fix any of the following:\n  Target has insufficient size (460px by 18.2px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 18.2px instead of at least 24px."
+            }
+          ]
+        }
+      ],
+      "violationCount": 4,
+      "errorCount": 4,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 1,
+        "serious": 3,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {
+        "button-name": 3,
+        "list": 2,
+        "listitem": 1,
+        "target-size": 3
+      },
+      "loadTime": 12857,
+      "pageTitle": "Latest news, sport and opinion from the Guardian",
+      "error": null
+    },
+    {
+      "url": "https://www.reuters.com",
+      "name": "Reuters",
+      "category": "News",
+      "scannedAt": "2026-07-23T06:21:24.820Z",
+      "status": "completed",
+      "violations": [],
+      "violationCount": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {},
+      "loadTime": 2099,
+      "pageTitle": "reuters.com",
+      "error": null
+    },
+    {
+      "url": "https://www.washingtonpost.com",
+      "name": "Washington Post",
+      "category": "News",
+      "scannedAt": "2026-07-23T06:21:24.869Z",
+      "status": "error",
+      "violations": [],
+      "violationCount": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {},
+      "loadTime": 0,
+      "pageTitle": "",
+      "error": "net::ERR_HTTP2_PROTOCOL_ERROR at https://www.washingtonpost.com"
+    },
+    {
+      "url": "https://www.bloomberg.com",
+      "name": "Bloomberg",
+      "category": "News",
+      "scannedAt": "2026-07-23T06:21:24.819Z",
+      "status": "completed",
+      "violations": [],
+      "violationCount": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {},
+      "loadTime": 2776,
+      "pageTitle": "Bloomberg - Are you a robot?",
+      "error": null
+    },
+    {
+      "url": "https://www.github.com",
+      "name": "GitHub",
+      "category": "Tech",
+      "scannedAt": "2026-07-23T06:21:55.160Z",
+      "status": "completed",
+      "violations": [],
+      "violationCount": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {},
+      "loadTime": 12125,
+      "pageTitle": "GitHub · Change is constant. GitHub keeps you ahead. · GitHub",
+      "error": null
+    },
+    {
+      "url": "https://www.stackoverflow.com",
+      "name": "Stack Overflow",
+      "category": "Tech",
+      "scannedAt": "2026-07-23T06:21:55.161Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/color-contrast?application=axeAPI",
+          "tags": [
+            "wcag2aa",
+            "wcag143"
+          ],
+          "nodeCount": 2,
+          "nodes": [
+            {
+              "target": [
+                "a[title=\"Show 15 items per page\"]"
+              ],
+              "html": "<a href=\"/questions?tab=newest&amp;pagesize=15\" title=\"Show 15 items per page\" class=\"s-pagination--item is-selected\" aria-current=\"true\">15</a>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.12 (foreground color: #ffffff, background color: #e7700d, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".fc-blue-400"
+              ],
+              "html": "<a class=\"s-link s-link__inherit fw-bold fc-blue-400 h:fc-blue-600 js-sofa-sidebar-promo-cta\" href=\"https://agents.stackoverflow.com\" target=\"_blank\" rel=\"noopener noreferrer\" data-event-location=\"3\" ",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.33 (foreground color: #1b75d0, background color: #f6f6fe, font size: 9.8pt (13px), font weight: bold). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        {
+          "id": "link-name",
+          "impact": "serious",
+          "help": "Links must have discernible text",
+          "description": "Ensure links have discernible text",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/link-name?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag244",
+            "wcag412"
+          ],
+          "nodeCount": 4,
+          "nodes": [
+            {
+              "target": [
+                ".subcommunity-topic-nlp"
+              ],
+              "html": "<a class=\"themed subcommunity-topic-avatar subcommunity-topic-nlp s-avatar s-avatar__24 mr2 js-community-tag mb2\" style=\"\" data-controller=\"s-tooltip\" href=\"/collectives/nlp\" aria-describedby=\"--stack",
+              "failureSummary": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+            },
+            {
+              "target": [
+                ".subcommunity-topic-mobile-dev"
+              ],
+              "html": "<a class=\"themed subcommunity-topic-avatar subcommunity-topic-mobile-dev s-avatar s-avatar__24 mr2 js-community-tag mb2\" style=\"\" data-controller=\"s-tooltip\" href=\"/collectives/mobile-dev\" aria-descri",
+              "failureSummary": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+            },
+            {
+              "target": [
+                "a[aria-describedby=\"--stacks-s-tooltip-ovjxc31q\"]"
+              ],
+              "html": "<a class=\"themed subcommunity-topic-avatar subcommunity-topic-azure s-avatar s-avatar__24 mr2 js-community-tag mb2\" style=\"\" data-controller=\"s-tooltip\" href=\"/collectives/azure\" aria-describedby=\"--s",
+              "failureSummary": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+            }
+          ]
+        }
+      ],
+      "violationCount": 2,
+      "errorCount": 2,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 2,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {
+        "color-contrast": 2,
+        "link-name": 4
+      },
+      "loadTime": 14154,
+      "pageTitle": "Newest Questions - Stack Overflow",
+      "error": null
+    },
+    {
+      "url": "https://www.microsoft.com",
+      "name": "Microsoft",
+      "category": "Tech",
+      "scannedAt": "2026-07-23T06:21:55.161Z",
+      "status": "completed",
+      "violations": [],
+      "violationCount": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {},
+      "loadTime": 22772,
+      "pageTitle": "Microsoft – AI, Cloud, Productivity, Computing, Gaming & Apps",
+      "error": null
+    },
+    {
+      "url": "https://www.apple.com",
+      "name": "Apple",
+      "category": "Tech",
+      "scannedAt": "2026-07-23T06:21:55.161Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "aria-required-children",
+          "impact": "critical",
+          "help": "Certain ARIA roles must contain particular children",
+          "description": "Ensure elements with an ARIA role that require child roles contain them",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/aria-required-children?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag131"
+          ],
+          "nodeCount": 2,
+          "nodes": [
+            {
+              "target": [
+                "#tv-media-gallery > .media-gallery-item-container[role=\"list\"]"
+              ],
+              "html": "<ul class=\"media-gallery-item-container\" role=\"list\">",
+              "failureSummary": "Fix any of the following:\n  Element has children which are not allowed: [role=tabpanel]"
+            },
+            {
+              "target": [
+                "#fam-media-gallery > .media-gallery-item-container[role=\"list\"]"
+              ],
+              "html": "<ul class=\"media-gallery-item-container\" role=\"list\">",
+              "failureSummary": "Fix any of the following:\n  Element has children which are not allowed: [role=tabpanel]"
+            }
+          ]
+        },
+        {
+          "id": "target-size",
+          "impact": "serious",
+          "help": "All touch targets must be 24px large, or leave sufficient space",
+          "description": "Ensure touch targets have sufficient size and space",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/target-size?application=axeAPI",
+          "tags": [
+            "wcag22aa",
+            "wcag258"
+          ],
+          "nodeCount": 11,
+          "nodes": [
+            {
+              "target": [
+                "#globalnav-menubutton-link-store"
+              ],
+              "html": "<button id=\"globalnav-menubutton-link-store\" class=\"globalnav-submenu-trigger-button\" aria-expanded=\"false\" aria-controls=\"globalnav-submenu-link-store\" aria-label=\"Store menu\" data-topnav-flyout-trig",
+              "failureSummary": "Fix any of the following:\n  Target has insufficient size (22px by 44px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 7px instead of at least 24px."
+            },
+            {
+              "target": [
+                "#globalnav-menubutton-link-mac"
+              ],
+              "html": "<button id=\"globalnav-menubutton-link-mac\" class=\"globalnav-submenu-trigger-button\" aria-expanded=\"false\" aria-controls=\"globalnav-submenu-link-mac\" aria-label=\"Mac menu\" data-topnav-flyout-trigger-re",
+              "failureSummary": "Fix any of the following:\n  Target has insufficient size (22px by 44px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 7px instead of at least 24px."
+            },
+            {
+              "target": [
+                "#globalnav-menubutton-link-ipad"
+              ],
+              "html": "<button id=\"globalnav-menubutton-link-ipad\" class=\"globalnav-submenu-trigger-button\" aria-expanded=\"false\" aria-controls=\"globalnav-submenu-link-ipad\" aria-label=\"iPad menu\" data-topnav-flyout-trigger",
+              "failureSummary": "Fix any of the following:\n  Target has insufficient size (22px by 44px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 7px instead of at least 24px."
+            }
+          ]
+        }
+      ],
+      "violationCount": 2,
+      "errorCount": 2,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 1,
+        "serious": 1,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {
+        "aria-required-children": 2,
+        "target-size": 11
+      },
+      "loadTime": 1212,
+      "pageTitle": "Apple",
+      "error": null
+    },
+    {
+      "url": "https://www.mozilla.org",
+      "name": "Mozilla",
+      "category": "Tech",
+      "scannedAt": "2026-07-23T06:21:55.161Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "blink",
+          "impact": "serious",
+          "help": "<blink> elements are deprecated and must not be used",
+          "description": "Ensure <blink> elements are not used",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/blink?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag222"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                "blink"
+              ],
+              "html": "<blink class=\"spacer-gif\"></blink>",
+              "failureSummary": "Fix all of the following:\n  Element is visible"
+            }
+          ]
+        }
+      ],
+      "violationCount": 1,
+      "errorCount": 1,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 1,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {
+        "blink": 1
+      },
+      "loadTime": 4908,
+      "pageTitle": "Mozilla - Internet for people, not profit (US)",
+      "error": null
+    },
+    {
+      "url": "https://www.cloudflare.com",
+      "name": "Cloudflare",
+      "category": "Tech",
+      "scannedAt": "2026-07-23T06:22:19.648Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/color-contrast?application=axeAPI",
+          "tags": [
+            "wcag2aa",
+            "wcag143"
+          ],
+          "nodeCount": 2,
+          "nodes": [
+            {
+              "target": [
+                ".leading-\\[16px\\].text-\\[14px\\].tracking-\\[-0\\.02em\\]"
+              ],
+              "html": "<span class=\"text-[14px] leading-[16px] tracking-[-0.02em]\">Enter</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.05 (foreground color: #ffffff, background color: #ff5e1f, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".border-light-foreground\\/10 > astro-slot > span[data-cms-type=\"text\"]"
+              ],
+              "html": "<span data-cms-path=\"build-sections.default.secondaryCtaText\" data-cms-type=\"text\"> View docs </span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.75 (foreground color: #ffffff, background color: #ff7038, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        }
+      ],
+      "violationCount": 1,
+      "errorCount": 1,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 1,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {
+        "color-contrast": 2
+      },
+      "loadTime": 17276,
+      "pageTitle": "Cloudflare: Build for the agent era",
+      "error": null
+    },
+    {
+      "url": "https://www.openai.com",
+      "name": "OpenAI",
+      "category": "Tech",
+      "scannedAt": "2026-07-23T06:22:19.647Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "html-has-lang",
+          "impact": "serious",
+          "help": "<html> element must have a lang attribute",
+          "description": "Ensure every HTML document has a lang attribute",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/html-has-lang?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag311"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                "html"
+              ],
+              "html": "<html dir=\"ltr\">",
+              "failureSummary": "Fix any of the following:\n  The <html> element does not have a lang attribute"
+            }
+          ]
+        },
+        {
+          "id": "meta-refresh",
+          "impact": "critical",
+          "help": "Delayed refresh under 20 hours must not be used",
+          "description": "Ensure <meta http-equiv=\"refresh\"> is not used for delayed refresh",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/meta-refresh?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag221"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                "meta"
+              ],
+              "html": "<meta http-equiv=\"refresh\" content=\"360\">",
+              "failureSummary": "Fix any of the following:\n  <meta> tag forces timed refresh of page (less than 20 hours)"
+            }
+          ]
+        }
+      ],
+      "violationCount": 2,
+      "errorCount": 2,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 1,
+        "serious": 1,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {
+        "html-has-lang": 1,
+        "meta-refresh": 1
+      },
+      "loadTime": 1993,
+      "pageTitle": "",
+      "error": null
+    },
+    {
+      "url": "https://www.anthropic.com",
+      "name": "Anthropic",
+      "category": "Tech",
+      "scannedAt": "2026-07-23T06:22:19.648Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "link-name",
+          "impact": "serious",
+          "help": "Links must have discernible text",
+          "description": "Ensure links have discernible text",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/link-name?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag244",
+            "wcag412"
+          ],
+          "nodeCount": 6,
+          "nodes": [
+            {
+              "target": [
+                "a[data-cta-text=\"Core views on AI safety\"]"
+              ],
+              "html": "<a data-cta-text=\"Core views on AI safety\" data-cta=\"Home page\" data-cta-position=\"Featured section\" href=\"https://www.anthropic.com/news/core-views-on-ai-safety\" class=\"g_clickable_link w-inline-bloc",
+              "failureSummary": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+            },
+            {
+              "target": [
+                "li:nth-child(2) > .article-list-item.u-detail-m[data-wf--global-article-list-item--variant=\"featured\"] > .g_clickable_link[data-cta-position=\"Featured section\"][data-cta=\"Home page\"]"
+              ],
+              "html": "<a data-cta-text=\"Anthropic’s Responsible Scaling Policy\" data-cta=\"Home page\" data-cta-position=\"Featured section\" href=\"https://www.anthropic.com/rsp-updates\" class=\"g_clickable_link w-inline-block\"",
+              "failureSummary": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+            },
+            {
+              "target": [
+                "li:nth-child(3) > .article-list-item.u-detail-m[data-wf--global-article-list-item--variant=\"featured\"] > .g_clickable_link[data-cta-position=\"Featured section\"][data-cta=\"Home page\"]"
+              ],
+              "html": "<a data-cta-text=\"Anthropic Academy: Build and Learn with Claude\" data-cta=\"Home page\" data-cta-position=\"Featured section\" href=\"https://www.anthropic.com/learn\" class=\"g_clickable_link w-inline-bloc",
+              "failureSummary": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+            }
+          ]
+        }
+      ],
+      "violationCount": 1,
+      "errorCount": 1,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 1,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {
+        "link-name": 6
+      },
+      "loadTime": 11736,
+      "pageTitle": "Home \\ Anthropic",
+      "error": null
+    },
+    {
+      "url": "https://www.netflix.com",
+      "name": "Netflix",
+      "category": "Streaming",
+      "scannedAt": "2026-07-23T06:22:19.652Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "meta-viewport",
+          "impact": "moderate",
+          "help": "Zooming and scaling must not be disabled",
+          "description": "Ensure <meta name=\"viewport\"> does not disable text scaling and zooming",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/meta-viewport?application=axeAPI",
+          "tags": [
+            "wcag2aa",
+            "wcag144"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                "meta[name=\"viewport\"]"
+              ],
+              "html": "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0\">",
+              "failureSummary": "Fix any of the following:\n  maximum-scale on <meta> tag disables zooming on mobile devices"
+            }
+          ]
+        }
+      ],
+      "violationCount": 1,
+      "errorCount": 0,
+      "warningCount": 1,
+      "byImpact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 1,
+        "minor": 0
+      },
+      "byRule": {
+        "meta-viewport": 1
+      },
+      "loadTime": 6935,
+      "pageTitle": "Netflix - Watch TV Shows Online, Watch Movies Online",
+      "error": null
+    },
+    {
+      "url": "https://www.spotify.com",
+      "name": "Spotify",
+      "category": "Streaming",
+      "scannedAt": "2026-07-23T06:22:19.652Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "aria-required-children",
+          "impact": "critical",
+          "help": "Certain ARIA roles must contain particular children",
+          "description": "Ensure elements with an ARIA role that require child roles contain them",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/aria-required-children?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag131"
+          ],
+          "nodeCount": 2,
+          "nodes": [
+            {
+              "target": [
+                ".QX95pTnCYcsJl9oD > .DTD2wBL5oiABNB41[aria-rowindex=\"1\"][role=\"row\"]"
+              ],
+              "html": "<div class=\"DTD2wBL5oiABNB41\" role=\"row\" aria-rowindex=\"1\" style=\"height: calc(100% + 0px);\"></div>",
+              "failureSummary": "Fix any of the following:\n  Required ARIA children role not present: cell, columnheader, gridcell, rowheader"
+            },
+            {
+              "target": [
+                ".Df7FJJOGsrwyBq9p > .DTD2wBL5oiABNB41[aria-rowindex=\"1\"][role=\"row\"]"
+              ],
+              "html": "<div class=\"DTD2wBL5oiABNB41\" role=\"row\" aria-rowindex=\"1\" style=\"height: calc(100% + 0px);\"></div>",
+              "failureSummary": "Fix any of the following:\n  Required ARIA children role not present: cell, columnheader, gridcell, rowheader"
+            }
+          ]
+        },
+        {
+          "id": "aria-required-parent",
+          "impact": "critical",
+          "help": "Certain ARIA roles must be contained by particular parents",
+          "description": "Ensure elements with an ARIA role that require parent roles are contained by them",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/aria-required-parent?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag131"
+          ],
+          "nodeCount": 54,
+          "nodes": [
+            {
+              "target": [
+                "#react-aria8991837729-\\:r3\\:-react-aria-1 > div[role=\"gridcell\"][aria-colindex=\"1\"] > .LXxEtdyreLg2dh0C[data-carousel-item=\"true\"][role=\"presentation\"] > .e-10451-box--interactive.e-10451-box--padding-custom.e-10451-card"
+              ],
+              "html": "<div class=\"e-10451-box e-10451-...\" data-encore-id=\"card\" role=\"listitem\" aria-labelledby=\"card-title-spotify:t...\" draggable=\"true\" style=\"--box-padding: var(-...\">",
+              "failureSummary": "Fix any of the following:\n  Required ARIA parent role not present: list"
+            },
+            {
+              "target": [
+                "#react-aria8991837729-\\:r3\\:-react-aria-2 > div[role=\"gridcell\"][aria-colindex=\"1\"] > .LXxEtdyreLg2dh0C[data-carousel-item=\"true\"][role=\"presentation\"] > .e-10451-box--interactive.e-10451-box--padding-custom.e-10451-card"
+              ],
+              "html": "<div class=\"e-10451-box e-10451-...\" data-encore-id=\"card\" role=\"listitem\" aria-labelledby=\"card-title-spotify:t...\" draggable=\"true\" style=\"--box-padding: var(-...\">",
+              "failureSummary": "Fix any of the following:\n  Required ARIA parent role not present: list"
+            },
+            {
+              "target": [
+                "#react-aria8991837729-\\:r3\\:-react-aria-3 > div[role=\"gridcell\"][aria-colindex=\"1\"] > .LXxEtdyreLg2dh0C[data-carousel-item=\"true\"][role=\"presentation\"] > .e-10451-box--interactive.e-10451-box--padding-custom.e-10451-card"
+              ],
+              "html": "<div class=\"e-10451-box e-10451-...\" data-encore-id=\"card\" role=\"listitem\" aria-labelledby=\"card-title-spotify:t...\" draggable=\"true\" style=\"--box-padding: var(-...\">",
+              "failureSummary": "Fix any of the following:\n  Required ARIA parent role not present: list"
+            }
+          ]
+        },
+        {
+          "id": "aria-roles",
+          "impact": "critical",
+          "help": "ARIA roles used must conform to valid values",
+          "description": "Ensure all elements with a role attribute use a valid value",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/aria-roles?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag412"
+          ],
+          "nodeCount": 54,
+          "nodes": [
+            {
+              "target": [
+                "#react-aria8991837729-\\:r3\\:-react-aria-1 > div[role=\"gridcell\"][aria-colindex=\"1\"] > .LXxEtdyreLg2dh0C[data-carousel-item=\"true\"][role=\"presentation\"] > .e-10451-box--interactive.e-10451-box--padding-custom.e-10451-card > .YR9YVGItxfIgAZje > .qpns1iHTAt8rMNnK > .pk3lz3TYlskuAfwV[role=\"div\"]"
+              ],
+              "html": "<div class=\"pk3lz3TYlskuAfwV\" role=\"div\">",
+              "failureSummary": "Fix all of the following:\n  Role must be one of the valid ARIA roles: div"
+            },
+            {
+              "target": [
+                "#react-aria8991837729-\\:r3\\:-react-aria-2 > div[role=\"gridcell\"][aria-colindex=\"1\"] > .LXxEtdyreLg2dh0C[data-carousel-item=\"true\"][role=\"presentation\"] > .e-10451-box--interactive.e-10451-box--padding-custom.e-10451-card > .YR9YVGItxfIgAZje > .qpns1iHTAt8rMNnK > .pk3lz3TYlskuAfwV[role=\"div\"]"
+              ],
+              "html": "<div class=\"pk3lz3TYlskuAfwV\" role=\"div\">",
+              "failureSummary": "Fix all of the following:\n  Role must be one of the valid ARIA roles: div"
+            },
+            {
+              "target": [
+                "#react-aria8991837729-\\:r3\\:-react-aria-3 > div[role=\"gridcell\"][aria-colindex=\"1\"] > .LXxEtdyreLg2dh0C[data-carousel-item=\"true\"][role=\"presentation\"] > .e-10451-box--interactive.e-10451-box--padding-custom.e-10451-card > .YR9YVGItxfIgAZje > .qpns1iHTAt8rMNnK > .pk3lz3TYlskuAfwV[role=\"div\"]"
+              ],
+              "html": "<div class=\"pk3lz3TYlskuAfwV\" role=\"div\">",
+              "failureSummary": "Fix all of the following:\n  Role must be one of the valid ARIA roles: div"
+            }
+          ]
+        },
+        {
+          "id": "meta-viewport",
+          "impact": "moderate",
+          "help": "Zooming and scaling must not be disabled",
+          "description": "Ensure <meta name=\"viewport\"> does not disable text scaling and zooming",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/meta-viewport?application=axeAPI",
+          "tags": [
+            "wcag2aa",
+            "wcag144"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                "meta[name=\"viewport\"]"
+              ],
+              "html": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1\">",
+              "failureSummary": "Fix any of the following:\n  maximum-scale on <meta> tag disables zooming on mobile devices"
+            }
+          ]
+        },
+        {
+          "id": "target-size",
+          "impact": "serious",
+          "help": "All touch targets must be 24px large, or leave sufficient space",
+          "description": "Ensure touch targets have sufficient size and space",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/target-size?application=axeAPI",
+          "tags": [
+            "wcag22aa",
+            "wcag258"
+          ],
+          "nodeCount": 4,
+          "nodes": [
+            {
+              "target": [
+                "a[href$=\"5f7VJjfbwm532GiveGC0ZK\"]"
+              ],
+              "html": "<a draggable=\"true\" dir=\"auto\" href=\"/artist/5f7VJjfbwm532GiveGC0ZK\">Lil Baby</a>",
+              "failureSummary": "Fix any of the following:\n  Target has insufficient size (49px by 20px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 20px instead of at least 24px."
+            },
+            {
+              "target": [
+                "a[href$=\"4tuJ0bMpJh08umKkEXKUI5\"]"
+              ],
+              "html": "<a draggable=\"true\" dir=\"auto\" href=\"/artist/4tuJ0bMpJh08umKkEXKUI5\">Gracie Abrams</a>",
+              "failureSummary": "Fix any of the following:\n  Target has insufficient size (93.6px by 20px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 20px instead of at least 24px."
+            },
+            {
+              "target": [
+                "a[href$=\"0Uo0W0Vfq9ZOLCFngwxOLm\"]"
+              ],
+              "html": "<a draggable=\"true\" dir=\"auto\" href=\"/artist/0Uo0W0Vfq9ZOLCFngwxOLm\">pupsies</a>",
+              "failureSummary": "Fix any of the following:\n  Target has insufficient size (49.8px by 20px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 20px instead of at least 24px."
+            }
+          ]
+        }
+      ],
+      "violationCount": 5,
+      "errorCount": 4,
+      "warningCount": 1,
+      "byImpact": {
+        "critical": 3,
+        "serious": 1,
+        "moderate": 1,
+        "minor": 0
+      },
+      "byRule": {
+        "aria-required-children": 2,
+        "aria-required-parent": 54,
+        "aria-roles": 54,
+        "meta-viewport": 1,
+        "target-size": 4
+      },
+      "loadTime": 13866,
+      "pageTitle": "Spotify - Web Player: Music for everyone",
+      "error": null
+    },
+    {
+      "url": "https://www.twitch.tv",
+      "name": "Twitch",
+      "category": "Streaming",
+      "scannedAt": "2026-07-23T06:22:38.231Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "autocomplete-valid",
+          "impact": "serious",
+          "help": "autocomplete attribute must be used correctly",
+          "description": "Ensure the autocomplete attribute is correct and suitable for the form field",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/autocomplete-valid?application=axeAPI",
+          "tags": [
+            "wcag21aa",
+            "wcag135"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                "#tw-008079b2d607459ca0dcb5ef46f5af19"
+              ],
+              "html": "<input id=\"tw-008079b2d607459ca...\" aria-label=\"Search Input\" aria-haspopup=\"grid\" type=\"search\" class=\"ScInputBase-sc-vu7u7...\" placeholder=\"Search\" autocapitalize=\"off\" autocorrect=\"off\" autocomplet",
+              "failureSummary": "Fix all of the following:\n  the autocomplete attribute is incorrectly formatted"
+            }
+          ]
+        },
+        {
+          "id": "frame-title",
+          "impact": "serious",
+          "help": "Frames must have an accessible name",
+          "description": "Ensure <iframe> and <frame> elements have an accessible name",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/frame-title?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag412"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                "#amznidpxl"
+              ],
+              "html": "<iframe src=\"https://s.amazon-adsystem.com/iui3?pid=a30f442a-e833-4300-a302-987199caf562\" height=\"1\" width=\"1\" scrolling=\"no\" frameborder=\"0\" id=\"amznidpxl\"></iframe>",
+              "failureSummary": "Fix any of the following:\n  Element has no title attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        },
+        {
+          "id": "nested-interactive",
+          "impact": "serious",
+          "help": "Interactive controls must not be nested",
+          "description": "Ensure interactive controls are not nested as they are not always announced by screen readers or can cause focus problems for assistive technologies",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/nested-interactive?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag412"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                "button[data-a-target=\"user-menu-toggle\"]"
+              ],
+              "html": "<button data-a-target=\"user-menu-toggle\" data-test-selector=\"user-menu__toggle\" aria-label=\"User Menu\" aria-expanded=\"false\">",
+              "failureSummary": "Fix any of the following:\n  Element has focusable descendants"
+            }
+          ]
+        },
+        {
+          "id": "role-img-alt",
+          "impact": "serious",
+          "help": "[role=\"img\"] elements must have alternative text",
+          "description": "Ensure [role=\"img\"] elements have alternative text",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/role-img-alt?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag111"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                ".hype-train-icon"
+              ],
+              "html": "<div role=\"img\" class=\"Layout-sc-1xcs6mc-0 hype-train-icon hype-train-icon__train hype-train-icon__train--default\" style=\"margin-top: 0.25rem;\"></div>",
+              "failureSummary": "Fix any of the following:\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+            }
+          ]
+        }
+      ],
+      "violationCount": 4,
+      "errorCount": 4,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 4,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {
+        "autocomplete-valid": 1,
+        "frame-title": 1,
+        "nested-interactive": 1,
+        "role-img-alt": 1
+      },
+      "loadTime": 18869,
+      "pageTitle": "Twitch",
+      "error": null
+    },
+    {
+      "url": "https://www.disney.com",
+      "name": "Disney",
+      "category": "Streaming",
+      "scannedAt": "2026-07-23T06:22:38.231Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "html-has-lang",
+          "impact": "serious",
+          "help": "<html> element must have a lang attribute",
+          "description": "Ensure every HTML document has a lang attribute",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/html-has-lang?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag311"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                "html"
+              ],
+              "html": "<html>",
+              "failureSummary": "Fix any of the following:\n  The <html> element does not have a lang attribute"
+            }
+          ]
+        }
+      ],
+      "violationCount": 1,
+      "errorCount": 1,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 1,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {
+        "html-has-lang": 1
+      },
+      "loadTime": 1821,
+      "pageTitle": "Access Denied",
+      "error": null
+    },
+    {
+      "url": "https://www.google.com/docs",
+      "name": "Google Docs",
+      "category": "Productivity",
+      "scannedAt": "2026-07-23T06:22:38.231Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "select-name",
+          "impact": "critical",
+          "help": "Select element must have an accessible name",
+          "description": "Ensure select element has an accessible name",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/select-name?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag412"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                "select"
+              ],
+              "html": "<select name=\"hl\" class=\"N158t\" data-language-selector-select=\"\" jsname=\"rfCUpd\">",
+              "failureSummary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        }
+      ],
+      "violationCount": 1,
+      "errorCount": 1,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 1,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {
+        "select-name": 1
+      },
+      "loadTime": 3712,
+      "pageTitle": "Sign in - Google Accounts",
+      "error": null
+    },
+    {
+      "url": "https://www.notion.so",
+      "name": "Notion",
+      "category": "Productivity",
+      "scannedAt": "2026-07-23T06:22:38.231Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/color-contrast?application=axeAPI",
+          "tags": [
+            "wcag2aa",
+            "wcag143"
+          ],
+          "nodeCount": 2,
+          "nodes": [
+            {
+              "target": [
+                ".gap-8.flex-col.items-stretch > .semanticTypography_variantGlobalContext__VDlwW"
+              ],
+              "html": "<h3 class=\"semanticTypography_semanticTypography__mWJkv semanticTypography_variantGlobalContext__VDlwW\">See what Custom Agents can do</h3>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.48 (foreground color: #717170, background color: #f6f5f4, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".InlineTextLink_colorTheme__waxe8 > .InlineTextLink_linkContent__SYI4r"
+              ],
+              "html": "<span class=\"InlineTextLink_linkContent__SYI4r\">Read the full story</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.19 (foreground color: #0075de, background color: #f6f5f4, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        {
+          "id": "list",
+          "impact": "serious",
+          "help": "<ul> and <ol> must only directly contain <li>, <script> or <template> elements",
+          "description": "Ensure that lists are structured correctly",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/list?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag131"
+          ],
+          "nodeCount": 4,
+          "nodes": [
+            {
+              "target": [
+                "ul[aria-labelledby=\"company\"]"
+              ],
+              "html": "<ul aria-labelledby=\"company\" class=\"flex flex-col items-stretch justify-start flex-nowrap inline-full gap-0 ps-0 mt-0 mb-0 menuList_menuList__Tn7rd footer_footerMenuList__kqQhv\">",
+              "failureSummary": "Fix all of the following:\n  List element has direct children that are not allowed: [role=none]"
+            },
+            {
+              "target": [
+                "ul[aria-labelledby=\"download\"]"
+              ],
+              "html": "<ul aria-labelledby=\"download\" class=\"flex flex-col items-stretch justify-start flex-nowrap inline-full gap-0 ps-0 mt-0 mb-0 menuList_menuList__Tn7rd footer_footerMenuList__kqQhv\">",
+              "failureSummary": "Fix all of the following:\n  List element has direct children that are not allowed: [role=none]"
+            },
+            {
+              "target": [
+                "ul[aria-labelledby=\"resources\"]"
+              ],
+              "html": "<ul aria-labelledby=\"resources\" class=\"flex flex-col items-stretch justify-start flex-nowrap inline-full gap-0 ps-0 mt-0 mb-0 menuList_menuList__Tn7rd footer_footerMenuList__kqQhv\">",
+              "failureSummary": "Fix all of the following:\n  List element has direct children that are not allowed: [role=none]"
+            }
+          ]
+        }
+      ],
+      "violationCount": 2,
+      "errorCount": 2,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 2,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {
+        "color-contrast": 2,
+        "list": 4
+      },
+      "loadTime": 15673,
+      "pageTitle": "The AI workspace that works for you. | Notion",
+      "error": null
+    },
+    {
+      "url": "https://www.figma.com",
+      "name": "Figma",
+      "category": "Productivity",
+      "scannedAt": "2026-07-23T06:22:38.230Z",
+      "status": "completed",
+      "violations": [],
+      "violationCount": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {},
+      "loadTime": 5898,
+      "pageTitle": "Figma: The collaborative canvas for design, code, and AI",
+      "error": null
+    },
+    {
+      "url": "https://www.slack.com",
+      "name": "Slack",
+      "category": "Productivity",
+      "scannedAt": "2026-07-23T06:22:58.220Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "link-in-text-block",
+          "impact": "serious",
+          "help": "Links must be distinguishable without relying on color",
+          "description": "Ensure links are distinguished from surrounding text in a way that does not rely on color",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/link-in-text-block?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag141"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                "#onetrust-policy-text > a[target=\"_blank\"]"
+              ],
+              "html": "<a href=\"https://www.salesforce.com/company/privacy/full_privacy/\" target=\"_blank\">Privacy Statement</a>",
+              "failureSummary": "Fix any of the following:\n  The link has insufficient color contrast of 2.71:1 with the surrounding text. (Minimum contrast is 3:1, link text: #1264a3, surrounding text: #1d1d1d)\n  The link has no styling (such as underline) to distinguish it from the surrounding text"
+            }
+          ]
+        }
+      ],
+      "violationCount": 1,
+      "errorCount": 1,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 1,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {
+        "link-in-text-block": 1
+      },
+      "loadTime": 21984,
+      "pageTitle": "Slack | AI Work Platform & Productivity Tools",
+      "error": null
+    },
+    {
+      "url": "https://www.zoom.us",
+      "name": "Zoom",
+      "category": "Productivity",
+      "scannedAt": "2026-07-23T06:22:58.217Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "aria-allowed-attr",
+          "impact": "critical",
+          "help": "Elements must only use supported ARIA attributes",
+          "description": "Ensure an element's role supports its ARIA attributes",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/aria-allowed-attr?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag412"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                ".zdcm-module-footer-nav"
+              ],
+              "html": "<nav class=\"zdcm-module-footer-nav js-module-footer-nav\" aria-multiselectable=\"true\">",
+              "failureSummary": "Fix all of the following:\n  ARIA attribute is not allowed: aria-multiselectable=\"true\""
+            }
+          ]
+        },
+        {
+          "id": "aria-required-children",
+          "impact": "critical",
+          "help": "Certain ARIA roles must contain particular children",
+          "description": "Ensure elements with an ARIA role that require child roles contain them",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/aria-required-children?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag131"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                "#multi-tab-feature-component"
+              ],
+              "html": "<section class=\"fdn-zdcm-feature-acc...\" data-cmp-is=\"fdn-zdcm-accordion-t...\" role=\"tablist\" aria-label=\"Feature Tabs\" id=\"multi-tab-feature-co...\" data-auto-switch-dur...=\"15000\" style=\"--auto-switc",
+              "failureSummary": "Fix any of the following:\n  Element has children which are not allowed: [role=tabpanel]"
+            }
+          ]
+        },
+        {
+          "id": "button-name",
+          "impact": "critical",
+          "help": "Buttons must have discernible text",
+          "description": "Ensure buttons have discernible text",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/button-name?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag412"
+          ],
+          "nodeCount": 2,
+          "nodes": [
+            {
+              "target": [
+                "#nav-language-trigger"
+              ],
+              "html": "<button class=\"nav-utils__link nav-utils__link--language\" aria-haspopup=\"true\" aria-expanded=\"false\" aria-controls=\"nav-language-dropdown\" id=\"nav-language-trigger\">",
+              "failureSummary": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            },
+            {
+              "target": [
+                ".fdn-logo-slide__control--pause"
+              ],
+              "html": "<button class=\"fdn-logo-slide__control fdn-logo-slide__control--pause\" aria-label=\"\"></button>",
+              "failureSummary": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/color-contrast?application=axeAPI",
+          "tags": [
+            "wcag2aa",
+            "wcag143"
+          ],
+          "nodeCount": 3,
+          "nodes": [
+            {
+              "target": [
+                ".rating-item:nth-child(1) > .rating-text > p"
+              ],
+              "html": "<p>out of 7.9k+ reviews</p>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.36 (foreground color: #8c8c8c, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".rating-item:nth-child(3) > .rating-text > p"
+              ],
+              "html": "<p>out of 54.9k+ reviews</p>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.36 (foreground color: #8c8c8c, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".rating-item:nth-child(5) > .rating-text > p"
+              ],
+              "html": "<p>out of 5.8k+ reviews</p>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.36 (foreground color: #8c8c8c, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        {
+          "id": "image-alt",
+          "impact": "critical",
+          "help": "Images must have alternative text",
+          "description": "Ensure <img> elements have alternative text or a role of none or presentation",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/image-alt?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag111"
+          ],
+          "nodeCount": 3,
+          "nodes": [
+            {
+              "target": [
+                "button[data-template=\"js-language-content\"] > .zdcm-module-footer-dropdown__svg"
+              ],
+              "html": "<img class=\"zdcm-module-footer-dropdown__svg\" src=\"https://st1.zoom.us/homepage/20260722-1234/primary/dist/assets/zoommedia/CaretDown.svg\">",
+              "failureSummary": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            },
+            {
+              "target": [
+                "button[data-template=\"js-currency-content\"] > .zdcm-module-footer-dropdown__svg"
+              ],
+              "html": "<img class=\"zdcm-module-footer-dropdown__svg\" src=\"https://st1.zoom.us/homepage/20260722-1234/primary/dist/assets/zoommedia/CaretDown.svg\">",
+              "failureSummary": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            },
+            {
+              "target": [
+                "#ot-do-not-sell > img"
+              ],
+              "html": "<img src=\"https://st1.zoom.us/homepage/20260722-1234/primary/dist/assets/images/privacyoptions.png\">",
+              "failureSummary": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        },
+        {
+          "id": "link-name",
+          "impact": "serious",
+          "help": "Links must have discernible text",
+          "description": "Ensure links have discernible text",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/link-name?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag244",
+            "wcag412"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                ".fdn-alert-banner"
+              ],
+              "html": "<a href=\"https://www.zoom.com/en/products/ai-assistant/features/ai-note-taking/\" aria-live=\"polite\" role=\"alert\" data-link-type=\"\" data-en-text=\"Explore My Notes\" data-cmp-is=\"alert-banner\" class=\"fdn",
+              "failureSummary": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+            }
+          ]
+        }
+      ],
+      "violationCount": 6,
+      "errorCount": 6,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 4,
+        "serious": 2,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {
+        "aria-allowed-attr": 1,
+        "aria-required-children": 1,
+        "button-name": 2,
+        "color-contrast": 3,
+        "image-alt": 3,
+        "link-name": 1
+      },
+      "loadTime": 27338,
+      "pageTitle": "One platform to connect | Zoom",
+      "error": null
+    },
+    {
+      "url": "https://www.dropbox.com",
+      "name": "Dropbox",
+      "category": "Productivity",
+      "scannedAt": "2026-07-23T06:22:58.235Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/color-contrast?application=axeAPI",
+          "tags": [
+            "wcag2aa",
+            "wcag143"
+          ],
+          "nodeCount": 4,
+          "nodes": [
+            {
+              "target": [
+                ".dwg-p--1_5"
+              ],
+              "html": "<span class=\"dwg-text dwg-font-family--atlas-grotesk dwg-font-size--16 dwg-font-weight--medium dwg-line-height--24 dwg-box dwg-p--1_5 dwg-m--0 dwg-bg-color--transparent\">Skip to main content</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.08 (foreground color: #f7f5f2, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "._card_1b963_1._cardEntryAnimation_1b963_1._card_1pqxe_10:nth-child(1) > .tablet\\:dwg-pt--0.tablet\\:dwg-pb--0_5.dwg-pt--1 > ._eyebrowText_1pqxe_27.tablet\\:dwg-mt--1_5.dwg-font-size--12"
+              ],
+              "html": "<span class=\"dwg-text dwg-font-family--atlas-grotesk dwg-font-size--12 dwg-font-weight--bold dwg-font-style--normal dwg-line-height--120% _eyebrowText_1pqxe_27 dwg-box dwg-p--0 dwg-m--0 dwg-mt--3 tabl",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.43 (foreground color: #cd2f7b, background color: #1c1d21, font size: 9.0pt (12px), font weight: bold). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "._card_1b963_1._cardEntryAnimation_1b963_1._card_1pqxe_10:nth-child(2) > .tablet\\:dwg-pt--0.tablet\\:dwg-pb--0_5.dwg-pt--1 > ._eyebrowText_1pqxe_27.tablet\\:dwg-mt--1_5.dwg-font-size--12"
+              ],
+              "html": "<span class=\"dwg-text dwg-font-family--atlas-grotesk dwg-font-size--12 dwg-font-weight--bold dwg-font-style--normal dwg-line-height--120% _eyebrowText_1pqxe_27 dwg-box dwg-p--0 dwg-m--0 dwg-mt--3 tabl",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.43 (foreground color: #cd2f7b, background color: #1c1d21, font size: 9.0pt (12px), font weight: bold). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        }
+      ],
+      "violationCount": 1,
+      "errorCount": 1,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 1,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {
+        "color-contrast": 4
+      },
+      "loadTime": 21524,
+      "pageTitle": "Dropbox: Secure cloud storage, file sharing, and more",
+      "error": null
+    },
+    {
+      "url": "https://www.paypal.com",
+      "name": "PayPal",
+      "category": "Finance",
+      "scannedAt": "2026-07-23T06:22:58.219Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/color-contrast?application=axeAPI",
+          "tags": [
+            "wcag2aa",
+            "wcag143"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                "#manageCookiesLink"
+              ],
+              "html": "<a id=\"manageCookiesLink\" href=\"https://www.paypal.com/myaccount/privacy/cookiePrefs?locale=en_US\" pagename=\"Pay, Send and Save Money with PayPal | PayPal US|managecookies\" pa-marked=\"1\">Manage cookie",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.27 (foreground color: #0070e0, background color: #f0f2f9, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        }
+      ],
+      "violationCount": 1,
+      "errorCount": 1,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 1,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {
+        "color-contrast": 1
+      },
+      "loadTime": 11301,
+      "pageTitle": "Pay, Send and Save Money with PayPal | PayPal US",
+      "error": null
+    },
+    {
+      "url": "https://www.stripe.com",
+      "name": "Stripe",
+      "category": "Finance",
+      "scannedAt": "2026-07-23T06:22:58.219Z",
+      "status": "completed",
+      "violations": [],
+      "violationCount": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {},
+      "loadTime": 7539,
+      "pageTitle": "Stripe | Financial Infrastructure to Grow Your Revenue",
+      "error": null
+    },
+    {
+      "url": "https://www.chase.com",
+      "name": "Chase Bank",
+      "category": "Finance",
+      "scannedAt": "2026-07-23T06:23:27.048Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "target-size",
+          "impact": "serious",
+          "help": "All touch targets must be 24px large, or leave sufficient space",
+          "description": "Ensure touch targets have sufficient size and space",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/target-size?application=axeAPI",
+          "tags": [
+            "wcag22aa",
+            "wcag258"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                "#show-hide-btn"
+              ],
+              "html": "<button type=\"button\" id=\"show-hide-btn\" tabindex=\"0\" style=\"min-width: 0px; disp...\">",
+              "failureSummary": "Fix any of the following:\n  Target has insufficient size (52.3px by 21.2px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21.2px instead of at least 24px."
+            }
+          ]
+        }
+      ],
+      "violationCount": 1,
+      "errorCount": 1,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 1,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {
+        "target-size": 1
+      },
+      "loadTime": 11093,
+      "pageTitle": "Credit Card, Mortgage, Banking, Auto | Chase Online | Chase.com",
+      "error": null
+    },
+    {
+      "url": "https://www.bankofamerica.com",
+      "name": "Bank of America",
+      "category": "Finance",
+      "scannedAt": "2026-07-23T06:23:27.048Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "aria-allowed-attr",
+          "impact": "critical",
+          "help": "Elements must only use supported ARIA attributes",
+          "description": "Ensure an element's role supports its ARIA attributes",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/aria-allowed-attr?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag412"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                "#nav-search-query"
+              ],
+              "html": "<input type=\"text\" aria-describedby=\"nav-search-query_err...\" data-mobile-input-ty...=\"text\" data-default-input-t...=\"text\" data-android-input-t...=\"text\" data-mobile-pattern=\"\" data-default-pattern=\"",
+              "failureSummary": "Fix all of the following:\n  ARIA attribute is not allowed: aria-expanded=\"false\""
+            }
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/color-contrast?application=axeAPI",
+          "tags": [
+            "wcag2aa",
+            "wcag143"
+          ],
+          "nodeCount": 3,
+          "nodes": [
+            {
+              "target": [
+                ".first-lowlight > .highlight-wrapper.clickable-highlight > div[data-update-container=\"highlight-update-container\"] > .info-box > .heading"
+              ],
+              "html": "<div class=\"heading\">Spend, save and plan smarter with Erica®</div>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.32 (foreground color: #e31837, background color: #f5f5f5, font size: 15.0pt (20px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".highlight-tile.lowlight:nth-child(5) > .highlight-wrapper.clickable-highlight > div[data-update-container=\"highlight-update-container\"] > .info-box > .heading"
+              ],
+              "html": "<div class=\"heading\">Cash offer up to $500</div>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.32 (foreground color: #e31837, background color: #f5f5f5, font size: 15.0pt (20px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".highlight-tile.lowlight:nth-child(7) > .highlight-wrapper.clickable-highlight > div[data-update-container=\"highlight-update-container\"] > .info-box > .heading"
+              ],
+              "html": "<div class=\"heading\">Custom mobile alerts</div>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.32 (foreground color: #e31837, background color: #f5f5f5, font size: 15.0pt (20px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        {
+          "id": "image-alt",
+          "impact": "critical",
+          "help": "Images must have alternative text",
+          "description": "Ensure <img> elements have alternative text or a role of none or presentation",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/image-alt?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag111"
+          ],
+          "nodeCount": 8,
+          "nodes": [
+            {
+              "target": [
+                "li:nth-child(1) > .bmh-tile-image[alt=\" \"][loading=\"lazy\"]"
+              ],
+              "html": "<img src=\"https://www1.bac-assets.com/homepage/spa-assets/images/assets-images-site-homepage-bmh-module-default-education-bac-edu-tile-319x363-desktop-1-q2-CSXb35d6c2d.jpg\" alt=\" \" role=\"presentation\"",
+              "failureSummary": "Fix all of the following:\n  Element has an alt attribute containing only a space character, which is not ignored by all screen readers"
+            },
+            {
+              "target": [
+                "li:nth-child(1) > .text-box > .icon[alt=\" \"][role=\"presentation\"]"
+              ],
+              "html": "<img class=\"icon\" src=\"https://www1.bac-assets.com/homepage/spa-assets/images/assets-images-site-homepage-icons-ent_edu_bac_4953168_icon_gc_d-CSX7684a6de.svg\" alt=\" \" role=\"presentation\">",
+              "failureSummary": "Fix all of the following:\n  Element has an alt attribute containing only a space character, which is not ignored by all screen readers"
+            },
+            {
+              "target": [
+                "li:nth-child(2) > .bmh-tile-image[alt=\" \"][loading=\"lazy\"]"
+              ],
+              "html": "<img src=\"https://www1.bac-assets.com/homepage/spa-assets/images/assets-images-site-homepage-bmh-module-default-education-bac-edu-tile-319x363-desktop-1-new-CSX71f0a17b.jpg\" alt=\" \" role=\"presentation",
+              "failureSummary": "Fix all of the following:\n  Element has an alt attribute containing only a space character, which is not ignored by all screen readers"
+            }
+          ]
+        }
+      ],
+      "violationCount": 3,
+      "errorCount": 3,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 2,
+        "serious": 1,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {
+        "aria-allowed-attr": 1,
+        "color-contrast": 3,
+        "image-alt": 8
+      },
+      "loadTime": 20646,
+      "pageTitle": "Bank of America - Banking, Credit Cards, Loans and Merrill Investing",
+      "error": null
+    },
+    {
+      "url": "https://www.booking.com",
+      "name": "Booking.com",
+      "category": "Travel",
+      "scannedAt": "2026-07-23T06:23:27.049Z",
+      "status": "error",
+      "violations": [],
+      "violationCount": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {},
+      "loadTime": 3918,
+      "pageTitle": "",
+      "error": "Execution context was destroyed, most likely because of a navigation."
+    },
+    {
+      "url": "https://www.airbnb.com",
+      "name": "Airbnb",
+      "category": "Travel",
+      "scannedAt": "2026-07-23T06:23:27.048Z",
+      "status": "completed",
+      "violations": [],
+      "violationCount": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {},
+      "loadTime": 11198,
+      "pageTitle": "Airbnb | Vacation rentals, cabins, beach houses, & more",
+      "error": null
+    },
+    {
+      "url": "https://www.expedia.com",
+      "name": "Expedia",
+      "category": "Travel",
+      "scannedAt": "2026-07-23T06:23:27.047Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "html-has-lang",
+          "impact": "serious",
+          "help": "<html> element must have a lang attribute",
+          "description": "Ensure every HTML document has a lang attribute",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/html-has-lang?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag311"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                "html"
+              ],
+              "html": "<html>",
+              "failureSummary": "Fix any of the following:\n  The <html> element does not have a lang attribute"
+            }
+          ]
+        }
+      ],
+      "violationCount": 1,
+      "errorCount": 1,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 0,
+        "serious": 1,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {
+        "html-has-lang": 1
+      },
+      "loadTime": 4512,
+      "pageTitle": "Bot or Not?",
+      "error": null
+    },
+    {
+      "url": "https://www.webmd.com",
+      "name": "WebMD",
+      "category": "Health",
+      "scannedAt": "2026-07-23T06:23:48.895Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "aria-allowed-attr",
+          "impact": "critical",
+          "help": "Elements must only use supported ARIA attributes",
+          "description": "Ensure an element's role supports its ARIA attributes",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/aria-allowed-attr?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag412"
+          ],
+          "nodeCount": 7,
+          "nodes": [
+            {
+              "target": [
+                "#vn-link-hdr-site-1"
+              ],
+              "html": "<a id=\"vn-link-hdr-site-1\" aria-controls=\"vn-menu-hdr-site-1\" aria-expanded=\"false\" aria-label=\"Conditions\" data-metrics-link=\"0\" data-metrics-type=\"ad-hoc\">Conditions <i class=\"vn-mt webmd-icon-right",
+              "failureSummary": "Fix all of the following:\n  ARIA attribute is not allowed: aria-expanded=\"false\""
+            },
+            {
+              "target": [
+                "#vn-link-hdr-site-2"
+              ],
+              "html": "<a id=\"vn-link-hdr-site-2\" aria-controls=\"vn-menu-hdr-site-2\" aria-expanded=\"false\" aria-label=\"Drugs &amp; Supplements\" data-metrics-link=\"0\" data-metrics-type=\"ad-hoc\">Drugs &amp; Supplements <i cla",
+              "failureSummary": "Fix all of the following:\n  ARIA attribute is not allowed: aria-expanded=\"false\""
+            },
+            {
+              "target": [
+                "#vn-link-hdr-site-3"
+              ],
+              "html": "<a id=\"vn-link-hdr-site-3\" aria-controls=\"vn-menu-hdr-site-3\" aria-expanded=\"false\" aria-label=\"Well-Being\" data-metrics-link=\"0\" data-metrics-type=\"ad-hoc\">Well-Being <i class=\"vn-mt webmd-icon-right",
+              "failureSummary": "Fix all of the following:\n  ARIA attribute is not allowed: aria-expanded=\"false\""
+            }
+          ]
+        },
+        {
+          "id": "image-alt",
+          "impact": "critical",
+          "help": "Images must have alternative text",
+          "description": "Ensure <img> elements have alternative text or a role of none or presentation",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/image-alt?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag111"
+          ],
+          "nodeCount": 10,
+          "nodes": [
+            {
+              "target": [
+                ".module-list-link[data-metrics-link=\"1\"] > .image-container > .thumb-overlay > img"
+              ],
+              "html": "<img src=\"https://img.lb.wbmdstatic.com/vim/live/webmd/consumer_assets/site_images/responsive/play-arrow.svg\">",
+              "failureSummary": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            },
+            {
+              "target": [
+                ".module-list-link[data-metrics-link=\"2\"] > .image-container > .thumb-overlay > img"
+              ],
+              "html": "<img src=\"https://img.lb.wbmdstatic.com/vim/live/webmd/consumer_assets/site_images/responsive/play-arrow.svg\">",
+              "failureSummary": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            },
+            {
+              "target": [
+                ".module-list-link[data-metrics-link=\"3\"] > .image-container > .thumb-overlay > img"
+              ],
+              "html": "<img src=\"https://img.lb.wbmdstatic.com/vim/live/webmd/consumer_assets/site_images/responsive/play-arrow.svg\">",
+              "failureSummary": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        },
+        {
+          "id": "link-name",
+          "impact": "serious",
+          "help": "Links must have discernible text",
+          "description": "Ensure links have discernible text",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/link-name?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag244",
+            "wcag412"
+          ],
+          "nodeCount": 5,
+          "nodes": [
+            {
+              "target": [
+                ".module-list-read-more-link[data-metrics-link=\"1\"][data-v-4c92156d=\"\"]"
+              ],
+              "html": "<a class=\"module-list-read-more-link\" data-metrics-link=\"1\" href=\"https://blogs.webmd.com/myasthenia-gravis/20260713/what-my-hospital-stay-with-an-mg-crisis-looks-like\" data-v-4c92156d=\"\"></a>",
+              "failureSummary": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+            },
+            {
+              "target": [
+                ".module-list-read-more-link[data-metrics-link=\"2\"][data-v-4c92156d=\"\"]"
+              ],
+              "html": "<a class=\"module-list-read-more-link\" data-metrics-link=\"2\" href=\"https://blogs.webmd.com/bipolar-disorder/20260720/how-i-learned-to-be-ok-with-needing-medication-for-bipolar-type-2\" data-v-4c92156d=\"",
+              "failureSummary": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+            },
+            {
+              "target": [
+                ".module-list-read-more-link[data-metrics-link=\"3\"][data-v-4c92156d=\"\"]"
+              ],
+              "html": "<a class=\"module-list-read-more-link\" data-metrics-link=\"3\" href=\"https://blogs.webmd.com/skin-care/20260126/skin-care-during-pregnancy-whats-safe-whats-not-aand-why-your-skin-feels-weird\" data-v-4c92",
+              "failureSummary": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+            }
+          ]
+        },
+        {
+          "id": "list",
+          "impact": "serious",
+          "help": "<ul> and <ol> must only directly contain <li>, <script> or <template> elements",
+          "description": "Ensure that lists are structured correctly",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/list?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag131"
+          ],
+          "nodeCount": 9,
+          "nodes": [
+            {
+              "target": [
+                "#hp-topstory > .module-content > .module-container > .list-container-2"
+              ],
+              "html": "<ul class=\"list-container-2\">",
+              "failureSummary": "Fix all of the following:\n  List element has direct children that are not allowed: div"
+            },
+            {
+              "target": [
+                "#hp-lvnghlthy > .module-content > .module-container > .list-container-2"
+              ],
+              "html": "<ul class=\"list-container-2\">",
+              "failureSummary": "Fix all of the following:\n  List element has direct children that are not allowed: div"
+            },
+            {
+              "target": [
+                "#hp-conditions > .module-content > .module-container > .list-container-2"
+              ],
+              "html": "<ul class=\"list-container-2\">",
+              "failureSummary": "Fix all of the following:\n  List element has direct children that are not allowed: div"
+            }
+          ]
+        },
+        {
+          "id": "listitem",
+          "impact": "serious",
+          "help": "<li> elements must be contained in a <ul> or <ol>",
+          "description": "Ensure <li> elements are used semantically",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/listitem?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag131"
+          ],
+          "nodeCount": 86,
+          "nodes": [
+            {
+              "target": [
+                "#hp-topstory > .module-content > .module-container > .list-container-2 > .module-list > li:nth-child(1)"
+              ],
+              "html": "<li>",
+              "failureSummary": "Fix any of the following:\n  List item does not have a <ul>, <ol> parent element"
+            },
+            {
+              "target": [
+                "#hp-topstory > .module-content > .module-container > .list-container-2 > .module-list > li:nth-child(2)"
+              ],
+              "html": "<li>",
+              "failureSummary": "Fix any of the following:\n  List item does not have a <ul>, <ol> parent element"
+            },
+            {
+              "target": [
+                "#hp-topstory > .module-content > .module-container > .list-container-2 > .module-list > li:nth-child(3)"
+              ],
+              "html": "<li>",
+              "failureSummary": "Fix any of the following:\n  List item does not have a <ul>, <ol> parent element"
+            }
+          ]
+        },
+        {
+          "id": "nested-interactive",
+          "impact": "serious",
+          "help": "Interactive controls must not be nested",
+          "description": "Ensure interactive controls are not nested as they are not always announced by screen readers or can cause focus problems for assistive technologies",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/nested-interactive?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag412"
+          ],
+          "nodeCount": 3,
+          "nodes": [
+            {
+              "target": [
+                ".webmd-checkbox.webmd-checkbox--default.webmd-checkbox--hovercolorgray:nth-child(1)"
+              ],
+              "html": "<label class=\"webmd-checkbox webmd-checkbox--default webmd-checkbox--hovercolorgray webmd-checkbox--textcolorgray webmd-checkbox--small\" role=\"checkbox\" aria-checked=\"false\">",
+              "failureSummary": "Fix any of the following:\n  Element has focusable descendants"
+            },
+            {
+              "target": [
+                ".webmd-checkbox.webmd-checkbox--default.webmd-checkbox--hovercolorgray:nth-child(2)"
+              ],
+              "html": "<label class=\"webmd-checkbox webmd-checkbox--default webmd-checkbox--hovercolorgray webmd-checkbox--textcolorgray webmd-checkbox--small\" role=\"checkbox\" aria-checked=\"false\">",
+              "failureSummary": "Fix any of the following:\n  Element has focusable descendants"
+            },
+            {
+              "target": [
+                ".webmd-checkbox.webmd-checkbox--default.webmd-checkbox--hovercolorgray:nth-child(3)"
+              ],
+              "html": "<label class=\"webmd-checkbox webmd-checkbox--default webmd-checkbox--hovercolorgray webmd-checkbox--textcolorgray webmd-checkbox--small\" role=\"checkbox\" aria-checked=\"false\">",
+              "failureSummary": "Fix any of the following:\n  Element has focusable descendants"
+            }
+          ]
+        },
+        {
+          "id": "target-size",
+          "impact": "serious",
+          "help": "All touch targets must be 24px large, or leave sufficient space",
+          "description": "Ensure touch targets have sufficient size and space",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/target-size?application=axeAPI",
+          "tags": [
+            "wcag22aa",
+            "wcag258"
+          ],
+          "nodeCount": 12,
+          "nodes": [
+            {
+              "target": [
+                ".module-list-read-more-link[data-metrics-link=\"1\"][data-v-4c92156d=\"\"]"
+              ],
+              "html": "<a class=\"module-list-read-more-link\" data-metrics-link=\"1\" href=\"https://blogs.webmd.com/myasthenia-gravis/20260713/what-my-hospital-stay-with-an-mg-crisis-looks-like\" data-v-4c92156d=\"\"></a>",
+              "failureSummary": "Fix any of the following:\n  Target has insufficient size (12px by 23px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 13.4px instead of at least 24px."
+            },
+            {
+              "target": [
+                ".module-list-read-more-link[data-metrics-link=\"2\"][data-v-4c92156d=\"\"]"
+              ],
+              "html": "<a class=\"module-list-read-more-link\" data-metrics-link=\"2\" href=\"https://blogs.webmd.com/bipolar-disorder/20260720/how-i-learned-to-be-ok-with-needing-medication-for-bipolar-type-2\" data-v-4c92156d=\"",
+              "failureSummary": "Fix any of the following:\n  Target has insufficient size (12px by 23px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 12px instead of at least 24px."
+            },
+            {
+              "target": [
+                ".module-list-read-more-link[data-metrics-link=\"3\"][data-v-4c92156d=\"\"]"
+              ],
+              "html": "<a class=\"module-list-read-more-link\" data-metrics-link=\"3\" href=\"https://blogs.webmd.com/skin-care/20260126/skin-care-during-pregnancy-whats-safe-whats-not-aand-why-your-skin-feels-weird\" data-v-4c92",
+              "failureSummary": "Fix any of the following:\n  Target has insufficient size (12px by 23px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 12px instead of at least 24px."
+            }
+          ]
+        }
+      ],
+      "violationCount": 7,
+      "errorCount": 7,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 2,
+        "serious": 5,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {
+        "aria-allowed-attr": 7,
+        "image-alt": 10,
+        "link-name": 5,
+        "list": 9,
+        "listitem": 86,
+        "nested-interactive": 3,
+        "target-size": 12
+      },
+      "loadTime": 16459,
+      "pageTitle": "WebMD - Better information. Better health.",
+      "error": null
+    },
+    {
+      "url": "https://www.coursera.org",
+      "name": "Coursera",
+      "category": "Education",
+      "scannedAt": "2026-07-23T06:23:48.895Z",
+      "status": "completed",
+      "violations": [
+        {
+          "id": "aria-valid-attr-value",
+          "impact": "critical",
+          "help": "ARIA attributes must conform to valid values",
+          "description": "Ensure all ARIA attributes have valid values",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/aria-valid-attr-value?application=axeAPI",
+          "tags": [
+            "wcag2a",
+            "wcag412"
+          ],
+          "nodeCount": 1,
+          "nodes": [
+            {
+              "target": [
+                "#cds-react-aria-\\:Rhldalalalad4q\\:"
+              ],
+              "html": "<button class=\"cds-149 cds-Chip-roo...\" tabindex=\"0\" type=\"button\" aria-selected=\"true\" aria-label=\"Get Started\" role=\"tab\" aria-controls=\"collections-results\" data-track=\"true\" data-track-app=\"front_",
+              "failureSummary": "Fix all of the following:\n  Invalid ARIA attribute value: aria-controls=\"collections-results\""
+            }
+          ]
+        }
+      ],
+      "violationCount": 1,
+      "errorCount": 1,
+      "warningCount": 0,
+      "byImpact": {
+        "critical": 1,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "byRule": {
+        "aria-valid-attr-value": 1
+      },
+      "loadTime": 6874,
+      "pageTitle": "Coursera | Courses, Professional Certificates, and Degrees Online",
+      "error": null
+    }
+  ]
+}
