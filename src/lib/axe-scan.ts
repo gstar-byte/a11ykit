@@ -7,8 +7,6 @@ interface AxeIssue {
 }
 
 export async function runAxeScan(html: string): Promise<AxeIssue[]> {
-  const axe = await import("axe-core");
-
   const iframe = document.createElement("iframe");
   iframe.style.position = "absolute";
   iframe.style.left = "-9999px";
@@ -24,9 +22,19 @@ export async function runAxeScan(html: string): Promise<AxeIssue[]> {
     doc.write(html);
     doc.close();
 
-    await new Promise((r) => setTimeout(r, 100));
+    // Inject axe-core from the bundled public asset so it runs in the
+    // iframe's own realm (cross-realm axe.run calls are rejected).
+    const script = doc.createElement("script");
+    script.src = "/axe.min.js";
+    doc.documentElement.appendChild(script);
 
-    const results = await axe.run(iframe.contentDocument!.body, {
+    await new Promise<void>((resolve, reject) => {
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error("Failed to load axe.min.js"));
+    });
+
+    const frameWindow = iframe.contentWindow as unknown as { axe: { run: typeof import("axe-core")["run"] } };
+    const results = await frameWindow.axe.run(doc, {
       runOnly: {
         type: "tag",
         values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"],

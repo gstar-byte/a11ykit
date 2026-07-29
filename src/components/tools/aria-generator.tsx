@@ -354,9 +354,7 @@ export function AriaGenerator() {
     return html
       .replace(/\bclass=/g, "className=")
       .replace(/\bfor=/g, "htmlFor=")
-      .replace(/\btabindex=/g, "tabIndex=")
-      .replace(/\baria-([a-z]+)=/g, (_, attr) => `aria${attr.charAt(0).toUpperCase() + attr.slice(1)}=`)
-      .replace(/\brole=/g, "role=");
+      .replace(/\btabindex=/g, "tabIndex=");
   };
 
   const customizedHtml = (() => {
