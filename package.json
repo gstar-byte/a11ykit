@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "indexnow": "node scripts/indexnow.mjs",
+    "indexnow:dry-run": "node scripts/indexnow.mjs --dry-run"
   },
   "dependencies": {
     "axe-core": "^4.12.1",
