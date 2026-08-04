@@ -1,0 +1,39 @@
+name: Notify IndexNow
+
+on:
+  push:
+    branches:
+      - master
+  # 也可手动触发
+  workflow_dispatch:
+
+jobs:
+  indexnow:
+    name: Submit URLs to IndexNow
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Cloudflare Pages 部署需要一点时间，等待 30 秒再提交
+      # 确保 key 文件已经上线，Bing 能验证通过
+      - name: Wait for deployment to propagate
+        run: sleep 30
+
+      - name: Verify key file is live
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://a11ykit.site/${{ vars.INDEXNOW_KEY }}.txt)
+          echo "Key file HTTP status: $STATUS"
+          if [ "$STATUS" != "200" ]; then
+            echo "⚠️  Key file not yet accessible (HTTP $STATUS), skipping submission."
+            exit 0
+          fi
+
+      - name: Submit URLs to IndexNow
+        run: node scripts/indexnow.mjs

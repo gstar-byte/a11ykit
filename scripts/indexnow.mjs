@@ -10,7 +10,9 @@
 
 const HOST = "a11ykit.site";
 const BASE_URL = `https://${HOST}`;
-const INDEXNOW_KEY = "6408d33f0ebe4da1b5b4fefaf549c17c";
+// 优先从环境变量读取（GitHub Actions 通过 vars.INDEXNOW_KEY 注入）
+// 本地运行时回退到硬编码值
+const INDEXNOW_KEY = process.env.INDEXNOW_KEY ?? "6408d33f0ebe4da1b5b4fefaf549c17c";
 const KEY_LOCATION = `${BASE_URL}/${INDEXNOW_KEY}.txt`;
 const API_ENDPOINT = "https://api.indexnow.org/IndexNow";
 
