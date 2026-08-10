@@ -24,6 +24,11 @@ import { LandmarkVisualizer } from "@/components/tools/landmark-visualizer";
 import { FocusIndicatorGenerator } from "@/components/tools/focus-indicator-generator";
 import { ColorPaletteGenerator } from "@/components/tools/color-palette-generator";
 import { AnimationChecker } from "@/components/tools/animation-checker";
+import { ContrastBatchTester } from "@/components/tools/contrast-batch-tester";
+import { WebcamColorblind } from "@/components/tools/webcam-colorblind";
+import { FormErrorChecker } from "@/components/tools/form-error-checker";
+import { AltQualityScorer } from "@/components/tools/alt-quality-scorer";
+import { AiAriaGenerator } from "@/components/tools/ai-aria-generator";
 import { ToolContent } from "@/components/tool-content";
 
 export function generateStaticParams() {
@@ -218,6 +223,11 @@ export default async function ToolPage({
         {slug === "focus-indicator-generator" && <FocusIndicatorGenerator />}
         {slug === "color-palette-generator" && <ColorPaletteGenerator />}
         {slug === "animation-checker" && <AnimationChecker />}
+        {slug === "contrast-batch" && <ContrastBatchTester />}
+        {slug === "webcam-colorblind" && <WebcamColorblind />}
+        {slug === "form-error-checker" && <FormErrorChecker />}
+        {slug === "alt-quality-scorer" && <AltQualityScorer />}
+        {slug === "ai-aria-generator" && <AiAriaGenerator />}
 
         <ToolContent tool={{ ...tool, icon: undefined }} />
       </div>

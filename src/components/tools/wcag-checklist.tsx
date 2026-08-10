@@ -1,7 +1,9 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
-import { Download, RotateCcw, Check } from "lucide-react";
+import { Download, RotateCcw, CheckCircle, XCircle, MinusCircle } from "lucide-react";
+
+type CriterionStatus = "pass" | "fail" | "na" | "pending";
 
 type Level = "A" | "AA" | "AAA";
 type Principle = "Perceivable" | "Operable" | "Understandable" | "Robust";
@@ -118,30 +120,32 @@ const criteria: Criterion[] = [
   { id: "4.1.3", principle: "Robust", level: "AA", title: "Status Messages", description: "Status messages are programmatically determined through role or properties." },
 ];
 
-const STORAGE_KEY = "a11ykit-wcag-checklist";
+const STORAGE_KEY = "a11ykit-wcag-checklist-v2";
 
 export function WcagChecklist() {
-  const [checked, setChecked] = useState<Set<string>>(new Set());
+  const [statuses, setStatuses] = useState<Map<string, CriterionStatus>>(new Map());
   const [filterLevel, setFilterLevel] = useState<Level | "all">("all");
   const [filterPrinciple, setFilterPrinciple] = useState<Principle | "all">("all");
   const [showOnlyNew, setShowOnlyNew] = useState(false);
+  const [filterStatus, setFilterStatus] = useState<CriterionStatus | "all">("all");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        setChecked(new Set(JSON.parse(saved)));
-      }
+      if (saved) setStatuses(new Map(JSON.parse(saved)));
     } catch {}
   }, []);
 
-  const toggle = (id: string) => {
-    setChecked((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
+  const setStatus = (id: string, status: CriterionStatus) => {
+    setStatuses((prev) => {
+      const next = new Map(prev);
+      if (next.get(id) === status) {
+        next.delete(id); // clicking same state resets to pending
+      } else {
+        next.set(id, status);
+      }
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify([...next]));
       } catch {}
@@ -150,10 +154,8 @@ export function WcagChecklist() {
   };
 
   const reset = () => {
-    setChecked(new Set());
-    try {
-      localStorage.removeItem(STORAGE_KEY);
-    } catch {}
+    setStatuses(new Map());
+    try { localStorage.removeItem(STORAGE_KEY); } catch {}
   };
 
   const filtered = useMemo(() => {
@@ -161,34 +163,42 @@ export function WcagChecklist() {
       if (filterLevel !== "all" && c.level !== filterLevel) return false;
       if (filterPrinciple !== "all" && c.principle !== filterPrinciple) return false;
       if (showOnlyNew && !c.new22) return false;
+      if (filterStatus !== "all") {
+        const s = statuses.get(c.id) ?? "pending";
+        if (s !== filterStatus) return false;
+      }
       return true;
     });
-  }, [filterLevel, filterPrinciple, showOnlyNew]);
+  }, [filterLevel, filterPrinciple, showOnlyNew, filterStatus, statuses]);
 
   const stats = useMemo(() => {
-    const total = filtered.length;
-    const done = filtered.filter((c) => checked.has(c.id)).length;
-    return { total, done, percent: total > 0 ? Math.round((done / total) * 100) : 0 };
-  }, [filtered, checked]);
+    const total = criteria.length;
+    const pass = [...statuses.values()].filter((s) => s === "pass").length;
+    const fail = [...statuses.values()].filter((s) => s === "fail").length;
+    const na = [...statuses.values()].filter((s) => s === "na").length;
+    const reviewed = pass + fail + na;
+    return { total, pass, fail, na, reviewed, percent: total > 0 ? Math.round((reviewed / total) * 100) : 0 };
+  }, [statuses]);
 
   const exportMarkdown = () => {
+    const statusIcon: Record<CriterionStatus, string> = { pass: "✓ Pass", fail: "✗ Fail", na: "— N/A", pending: "  Pending" };
     const lines = [
-      "# WCAG 2.2 Compliance Checklist",
+      "# WCAG 2.2 Compliance Audit",
       "",
       `Date: ${new Date().toISOString().split("T")[0]}`,
-      `Progress: ${stats.done}/${stats.total} (${stats.percent}%)`,
+      `Pass: ${stats.pass} | Fail: ${stats.fail} | N/A: ${stats.na} | Pending: ${stats.total - stats.reviewed}`,
       "",
     ];
-    for (const c of filtered) {
-      const mark = checked.has(c.id) ? "x" : " ";
-      lines.push(`- [${mark}] **${c.id} ${c.title}** (Level ${c.level})${c.new22 ? " 🆕" : ""}`);
+    for (const c of criteria) {
+      const s = statuses.get(c.id) ?? "pending";
+      lines.push(`- [${statusIcon[s]}] **${c.id} ${c.title}** (Level ${c.level})${c.new22 ? " 🆕" : ""}`);
       lines.push(`  ${c.description}`);
     }
     const blob = new Blob([lines.join("\n")], { type: "text/markdown" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "wcag-2.2-checklist.md";
+    a.download = "wcag-2.2-audit.md";
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -197,13 +207,13 @@ export function WcagChecklist() {
     const data = {
       standard: "WCAG 2.2",
       date: new Date().toISOString(),
-      progress: stats,
-      criteria: filtered.map((c) => ({
+      summary: { pass: stats.pass, fail: stats.fail, na: stats.na, pending: stats.total - stats.reviewed, total: stats.total },
+      criteria: criteria.map((c) => ({
         id: c.id,
         title: c.title,
         level: c.level,
         principle: c.principle,
-        status: checked.has(c.id) ? "pass" : "pending",
+        status: statuses.get(c.id) ?? "pending",
         new22: c.new22 || false,
       })),
     };
@@ -211,7 +221,7 @@ export function WcagChecklist() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "wcag-2.2-checklist.json";
+    a.download = "wcag-2.2-audit.json";
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -228,58 +238,47 @@ export function WcagChecklist() {
     <div className="space-y-6">
       {/* Progress bar */}
       <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm font-medium text-slate-500">Audit Progress</p>
-            <p className="text-3xl font-bold text-slate-900">
-              {stats.done} / {stats.total}
-              <span className="ml-2 text-lg text-slate-500">({stats.percent}%)</span>
-            </p>
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {[
+              { label: "Pass", value: stats.pass, cls: "bg-green-50 border-green-200 text-green-800" },
+              { label: "Fail", value: stats.fail, cls: "bg-red-50 border-red-200 text-red-700" },
+              { label: "N/A", value: stats.na, cls: "bg-slate-50 border-slate-200 text-slate-700" },
+              { label: "Pending", value: stats.total - stats.reviewed, cls: "bg-amber-50 border-amber-200 text-amber-700" },
+            ].map(({ label, value, cls }) => (
+              <div key={label} className={`rounded-lg border px-4 py-3 text-center ${cls}`}>
+                <p className="text-2xl font-bold">{value}</p>
+                <p className="text-xs mt-0.5">{label}</p>
+              </div>
+            ))}
           </div>
-          <div className="flex gap-2">
-            <button
-              onClick={exportMarkdown}
-              className="inline-flex items-center gap-2 rounded-md border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
-            >
+          <div className="flex gap-2 flex-wrap">
+            <button onClick={exportMarkdown} className="inline-flex items-center gap-2 rounded-md border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">
               <Download className="h-4 w-4" aria-hidden="true" /> Markdown
             </button>
-            <button
-              onClick={exportJSON}
-              className="inline-flex items-center gap-2 rounded-md border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
-            >
+            <button onClick={exportJSON} className="inline-flex items-center gap-2 rounded-md border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">
               <Download className="h-4 w-4" aria-hidden="true" /> JSON
             </button>
-            <button
-              onClick={reset}
-              className="inline-flex items-center gap-2 rounded-md border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
-              aria-label="Reset progress"
-            >
+            <button onClick={reset} className="inline-flex items-center gap-2 rounded-md border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50" aria-label="Reset all">
               <RotateCcw className="h-4 w-4" aria-hidden="true" />
             </button>
           </div>
         </div>
-        <div className="mt-4 h-3 overflow-hidden rounded-full bg-slate-200">
-          <div
-            className="h-full rounded-full bg-teal-700 transition-all duration-300"
-            style={{ width: `${stats.percent}%` }}
-            role="progressbar"
-            aria-valuenow={stats.percent}
-            aria-valuemin={0}
-            aria-valuemax={100}
-          />
+        <div className="mt-4 h-3 overflow-hidden rounded-full bg-slate-100">
+          <div className="flex h-full rounded-full overflow-hidden">
+            <div className="bg-green-500 h-full transition-all" style={{ width: `${stats.total > 0 ? (stats.pass / stats.total) * 100 : 0}%` }} />
+            <div className="bg-red-400 h-full transition-all" style={{ width: `${stats.total > 0 ? (stats.fail / stats.total) * 100 : 0}%` }} />
+            <div className="bg-slate-300 h-full transition-all" style={{ width: `${stats.total > 0 ? (stats.na / stats.total) * 100 : 0}%` }} />
+          </div>
         </div>
+        <p className="mt-1 text-xs text-slate-400">{stats.reviewed}/{stats.total} criteria reviewed ({stats.percent}%)</p>
       </div>
 
       {/* Filters */}
       <div className="flex flex-wrap items-center gap-3">
         <div>
           <label htmlFor="filter-level" className="sr-only">Filter by level</label>
-          <select
-            id="filter-level"
-            value={filterLevel}
-            onChange={(e) => setFilterLevel(e.target.value as Level | "all")}
-            className="rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
-          >
+          <select id="filter-level" value={filterLevel} onChange={(e) => setFilterLevel(e.target.value as Level | "all")} className="rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500">
             <option value="all">All Levels</option>
             <option value="A">Level A</option>
             <option value="AA">Level AA</option>
@@ -288,12 +287,7 @@ export function WcagChecklist() {
         </div>
         <div>
           <label htmlFor="filter-principle" className="sr-only">Filter by principle</label>
-          <select
-            id="filter-principle"
-            value={filterPrinciple}
-            onChange={(e) => setFilterPrinciple(e.target.value as Principle | "all")}
-            className="rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
-          >
+          <select id="filter-principle" value={filterPrinciple} onChange={(e) => setFilterPrinciple(e.target.value as Principle | "all")} className="rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500">
             <option value="all">All Principles</option>
             <option value="Perceivable">Perceivable</option>
             <option value="Operable">Operable</option>
@@ -301,13 +295,18 @@ export function WcagChecklist() {
             <option value="Robust">Robust</option>
           </select>
         </div>
+        <div>
+          <label htmlFor="filter-status" className="sr-only">Filter by status</label>
+          <select id="filter-status" value={filterStatus} onChange={(e) => setFilterStatus(e.target.value as CriterionStatus | "all")} className="rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500">
+            <option value="all">All Statuses</option>
+            <option value="pass">Pass</option>
+            <option value="fail">Fail</option>
+            <option value="na">N/A</option>
+            <option value="pending">Pending</option>
+          </select>
+        </div>
         <label className="inline-flex items-center gap-2 text-sm text-slate-700">
-          <input
-            type="checkbox"
-            checked={showOnlyNew}
-            onChange={(e) => setShowOnlyNew(e.target.checked)}
-            className="rounded border-slate-300"
-          />
+          <input type="checkbox" checked={showOnlyNew} onChange={(e) => setShowOnlyNew(e.target.checked)} className="rounded border-slate-300" />
           Only WCAG 2.2 new criteria
         </label>
       </div>
@@ -315,51 +314,78 @@ export function WcagChecklist() {
       {/* Checklist */}
       <div className="space-y-2">
         {filtered.map((c) => {
-          const isChecked = checked.has(c.id);
+          const status: CriterionStatus = statuses.get(c.id) ?? "pending";
+          const rowBg =
+            status === "pass" ? "border-green-200 bg-green-50" :
+            status === "fail" ? "border-red-200 bg-red-50" :
+            status === "na"   ? "border-slate-200 bg-slate-50" :
+            "border-slate-200 bg-white";
           return (
-            <div
-              key={c.id}
-              className={`rounded-lg border p-4 transition ${
-                isChecked
-                  ? "border-green-200 bg-green-50"
-                  : "border-slate-200 bg-white hover:border-slate-300"
-              }`}
-            >
-              <label className="flex cursor-pointer items-start gap-3">
-                <input
-                  type="checkbox"
-                  checked={isChecked}
-                  onChange={() => toggle(c.id)}
-                  className="mt-1 h-5 w-5 rounded border-slate-300 text-teal-700 focus:ring-teal-600"
-                />
-                <div className="flex-1">
+            <div key={c.id} className={`rounded-lg border p-4 transition ${rowBg}`}>
+              <div className="flex items-start gap-4">
+                {/* Three-state buttons */}
+                <div className="flex items-center gap-1 mt-0.5 flex-shrink-0" role="group" aria-label={`Status for ${c.id}`}>
+                  <button
+                    type="button"
+                    onClick={() => setStatus(c.id, "pass")}
+                    aria-pressed={status === "pass"}
+                    aria-label="Pass"
+                    className={`rounded-md p-1.5 transition-colors ${
+                      status === "pass"
+                        ? "bg-green-600 text-white"
+                        : "text-slate-400 hover:text-green-600 hover:bg-green-50"
+                    }`}
+                  >
+                    <CheckCircle className="h-5 w-5" aria-hidden="true" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setStatus(c.id, "fail")}
+                    aria-pressed={status === "fail"}
+                    aria-label="Fail"
+                    className={`rounded-md p-1.5 transition-colors ${
+                      status === "fail"
+                        ? "bg-red-600 text-white"
+                        : "text-slate-400 hover:text-red-600 hover:bg-red-50"
+                    }`}
+                  >
+                    <XCircle className="h-5 w-5" aria-hidden="true" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setStatus(c.id, "na")}
+                    aria-pressed={status === "na"}
+                    aria-label="Not applicable"
+                    className={`rounded-md p-1.5 transition-colors ${
+                      status === "na"
+                        ? "bg-slate-500 text-white"
+                        : "text-slate-400 hover:text-slate-600 hover:bg-slate-100"
+                    }`}
+                  >
+                    <MinusCircle className="h-5 w-5" aria-hidden="true" />
+                  </button>
+                </div>
+                <div className="flex-1 min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="font-mono text-sm font-semibold text-slate-900">
-                      {c.id}
-                    </span>
-                    <span className="text-sm font-semibold text-slate-900">
-                      {c.title}
-                    </span>
-                    <span
-                      className={`rounded px-1.5 py-0.5 text-xs font-medium ${
-                        c.level === "A"
-                          ? "bg-red-100 text-red-700"
-                          : c.level === "AA"
-                          ? "bg-amber-100 text-amber-700"
-                          : "bg-blue-100 text-blue-700"
-                      }`}
-                    >
-                      {c.level}
-                    </span>
-                    {c.new22 && (
-                      <span className="rounded bg-teal-100 px-1.5 py-0.5 text-xs font-medium text-teal-700">
-                        WCAG 2.2 NEW
+                    <span className="font-mono text-sm font-semibold text-slate-900">{c.id}</span>
+                    <span className="text-sm font-semibold text-slate-900">{c.title}</span>
+                    <span className={`rounded px-1.5 py-0.5 text-xs font-medium ${
+                      c.level === "A" ? "bg-red-100 text-red-700" :
+                      c.level === "AA" ? "bg-amber-100 text-amber-700" : "bg-blue-100 text-blue-700"
+                    }`}>{c.level}</span>
+                    {c.new22 && <span className="rounded bg-teal-100 px-1.5 py-0.5 text-xs font-medium text-teal-700">WCAG 2.2 NEW</span>}
+                    {status !== "pending" && (
+                      <span className={`rounded px-1.5 py-0.5 text-xs font-bold ${
+                        status === "pass" ? "bg-green-600 text-white" :
+                        status === "fail" ? "bg-red-600 text-white" : "bg-slate-500 text-white"
+                      }`}>
+                        {status === "pass" ? "✓ Pass" : status === "fail" ? "✗ Fail" : "— N/A"}
                       </span>
                     )}
                   </div>
                   <p className="mt-1 text-sm text-slate-600">{c.description}</p>
                 </div>
-              </label>
+              </div>
             </div>
           );
         })}

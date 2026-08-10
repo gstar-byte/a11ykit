@@ -66,7 +66,7 @@ export default function ToolsPage() {
           All Accessibility Tools
         </h1>
         <p className="mt-4 max-w-2xl mx-auto text-lg text-slate-600">
-          22 free tools for WCAG 2.2 and EAA compliance. Everything runs in your
+          27 free tools for WCAG 2.2 and EAA compliance. Everything runs in your
           browser — no signup, privacy-first.
         </p>
       </div>

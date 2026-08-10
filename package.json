@@ -13,6 +13,7 @@
   "dependencies": {
     "axe-core": "^4.12.1",
     "clsx": "^2.1.1",
+    "jspdf": "^4.2.1",
     "lucide-react": "^1.11.0",
     "next": "16.2.4",
     "pdfjs-dist": "^6.1.200",
