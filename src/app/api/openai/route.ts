@@ -5,11 +5,11 @@ const ALLOWED_MODELS = ["gpt-4o-mini", "gpt-4o"];
 const MAX_TOKENS_LIMIT = 2000;
 
 export async function POST(req: NextRequest) {
-  const apiKey = process.env.OPENAI_API_KEY;
+  const apiKey = process.env.OPENROUTER_API_KEY;
 
   if (!apiKey) {
     return NextResponse.json(
-      { error: { message: "OpenAI API key is not configured on this server." } },
+      { error: { message: "OpenRouter API key is not configured on this server." } },
       { status: 503 }
     );
   }
@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
 
   // Build OpenAI request
   const openAiBody: Record<string, unknown> = {
-    model,
+    model: `openai/${model}`,
     messages,
     max_tokens: tokens,
     temperature: temperature ?? 0.5,
@@ -55,11 +55,13 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const upstream = await fetch("https://api.openai.com/v1/chat/completions", {
+    const upstream = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${apiKey}`,
+        "HTTP-Referer": "https://a11ykit.com",
+        "X-Title": "A11yKit",
       },
       body: JSON.stringify(openAiBody),
     });
@@ -68,7 +70,7 @@ export async function POST(req: NextRequest) {
 
     if (!upstream.ok) {
       return NextResponse.json(
-        { error: data.error ?? { message: `OpenAI error (${upstream.status})` } },
+        { error: data.error ?? { message: `OpenRouter error (${upstream.status})` } },
         { status: upstream.status }
       );
     }
