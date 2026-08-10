@@ -19,7 +19,7 @@ const homeFaqs = [
   {
     question: "Are A11yKit tools 100% free and client-side?",
     answer:
-      "Yes, all calculation tools execute 100% client-side inside your web browser using HTML5 and JavaScript. No code, image, or text inputs leave your device, ensuring privacy and compliance with enterprise security requirements.",
+      "Yes — every analysis and calculation runs 100% client-side in your web browser, and we operate no backend that processes your content. Code, images, and text you paste never leave your device. Two documented exceptions are covered in our Privacy Policy: the URL Scanner fetches public page source through third-party CORS proxies, and the optional AI features call OpenAI directly from your browser using your own API key.",
   },
   {
     question: "Which accessibility standards do these tools check against?",
@@ -110,7 +110,7 @@ export default function HomePage() {
               <div>
                 <h3 className="text-sm font-semibold text-slate-900">100% private</h3>
                 <p className="mt-1 text-sm text-slate-600">
-                  Your data never leaves your device. No tracking, no accounts.
+                  Your inputs stay in your browser. No accounts, consent-based analytics only.
                 </p>
               </div>
             </li>
@@ -238,7 +238,7 @@ export default function HomePage() {
             <h3 className="text-lg font-semibold text-slate-900 mt-6">Global convergence on WCAG</h3>
             <p>
               Similar laws exist or are being enacted worldwide: ADA Title II
-              (US, 2027-2028), ACA (Canada), AODA (Ontario), and accessibility
+              (US, 2026-2027), ACA (Canada), AODA (Ontario), and accessibility
               laws in Japan, South Korea, India, and Australia. All converge on
               the same technical standard: <strong>WCAG 2.1/2.2 Level AA</strong>.
             </p>

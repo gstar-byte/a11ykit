@@ -28,11 +28,11 @@ export function PrivacyBanner({ position = "right" }: PrivacyBannerProps) {
   const t = {
     zh: {
       title: "隐私与 Cookie 设置",
-      description: "我们使用本地存储来优化您的体验。本站点的所有无障碍工具均 100% 在您浏览器本地运行，数据绝不会上传至任何服务器，隐私安全无虞。",
+      description: "我们使用本地存储来优化您的体验。本站点的所有工具计算均 100% 在您浏览器本地运行，您输入的内容不会上传至我们的服务器。个别功能所需的少数第三方调用（URL 抓取、AI 生成）详见隐私政策。",
       essentialTitle: "必要功能 (必须)",
       essentialDesc: "用以保障核心功能正常运行，如保存您的隐私选择与主题偏好。",
       analyticsTitle: "分析与统计 (可选)",
-      analyticsDesc: "帮助我们了解用户如何与网站交互，以提升产品体验（我们目前不使用任何第三方分析）。",
+      analyticsDesc: "帮助我们了解用户如何与网站交互，以提升产品体验（使用 Google Analytics，仅在获得您的同意后启用）。",
       marketingTitle: "个性化营销 (可选)",
       marketingDesc: "用以提供个性化体验（我们不展示广告，也绝不分享您的任何数据）。",
       acceptAll: "接受全部",
@@ -45,11 +45,11 @@ export function PrivacyBanner({ position = "right" }: PrivacyBannerProps) {
     },
     en: {
       title: "Cookie & Privacy Settings",
-      description: "We use local storage to optimize your experience. All accessibility tools run 100% client-side in your browser; your data never leaves your device.",
+      description: "We use local storage to optimize your experience. All tool computations run 100% client-side in your browser; your inputs are never uploaded to our servers. See the Privacy Policy for the few documented third-party calls some features require.",
       essentialTitle: "Strictly Necessary (Required)",
       essentialDesc: "Required for core features, such as remembering your privacy preferences.",
       analyticsTitle: "Analytics (Optional)",
-      analyticsDesc: "Helps us understand how visitors interact with the site (currently none are used).",
+      analyticsDesc: "Helps us understand how visitors interact with the site (Google Analytics, enabled only with your consent).",
       marketingTitle: "Marketing (Optional)",
       marketingDesc: "Used for personalizing experience (we do not show ads or share any of your data).",
       acceptAll: "Accept All",

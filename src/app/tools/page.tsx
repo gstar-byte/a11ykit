@@ -6,12 +6,12 @@ import { tools, liveTools, categoryLabels, type ToolCategory } from "@/lib/tools
 export const metadata: Metadata = {
   title: "All Accessibility Tools — A11yKit",
   description:
-    "Browse all 15 free WCAG and EAA accessibility tools. Contrast checker, WCAG 2.2 checklist, accessibility statement generator, ARIA generator, heading analyzer, color blind simulator, and more.",
+    "Browse all 22 free WCAG and EAA accessibility tools. Contrast checker, WCAG 2.2 checklist, reading level analyzer, touch target checker, focus indicator generator, accessibility statement generator, ARIA generator, color blind simulator, and more.",
   alternates: { canonical: "https://a11ykit.site/tools" },
   openGraph: {
     title: "All Accessibility Tools — A11yKit",
     description:
-      "Browse all 15 free WCAG and EAA accessibility tools. Contrast checker, WCAG 2.2 checklist, accessibility statement generator, ARIA generator, heading analyzer, color blind simulator, and more.",
+      "Browse all 22 free WCAG and EAA accessibility tools. Contrast checker, WCAG 2.2 checklist, reading level analyzer, touch target checker, focus indicator generator, accessibility statement generator, ARIA generator, color blind simulator, and more.",
     images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "A11yKit Tools" }],
   },
 };
@@ -66,8 +66,8 @@ export default function ToolsPage() {
           All Accessibility Tools
         </h1>
         <p className="mt-4 max-w-2xl mx-auto text-lg text-slate-600">
-          15 free tools for WCAG 2.2 and EAA compliance. Everything runs in your
-          browser — no signup, no tracking.
+          22 free tools for WCAG 2.2 and EAA compliance. Everything runs in your
+          browser — no signup, privacy-first.
         </p>
       </div>
 

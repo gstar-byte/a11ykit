@@ -19,7 +19,7 @@ export function Footer() {
             <p className="mt-4 max-w-md text-sm text-slate-600">
               Free accessibility tools for WCAG 2.2 and EAA compliance. Built for
               developers and designers who care about digital inclusion. No
-              signup, no tracking, 100% client-side.
+              signup, privacy-first, 100% client-side.
             </p>
           </div>
 

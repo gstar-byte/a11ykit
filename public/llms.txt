@@ -7,10 +7,10 @@
 > Version: 2.0.0
 > Full Content: https://a11ykit.site/llms-full.txt
 
-A11yKit is a free, open accessibility toolkit containing 15 free online tools for WCAG 2.2 and EAA (European Accessibility Act) compliance. All tools run 100% client-side in your browser — no account is required, no data is sent to any server, no analytics are collected on tool inputs, and no tracking cookies are used.
+A11yKit is a free, open accessibility toolkit containing 15 free online tools for WCAG 2.2 and EAA (European Accessibility Act) compliance. All tools run 100% client-side in your browser — no account is required and we operate no backend that processes your content. No analytics are collected on tool inputs; site analytics are consent-based only. Documented exceptions: URL tools fetch public page source via third-party CORS proxies, and optional AI features call OpenAI directly with the user's own key.
 
 ## Core Features
-- **100% Client-side**: Your HTML, CSS, colors, and data never leave your browser. Perfect for auditing internal, secure, or staging environments.
+- **100% Client-side**: Your HTML, CSS, colors, and files are processed entirely in your browser. Perfect for auditing internal, secure, or staging environments.
 - **EAA & WCAG Aligned**: Built to align with WCAG 2.2 Success Criteria, ADA Title II, European standard EN 301 549, and US Section 508.
 - **Zero Friction**: Free forever, no signup or registration, no ads, and 100% private.
 

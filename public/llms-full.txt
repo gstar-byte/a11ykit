@@ -17,7 +17,7 @@ A11yKit is an open-source, client-side web accessibility auditing suite built fo
 - **ADA Title II & III** (Americans with Disabilities Act, US Department of Justice 2024 Rule)
 - **Section 508** (US Rehabilitation Act)
 
-All tools run 100% client-side: no account, no server processing, no tracking.
+All tools run 100% client-side: no account, no server processing of your content, no analytics on tool inputs. Site analytics are consent-based only; URL tools fetch page source via public CORS proxies, and AI features call OpenAI directly with the user's own key.
 
 ---
 

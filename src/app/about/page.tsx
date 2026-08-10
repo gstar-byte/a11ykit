@@ -52,9 +52,9 @@ export default function AboutPage() {
         <p>
           A11yKit is a free collection of accessibility tools built for
           developers and designers who need to ensure their websites comply with
-          WCAG 2.2 and the European Accessibility Act (EAA). All tools run
-          entirely in your browser — no data is sent to any server, no account
-          is required, and everything is free forever.
+          WCAG 2.2 and the European Accessibility Act (EAA). All processing runs
+          entirely in your browser — we have no backend that stores or analyzes
+          your content, no account is required, and everything is free forever.
         </p>
 
         <h2 className="text-2xl font-semibold text-slate-900">Why we built this</h2>
@@ -62,7 +62,7 @@ export default function AboutPage() {
           The EAA became enforceable on June 28, 2025, requiring all businesses
           selling to EU consumers to meet WCAG 2.1 Level AA accessibility
           standards. Similar laws exist or are arriving in the US (ADA Title II,
-          2027-2028), Canada (ACA), and across Asia. Yet existing accessibility
+          2026-2027), Canada (ACA), and across Asia. Yet existing accessibility
           tools are scattered across dozens of websites, many are paid
           SaaS products with limited free tiers, and none offer a complete
           free toolkit.
@@ -77,10 +77,13 @@ export default function AboutPage() {
         <h2 className="text-2xl font-semibold text-slate-900">Privacy first</h2>
         <p>
           Every tool runs client-side in your browser. Your HTML, your colors,
-          your content — none of it ever leaves your device. There is no
-          backend, no analytics on tool inputs, and no tracking. This is
-          especially important for accessibility audits of internal or
-          staging environments that are not publicly accessible.
+          your content — none of it is ever uploaded to our servers. There is no
+          backend, no analytics on tool inputs, and no tracking of what you
+          scan. Where a tool must reach the outside world — the URL Scanner
+          fetches public page source through CORS proxies, and AI features call
+          OpenAI with your own key — it is clearly labeled and explained in our
+          Privacy Policy. This is especially important for accessibility audits
+          of internal or staging environments that are not publicly accessible.
         </p>
 
         <h2 className="text-2xl font-semibold text-slate-900">Standards aligned</h2>

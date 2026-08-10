@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Check, X, Copy, RotateCcw, Pipette, Lightbulb } from "lucide-react";
 
 function sRGBToLinear(c: number): number {
@@ -157,7 +157,11 @@ export function ContrastChecker() {
   const [fontWeight, setFontWeight] = useState(400);
   const [copied, setCopied] = useState(false);
   const [lightness, setLightness] = useState(0);
-  const [eyedropperSupported] = useState(typeof window !== "undefined" && "EyeDropper" in window);
+  const [eyedropperSupported, setEyedropperSupported] = useState(false);
+
+  useEffect(() => {
+    setEyedropperSupported("EyeDropper" in window);
+  }, []);
 
   const fgValid = isValidHex(fg);
   const bgValid = isValidHex(bg);

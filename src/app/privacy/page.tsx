@@ -62,7 +62,7 @@ export default function PrivacyPage() {
             Data We Do Not Collect
           </h2>
           <ul className="mt-3 list-disc space-y-2 pl-6">
-            <li>HTML code, URLs, or page content you scan or analyze</li>
+            <li>HTML code, text, or page content you paste into the tools</li>
             <li>Images you upload to the Alt Text Generator or Color Blindness Simulator</li>
             <li>PDF files you upload to the PDF Accessibility Checker</li>
             <li>Color values you enter in the Contrast Checker</li>
@@ -147,10 +147,10 @@ export default function PrivacyPage() {
             <div>
               <h3 className="font-semibold text-slate-900">CORS Proxies</h3>
               <p className="mt-1 leading-relaxed">
-                The URL Scanner uses public CORS proxy services to fetch page
-                HTML. The URL you enter is sent to the proxy to retrieve the
-                page source. No other data is transmitted, and all analysis
-                happens in your browser.
+                The URL Scanner and Accessibility Monitor use public CORS proxy
+                services to fetch page HTML. The URL you enter is sent to the
+                proxy to retrieve the page source. No other data is
+                transmitted, and all analysis happens in your browser.
               </p>
             </div>
           </div>

@@ -14,6 +14,13 @@ import {
   FileSearch,
   Sparkles,
   Activity,
+  BookOpen,
+  MousePointerClick,
+  SkipForward,
+  Map,
+  Focus,
+  Palette,
+  Clapperboard,
   type LucideIcon,
 } from "lucide-react";
 
@@ -467,6 +474,199 @@ export const tools: Tool[] = [
       { question: "Where is my scan data stored?", answer: "All scan results are stored in your browser's localStorage. No data is sent to any server. This means your data is device-specific and won't sync across devices." },
       { question: "How many scans can I save?", answer: "The tool keeps the 10 most recent scans per URL. Older scans are automatically removed to stay within localStorage limits." },
       { question: "Can I monitor multiple URLs?", answer: "Yes. Scan different URLs and each will appear in your dashboard with its own trend history." },
+    ],
+  },
+  {
+    slug: "reading-level-analyzer",
+    title: "Reading Level Analyzer",
+    shortTitle: "Readability",
+    description:
+      "Analyze text readability with Flesch-Kincaid, Gunning Fog, and WCAG 3.1.5 grade level checks. Highlights long sentences and passive voice.",
+    metaDescription:
+      "Free reading level checker for web content. Calculates Flesch-Kincaid grade, Flesch Reading Ease, Gunning Fog Index. Checks WCAG SC 3.1.5 compliance. 100% client-side.",
+    longDescription:
+      "Analyze your web copy or page content for readability. Get Flesch-Kincaid grade level, Flesch Reading Ease score, and Gunning Fog Index. See which sentences are too long, detect passive voice, and check against WCAG SC 3.1.5 (Reading Level) which recommends content be readable at lower secondary education level.",
+    icon: BookOpen,
+    category: "check",
+    keywords: ["readability", "flesch-kincaid", "reading level", "plain language", "wcag 3.1.5", "cognitive accessibility"],
+    status: "live",
+    whyItMatters: "WCAG Success Criterion 3.1.5 (Reading Level) requires that when content requires reading ability more advanced than lower secondary education level, supplemental content or a simpler version is available. Plain, accessible language benefits everyone — especially users with cognitive disabilities, non-native speakers, and people with lower literacy levels.",
+    howToUse: [
+      { step: "Paste your text", description: "Paste any web copy, article, or page content into the text area." },
+      { step: "Review scores", description: "See Flesch Reading Ease (0–100), Flesch-Kincaid Grade Level, and Gunning Fog Index instantly." },
+      { step: "Check WCAG 3.1.5", description: "The tool tells you if your content meets the WCAG SC 3.1.5 reading level recommendation (Grade ≤ 9)." },
+      { step: "Review suggestions", description: "See which sentences are too long or complex and get actionable improvement tips." },
+    ],
+    faq: [
+      { question: "What is Flesch-Kincaid Grade Level?", answer: "A readability formula that estimates the US school grade level required to understand the text. Grade 8–9 is recommended for general web content. WCAG SC 3.1.5 targets Grade 9 or below." },
+      { question: "What is Flesch Reading Ease?", answer: "A score from 0 to 100 where higher = easier to read. A score of 60–70 is considered standard (8th–9th grade). Below 30 is very difficult (college-graduate level)." },
+      { question: "Does this tool require sending my text to a server?", answer: "No. All analysis runs entirely in your browser using JavaScript. Your text never leaves your device." },
+      { question: "What is WCAG SC 3.1.5?", answer: "WCAG Success Criterion 3.1.5 (Reading Level, Level AAA) requires that when text needs more than lower-secondary education reading ability, a simpler alternative or supplemental content is available." },
+    ],
+  },
+  {
+    slug: "touch-target-checker",
+    title: "Touch Target Size Checker",
+    shortTitle: "Touch Targets",
+    description:
+      "Check if interactive elements meet WCAG 2.5.8 minimum touch target size (24×24px). Paste HTML to find buttons, links, and inputs that are too small.",
+    metaDescription:
+      "Free WCAG 2.5.8 touch target size checker. Paste HTML to verify buttons, links, and inputs are at least 24×24 CSS pixels. New in WCAG 2.2. 100% client-side.",
+    longDescription:
+      "New in WCAG 2.2, Success Criterion 2.5.8 (Target Size Minimum) requires interactive targets to be at least 24×24 CSS pixels, unless exceptions apply. Paste your HTML to identify buttons, links, inputs and other interactive elements that fail this requirement, with specific fix suggestions.",
+    icon: MousePointerClick,
+    category: "check",
+    keywords: ["touch target", "wcag 2.5.8", "target size", "button size", "wcag 2.2", "mobile accessibility"],
+    status: "live",
+    whyItMatters: "Small interactive targets are a major barrier for users with motor impairments, tremors, or who use touchscreens. WCAG 2.2 introduced SC 2.5.8 (Level AA) requiring all interactive targets to be at least 24×24 CSS pixels. The recommended size is 44×44px. This affects buttons, links, checkboxes, radio buttons, and any clickable element.",
+    howToUse: [
+      { step: "Paste HTML", description: "Paste the HTML containing your interactive elements — navigation, forms, buttons, etc." },
+      { step: "Review results", description: "The tool lists all interactive elements with their detected size and WCAG 2.5.8 pass/fail status." },
+      { step: "Check FAIL items", description: "Elements below 24×24px fail WCAG 2.5.8 AA. Elements below 44×44px may fail usability best practice." },
+      { step: "Apply fixes", description: "Use the generated CSS fix examples to increase target size via padding or min-width/height." },
+    ],
+    faq: [
+      { question: "What is WCAG 2.5.8?", answer: "Target Size (Minimum), new in WCAG 2.2 at Level AA. Interactive targets must be at least 24×24 CSS pixels, unless the target is inline (within text flow), there is sufficient spacing, or the essential nature of the target requires the size." },
+      { question: "Why does this tool show 'CHECK' for some elements?", answer: "When no explicit width or height is found in the HTML attributes or inline styles, the tool cannot determine the rendered size. You should manually inspect those elements in your browser's DevTools." },
+      { question: "What's the difference between 24px and 44px?", answer: "24px is the WCAG 2.5.8 AA minimum. 44px is the Apple HIG and Material Design recommendation, and aligns with WCAG 2.5.5 (AAA). Always aim for 44px where possible." },
+    ],
+  },
+  {
+    slug: "skip-link-generator",
+    title: "Skip Link Generator",
+    shortTitle: "Skip Links",
+    description:
+      "Generate accessible skip navigation links with HTML, CSS, and React code. Required by WCAG 2.4.1 to let keyboard users bypass repeated navigation.",
+    metaDescription:
+      "Free skip link generator for WCAG 2.4.1 compliance. Configure multiple skip links and get ready-to-use HTML, CSS, and React code. Live preview included. 100% client-side.",
+    longDescription:
+      "Skip links allow keyboard and screen reader users to jump past repeated navigation blocks directly to main content — required by WCAG 2.4.1 (Bypass Blocks, Level A). Configure your skip links, preview them live, and copy the generated HTML, CSS, or React component code.",
+    icon: SkipForward,
+    category: "generate",
+    keywords: ["skip link", "skip navigation", "wcag 2.4.1", "bypass blocks", "keyboard navigation", "screen reader"],
+    status: "live",
+    whyItMatters: "Without skip links, keyboard and screen reader users must Tab through every navigation item on every page before reaching the main content. WCAG SC 2.4.1 (Bypass Blocks, Level A) requires a mechanism to skip repeated content. Skip links are the most reliable, cross-browser solution and are essential for any WCAG-compliant website.",
+    howToUse: [
+      { step: "Configure links", description: "Add skip links with a label (visible text) and a target ID matching your landmark element's ID attribute." },
+      { step: "Preview", description: "Tab through the preview area to see the skip link appear on keyboard focus." },
+      { step: "Copy code", description: "Copy the generated HTML, CSS, or React component code to add to your project." },
+      { step: "Add IDs to landmarks", description: "Make sure your <main>, <nav>, and other landmarks have the matching id attributes." },
+    ],
+    faq: [
+      { question: "Why do skip links disappear visually?", answer: "Skip links are hidden off-screen (using CSS position: absolute; top: -100%) and appear only on keyboard focus. This keeps the design clean while remaining accessible. They must NOT be hidden with display:none or visibility:hidden as that removes them from focus order." },
+      { question: "Where should I place skip links?", answer: "As the very first child element inside <body>. This ensures they are the first thing keyboard users encounter when tabbing through the page." },
+      { question: "Do I need skip links if I have ARIA landmarks?", answer: "Yes. While ARIA landmarks help screen reader users navigate, skip links are still required for WCAG 2.4.1 compliance. They are the primary mechanism for keyboard-only users who don't use screen readers." },
+    ],
+  },
+  {
+    slug: "landmark-visualizer",
+    title: "ARIA Landmark Visualizer",
+    shortTitle: "Landmarks",
+    description:
+      "Visualize the ARIA landmark structure of any HTML page. Check for missing main landmark, unlabelled navs, and WCAG 1.3.6 compliance.",
+    metaDescription:
+      "Free ARIA landmark visualizer. Paste HTML to see the landmark tree structure (<main>, <nav>, <header>, <footer> etc.) and detect accessibility issues. WCAG 1.3.6. 100% client-side.",
+    longDescription:
+      "Paste your page HTML to visualize the ARIA landmark structure as a tree. The tool detects all landmark elements and roles (<header>, <main>, <nav>, <aside>, <footer>, <section>, <form>), checks for missing accessible names, duplicate main landmarks, and other common issues.",
+    icon: Map,
+    category: "check",
+    keywords: ["aria landmark", "landmark navigation", "wcag 1.3.6", "semantic html", "screen reader navigation", "aria roles"],
+    status: "live",
+    whyItMatters: "ARIA landmarks (like <main>, <nav>, <header>) allow screen reader users to quickly jump to any section of the page — similar to how sighted users can visually scan a page. Missing or misconfigured landmarks force screen reader users to navigate linearly through all content. WCAG 1.3.6 (Identify Purpose) requires landmark regions to have accessible names when multiple of the same type exist.",
+    howToUse: [
+      { step: "Paste HTML", description: "Paste your full page HTML including the <body> element and all semantic landmark elements." },
+      { step: "View the tree", description: "The tool renders an interactive tree showing all landmark elements and their nesting hierarchy." },
+      { step: "Review issues", description: "Errors and warnings highlight missing <main>, unlabelled navs, or landmark misconfigurations." },
+      { step: "Apply fixes", description: "Add missing landmark elements or aria-label attributes as suggested by the tool." },
+    ],
+    faq: [
+      { question: "What are ARIA landmarks?", answer: "ARIA landmarks are semantic HTML elements or ARIA roles that identify major page regions. They include banner (header), navigation (nav), main, complementary (aside), contentinfo (footer), search, form, and region." },
+      { question: "Does a <section> always create a landmark?", answer: "No. <section> only creates a 'region' landmark if it has an accessible name via aria-label or aria-labelledby. Without a name, it is treated as a generic container." },
+      { question: "Why do navs need labels?", answer: "When a page has multiple <nav> elements (e.g., main navigation + footer navigation), screen reader users cannot distinguish between them unless each has a unique aria-label. WCAG 1.3.6 requires purpose identification." },
+    ],
+  },
+  {
+    slug: "focus-indicator-generator",
+    title: "Focus Indicator CSS Generator",
+    shortTitle: "Focus Styles",
+    description:
+      "Generate WCAG 2.4.11 and 2.4.13 compliant CSS focus indicator styles. Live preview with compliance checks for the new WCAG 2.2 focus criteria.",
+    metaDescription:
+      "Free CSS focus indicator generator for WCAG 2.4.11 and 2.4.13 compliance. Choose outline, box-shadow, or combined style with live preview and contrast checking. 100% client-side.",
+    longDescription:
+      "Generate accessible CSS focus indicator styles that meet WCAG 2.2's new focus appearance requirements. Configure outline color, width, offset, and style. The tool checks compliance with WCAG 2.4.11 (Focus Not Obscured) and 2.4.13 (Focus Appearance) and generates copy-ready CSS.",
+    icon: Focus,
+    category: "generate",
+    keywords: ["focus indicator", "focus style", "wcag 2.4.11", "wcag 2.4.13", "focus appearance", "keyboard focus", "css outline"],
+    status: "live",
+    whyItMatters: "Visible focus indicators are essential for keyboard navigation. Many developers remove the default browser outline (outline: none) without providing a replacement, making keyboard navigation impossible for users with motor or visual impairments. WCAG 2.2 introduced SC 2.4.11 (Focus Not Obscured, AA) and 2.4.13 (Focus Appearance, AAA) with specific measurable requirements for focus indicator size and contrast.",
+    howToUse: [
+      { step: "Choose a style", description: "Select from CSS outline, box-shadow, border, background highlight, or a combined approach." },
+      { step: "Configure colors", description: "Pick an outline color and adjust width and offset to meet WCAG requirements." },
+      { step: "Check compliance", description: "The tool verifies your configuration against WCAG 2.4.11 and 2.4.13 in real time." },
+      { step: "Copy CSS", description: "Copy the generated CSS or download it as a .css file for your project." },
+    ],
+    faq: [
+      { question: "What is WCAG 2.4.11 (Focus Not Obscured)?", answer: "New in WCAG 2.2 at Level AA. The keyboard focus indicator must not be entirely hidden by author-created content. The focused component must be at least partially visible when it receives focus." },
+      { question: "What is WCAG 2.4.13 (Focus Appearance)?", answer: "New in WCAG 2.2 at Level AAA. The focus indicator must have a minimum area of the CSS pixel perimeter of the unfocused component and a contrast ratio of at least 3:1 between focused and unfocused states." },
+      { question: "Should I use :focus or :focus-visible?", answer: ":focus-visible is recommended. It shows the focus indicator only for keyboard navigation (not mouse clicks), providing a cleaner experience for mouse users while still supporting keyboard users. All modern browsers support it." },
+      { question: "Why is box-shadow sometimes better than outline?", answer: "If a parent element has overflow:hidden, CSS outlines can be clipped and become invisible. Box-shadow is not affected by overflow and can be a reliable alternative in those cases." },
+    ],
+  },
+  {
+    slug: "color-palette-generator",
+    title: "Accessible Color Palette Generator",
+    shortTitle: "Palette Generator",
+    description:
+      "Generate a WCAG-compliant color palette from your brand color. Get 10-step primary, neutral, and semantic color scales with contrast ratios.",
+    metaDescription:
+      "Free accessible color palette generator. Enter your brand color and get a complete WCAG AA/AAA color system with CSS variables or Tailwind config. 100% client-side.",
+    longDescription:
+      "Enter your brand's primary color and instantly generate a full 10-step accessible color palette — primary shades, brand-tinted neutrals, and semantic colors (success, warning, error, info). Each swatch shows its WCAG contrast ratio and compliance level. Export as CSS custom properties or Tailwind config.",
+    icon: Palette,
+    category: "generate",
+    keywords: ["color palette", "accessible colors", "wcag colors", "color system", "design system", "css variables", "tailwind colors"],
+    status: "live",
+    whyItMatters: "Color choices directly affect readability and accessibility. Without proper contrast ratios, users with low vision, color blindness, or situational impairments (like bright sunlight) may not be able to read your content. Building with an accessible palette from the start is far easier than retrofitting contrast fixes after design and development are complete.",
+    howToUse: [
+      { step: "Pick your brand color", description: "Use the color picker or enter a hex value to set your brand's primary color." },
+      { step: "Review the palette", description: "See 10 shades of your primary color, neutrals, and semantic colors, each with WCAG contrast ratios." },
+      { step: "Check compliance", description: "See which shades pass AA (4.5:1) or AAA (7:1) for text on white and dark backgrounds." },
+      { step: "Export", description: "Copy or download as CSS custom properties or Tailwind config for your project." },
+    ],
+    faq: [
+      { question: "How are the shades generated?", answer: "The tool converts your brand color to HSL and generates 10 shades by varying the lightness (from 95% down to 12%) while preserving your brand hue and saturation. Neutral shades use the same hue with minimal saturation (8%) for a cohesive brand-tinted gray palette." },
+      { question: "What contrast ratio do I need?", answer: "WCAG AA requires 4.5:1 for normal text and 3:1 for large text (18pt+). WCAG AAA requires 7:1 for normal text. Use darker shades (600+) for text on white backgrounds and lighter shades (100-300) for text on dark backgrounds." },
+      { question: "Are the semantic colors fixed?", answer: "The tool generates accessible semantic colors (success, warning, error, info) tuned to pass WCAG AA on white. They are slightly adjusted based on your brand hue for visual harmony." },
+      { question: "Can I use this with any CSS framework?", answer: "Yes. The CSS Variables export works with any framework. The Tailwind export is formatted for tailwind.config.js. You can also copy individual hex values from each swatch." },
+    ],
+  },
+  {
+    slug: "animation-checker",
+    title: "CSS Animation Accessibility Checker",
+    shortTitle: "Animation Checker",
+    description:
+      "Check your CSS for animation and transition accessibility. Detects missing prefers-reduced-motion media queries required by WCAG 2.3.3.",
+    metaDescription:
+      "Free CSS animation accessibility checker. Detects infinite animations, smooth scroll, and transitions without prefers-reduced-motion support. WCAG 2.3.3. 100% client-side.",
+    longDescription:
+      "Paste your CSS to check for animation and transition properties that may cause issues for users with vestibular disorders or motion sensitivities. The tool detects missing @media (prefers-reduced-motion) blocks, infinite animations, smooth scrolling, and long-duration animations, and provides ready-to-use fix snippets.",
+    icon: Clapperboard,
+    category: "check",
+    keywords: ["animation accessibility", "prefers-reduced-motion", "wcag 2.3.3", "motion sensitivity", "vestibular disorder", "css animation"],
+    status: "live",
+    whyItMatters: "Vestibular disorders affect millions of people. Animations, parallax effects, and rapid motion on screen can trigger nausea, dizziness, and even seizures. The CSS `prefers-reduced-motion` media query allows users to request minimal motion through their OS settings. WCAG 2.3.3 (AAA) and 2.2.2 (AA) address motion-triggered barriers.",
+    howToUse: [
+      { step: "Paste your CSS", description: "Paste your stylesheet or a relevant portion containing animations, transitions, or @keyframes rules." },
+      { step: "Review issues", description: "The tool highlights missing prefers-reduced-motion blocks, infinite animations, and smooth scrolling without fallbacks." },
+      { step: "Apply fixes", description: "Each issue includes a specific CSS fix snippet. The universal fix at the bottom covers all common cases." },
+      { step: "Download the fix", description: "Download the universal prefers-reduced-motion CSS snippet to add to your global stylesheet." },
+    ],
+    faq: [
+      { question: "What is prefers-reduced-motion?", answer: "A CSS media query that detects whether the user has requested minimal animation in their OS accessibility settings (System Preferences > Accessibility > Reduce Motion on macOS, or Settings > Accessibility > Remove Animations on Windows). When enabled, your CSS can respond by disabling or reducing animations." },
+      { question: "Does this check for WCAG conformance?", answer: "The tool checks for common patterns related to WCAG 2.3.3 (Animation from Interactions, AAA) and 2.2.2 (Pause, Stop, Hide, AA). Note that WCAG 2.3.3 is Level AAA, but implementing it is considered best practice and is required by some laws." },
+      { question: "Should I remove all animations for reduced-motion users?", answer: "Not necessarily. Animations that convey essential information should be preserved. The recommended approach is to keep opacity/color transitions (which are less likely to cause issues) but disable transform-based motion, parallax, and infinite animations." },
+      { question: "Does this tool send my CSS to a server?", answer: "No. All analysis runs entirely in your browser using JavaScript. Your CSS never leaves your device." },
     ],
   },
 ];

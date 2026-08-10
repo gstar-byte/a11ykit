@@ -17,6 +17,13 @@ import { UrlScanner } from "@/components/tools/url-scanner";
 import { PdfChecker } from "@/components/tools/pdf-checker";
 import { AltTextGenerator } from "@/components/tools/alt-text-generator";
 import { AccessibilityMonitor } from "@/components/tools/accessibility-monitor";
+import { ReadingLevelAnalyzer } from "@/components/tools/reading-level-analyzer";
+import { TouchTargetChecker } from "@/components/tools/touch-target-checker";
+import { SkipLinkGenerator } from "@/components/tools/skip-link-generator";
+import { LandmarkVisualizer } from "@/components/tools/landmark-visualizer";
+import { FocusIndicatorGenerator } from "@/components/tools/focus-indicator-generator";
+import { ColorPaletteGenerator } from "@/components/tools/color-palette-generator";
+import { AnimationChecker } from "@/components/tools/animation-checker";
 import { ToolContent } from "@/components/tool-content";
 
 export function generateStaticParams() {
@@ -204,6 +211,13 @@ export default async function ToolPage({
         {slug === "pdf-checker" && <PdfChecker />}
         {slug === "alt-text-generator" && <AltTextGenerator />}
         {slug === "accessibility-monitor" && <AccessibilityMonitor />}
+        {slug === "reading-level-analyzer" && <ReadingLevelAnalyzer />}
+        {slug === "touch-target-checker" && <TouchTargetChecker />}
+        {slug === "skip-link-generator" && <SkipLinkGenerator />}
+        {slug === "landmark-visualizer" && <LandmarkVisualizer />}
+        {slug === "focus-indicator-generator" && <FocusIndicatorGenerator />}
+        {slug === "color-palette-generator" && <ColorPaletteGenerator />}
+        {slug === "animation-checker" && <AnimationChecker />}
 
         <ToolContent tool={{ ...tool, icon: undefined }} />
       </div>

@@ -4,7 +4,7 @@ import auditData from "@/data/audit-results.json";
 export const metadata: Metadata = {
   title: "Top 50 Websites Accessibility Audit 2026 — A11yKit",
   description:
-    "We scanned 52 of the world's most visited websites with axe-core WCAG 2.2 rules. 70 violations found across 48 sites. See which sites failed, the most common issues, and what it means for the web.",
+    "We scanned 52 of the world's most visited websites with axe-core WCAG 2.2 rules. 70 violations found on 31 of the 48 successfully scanned sites. See which sites failed, the most common issues, and what it means for the web.",
   alternates: { canonical: "https://a11ykit.site/accessibility-report" },
   openGraph: {
     title: "Top 50 Websites Accessibility Audit 2026",
@@ -101,6 +101,7 @@ export default function AccessibilityReportPage() {
   const maxAvg = Math.max(...categoryData.map((c) => c.avg));
 
   const cleanSites = completedSites.filter((s: any) => s.violationCount === 0);
+  const sitesWithViolations = completedSites.length - cleanSites.length;
   const worstSites = ranked.filter((s: any) => s.violationCount >= 3).slice(0, 10);
 
   return (
@@ -112,7 +113,7 @@ export default function AccessibilityReportPage() {
             "@context": "https://schema.org",
             "@type": "Dataset",
             name: "Top 50 Websites Accessibility Audit 2026",
-            description: `Accessibility audit of ${summary.totalSites} top websites using axe-core WCAG 2.2 ruleset. ${summary.totalViolations} violations found across ${summary.successfulScans} sites.`,
+            description: `Accessibility audit of ${summary.totalSites} top websites using axe-core WCAG 2.2 ruleset. ${summary.totalViolations} violations found on ${sitesWithViolations} of ${summary.successfulScans} successfully scanned sites.`,
             creator: { "@type": "Organization", name: "A11yKit", url: "https://a11ykit.site" },
             datePublished: summary.scanDate,
             keywords: ["accessibility", "WCAG 2.2", "web audit", "axe-core", "EAA compliance"],

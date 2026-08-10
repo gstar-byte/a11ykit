@@ -43,6 +43,7 @@ const criteria: Criterion[] = [
   { id: "1.2.7", principle: "Perceivable", level: "AAA", title: "Extended Audio Description (Prerecorded)", description: "Provide extended audio description where pauses are insufficient." },
   { id: "1.2.8", principle: "Perceivable", level: "AAA", title: "Media Alternative (Prerecorded)", description: "Provide full text alternative for all synchronized media." },
   { id: "1.2.9", principle: "Perceivable", level: "AAA", title: "Audio-only (Live)", description: "Provide text alternative for live audio-only content." },
+  { id: "1.3.6", principle: "Perceivable", level: "AAA", title: "Identify Purpose", description: "Elements can be programmatically identified via attributes so users can personalize content." },
   { id: "1.4.6", principle: "Perceivable", level: "AAA", title: "Contrast (Enhanced)", description: "Text contrast ratio is at least 7:1 (normal) or 4.5:1 (large)." },
   { id: "1.4.7", principle: "Perceivable", level: "AAA", title: "Low or No Background Audio", description: "Background audio is at least 20dB below speech, or absent." },
   { id: "1.4.8", principle: "Perceivable", level: "AAA", title: "Visual Presentation", description: "Text blocks have width, line spacing, and alignment controls." },
@@ -51,7 +52,7 @@ const criteria: Criterion[] = [
   // Operable - Level A
   { id: "2.1.1", principle: "Operable", level: "A", title: "Keyboard", description: "All functionality is operable from a keyboard." },
   { id: "2.1.2", principle: "Operable", level: "A", title: "No Keyboard Trap", description: "Focus can be moved away from any component using only a keyboard." },
-  { id: "2.1.4", principle: "Operable", level: "A", title: "Character Key Shortcuts", description: "Single-character shortcuts can be turned off or remapped.", new22: true },
+  { id: "2.1.4", principle: "Operable", level: "A", title: "Character Key Shortcuts", description: "Single-character shortcuts can be turned off or remapped." },
   { id: "2.2.1", principle: "Operable", level: "A", title: "Timing Adjustable", description: "Provide options to turn off, adjust, or extend time limits." },
   { id: "2.2.2", principle: "Operable", level: "A", title: "Pause, Stop, Hide", description: "Auto-moving, blinking, or scrolling content can be paused, stopped, or hidden." },
   { id: "2.3.1", principle: "Operable", level: "A", title: "Three Flashes or Below Threshold", description: "Content doesn't flash more than 3 times per second." },
@@ -67,6 +68,7 @@ const criteria: Criterion[] = [
   { id: "2.4.5", principle: "Operable", level: "AA", title: "Multiple Ways", description: "Provide more than one way to locate a page within a set of pages." },
   { id: "2.4.6", principle: "Operable", level: "AA", title: "Headings and Labels", description: "Headings and labels describe their topic or purpose." },
   { id: "2.4.7", principle: "Operable", level: "AA", title: "Focus Visible", description: "Keyboard focus indicator is visible." },
+  { id: "2.4.11", principle: "Operable", level: "AA", title: "Focus Not Obscured (Minimum)", description: "Focused elements are not entirely hidden by other content.", new22: true },
   { id: "2.5.7", principle: "Operable", level: "AA", title: "Dragging Movements", description: "Dragging movements have alternative pointer or keyboard methods.", new22: true },
   { id: "2.5.8", principle: "Operable", level: "AA", title: "Target Size (Minimum)", description: "Touch targets are at least 24×24 CSS pixels, except where exempt.", new22: true },
   // Operable - Level AAA
@@ -80,7 +82,6 @@ const criteria: Criterion[] = [
   { id: "2.4.8", principle: "Operable", level: "AAA", title: "Location", description: "Information about the user's location is available." },
   { id: "2.4.9", principle: "Operable", level: "AAA", title: "Link Purpose (Link Only)", description: "Link purpose is clear from the link text alone." },
   { id: "2.4.10", principle: "Operable", level: "AAA", title: "Section Headings", description: "Section headings are used to organize content." },
-  { id: "2.4.11", principle: "Operable", level: "AAA", title: "Focus Not Obscured (Minimum)", description: "Focused elements are not entirely hidden by other content.", new22: true },
   { id: "2.4.12", principle: "Operable", level: "AAA", title: "Focus Not Obscured (Enhanced)", description: "Focused elements are not hidden by any content at all.", new22: true },
   { id: "2.4.13", principle: "Operable", level: "AAA", title: "Focus Appearance", description: "Focus indicator meets minimum size, contrast, and offset requirements.", new22: true },
   { id: "2.5.5", principle: "Operable", level: "AAA", title: "Target Size (Enhanced)", description: "Touch targets are at least 44×44 CSS pixels." },
@@ -93,13 +94,14 @@ const criteria: Criterion[] = [
   { id: "3.2.2", principle: "Understandable", level: "A", title: "On Input", description: "Input doesn't trigger unexpected context changes." },
   { id: "3.2.3", principle: "Understandable", level: "A", title: "Consistent Navigation", description: "Navigation mechanisms are repeated across pages in the same order." },
   { id: "3.2.4", principle: "Understandable", level: "A", title: "Consistent Identification", description: "Components with the same functionality are identified consistently." },
+  { id: "3.2.6", principle: "Understandable", level: "A", title: "Consistent Help", description: "Help mechanisms appear in the same relative order across pages.", new22: true },
   { id: "3.3.1", principle: "Understandable", level: "A", title: "Error Identification", description: "Input errors are automatically detected and described to the user." },
   { id: "3.3.2", principle: "Understandable", level: "A", title: "Labels or Instructions", description: "Provide labels or instructions when content requires user input." },
   { id: "3.3.3", principle: "Understandable", level: "A", title: "Error Suggestion", description: "Provide suggestions for fixing input errors." },
   { id: "3.3.4", principle: "Understandable", level: "A", title: "Error Prevention (Legal, Financial, Data)", description: "Submissions are reversible, verified, or confirmed." },
+  { id: "3.3.7", principle: "Understandable", level: "A", title: "Redundant Entry", description: "Previously entered information is auto-populated or available to select.", new22: true },
   // Understandable - Level AA
-  { id: "3.2.6", principle: "Understandable", level: "AA", title: "Consistent Help", description: "Help mechanisms appear in the same relative order across pages.", new22: true },
-  { id: "3.3.7", principle: "Understandable", level: "AA", title: "Redundant Entry", description: "Previously entered information is auto-populated or available to select.", new22: true },
+  { id: "3.3.8", principle: "Understandable", level: "AA", title: "Accessible Authentication (Minimum)", description: "Authentication does not rely on cognitive function tests, unless an exception applies.", new22: true },
   // Understandable - Level AAA
   { id: "3.1.3", principle: "Understandable", level: "AAA", title: "Unusual Words", description: "Provide definitions for unusual or jargon words." },
   { id: "3.1.4", principle: "Understandable", level: "AAA", title: "Abbreviations", description: "Provide expansions of abbreviations." },
@@ -108,15 +110,12 @@ const criteria: Criterion[] = [
   { id: "3.2.5", principle: "Understandable", level: "AAA", title: "Change on Request", description: "Context changes only on explicit user request." },
   { id: "3.3.5", principle: "Understandable", level: "AAA", title: "Help", description: "Context-sensitive help is available." },
   { id: "3.3.6", principle: "Understandable", level: "AAA", title: "Error Prevention (All)", description: "All submissions are reversible, verified, or confirmed." },
-  { id: "3.3.8", principle: "Understandable", level: "AAA", title: "Accessible Authentication (No Exception)", description: "No cognitive function test for authentication, no exceptions.", new22: true },
+  { id: "3.3.9", principle: "Understandable", level: "AAA", title: "Accessible Authentication (No Exception)", description: "No cognitive function test for authentication, no exceptions.", new22: true },
 
   // Robust - Level A
   { id: "4.1.2", principle: "Robust", level: "A", title: "Name, Role, Value", description: "UI components have programmatically determined name, role, and value." },
-  { id: "4.1.3", principle: "Robust", level: "A", title: "Status Messages", description: "Status messages are programmatically determined through role or properties." },
   // Robust - Level AA
-  { id: "4.2.1", principle: "Robust", level: "AA", title: "Accessible Authentication", description: "No cognitive function test required for authentication.", new22: true },
-  // Robust - Level AAA
-  { id: "4.2.2", principle: "Robust", level: "AAA", title: "Accessible Authentication (No Exception)", description: "No cognitive function test for authentication, no exceptions.", new22: true },
+  { id: "4.1.3", principle: "Robust", level: "AA", title: "Status Messages", description: "Status messages are programmatically determined through role or properties." },
 ];
 
 const STORAGE_KEY = "a11ykit-wcag-checklist";
