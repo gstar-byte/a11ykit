@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react";
 import {
-  Upload, Sparkles, Loader2, Key, AlertCircle, CheckCircle,
+  Upload, Sparkles, Loader2, AlertCircle, CheckCircle,
   Image as ImageIcon, X, Info,
 } from "lucide-react";
 
@@ -24,8 +24,6 @@ interface ScoreResult {
 /* ─── Component ──────────────────────────────────────────────── */
 
 export function AltQualityScorer() {
-  const [apiKey, setApiKey] = useState("");
-  const [showKey, setShowKey] = useState(false);
   const [imageSrc, setImageSrc] = useState<string>("");
   const [imageName, setImageName] = useState<string>("");
   const [altText, setAltText] = useState("");
@@ -57,7 +55,6 @@ export function AltQualityScorer() {
   };
 
   async function analyze() {
-    if (!apiKey.trim()) { setError("Please enter your OpenAI API key."); return; }
     if (!imageSrc) { setError("Please upload an image."); return; }
     if (!altText.trim()) { setError("Please enter the alt text to evaluate."); return; }
 
@@ -99,23 +96,12 @@ Respond ONLY with valid JSON in this exact format:
 }`;
 
     try {
-      const res = await fetch("https://api.openai.com/v1/chat/completions", {
+      const res = await fetch("/api/openai", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${apiKey}`,
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           model: "gpt-4o-mini",
-          messages: [
-            {
-              role: "user",
-              content: [
-                { type: "text", text: prompt },
-                { type: "image_url", image_url: { url: `data:image/jpeg;base64,${base64}` } },
-              ],
-            },
-          ],
+          messages: [{ role: "user", content: [{ type: "text", text: prompt }, { type: "image_url", image_url: { url: `data:image/jpeg;base64,${base64}` } }] }],
           max_tokens: 600,
           temperature: 0.3,
           response_format: { type: "json_object" },
@@ -171,38 +157,6 @@ Respond ONLY with valid JSON in this exact format:
             accuracy, informativeness, conciseness, and redundancy — plus an improved version.
           </p>
         </div>
-      </div>
-
-      {/* API key */}
-      <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
-        <label htmlFor="scorer-api-key" className="flex items-center gap-2 text-sm font-semibold text-amber-900 mb-2">
-          <Key className="h-4 w-4" aria-hidden="true" />
-          OpenAI API Key
-        </label>
-        <div className="flex gap-2">
-          <input
-            id="scorer-api-key"
-            type={showKey ? "text" : "password"}
-            value={apiKey}
-            onChange={(e) => setApiKey(e.target.value)}
-            placeholder="sk-..."
-            className="flex-1 rounded-lg border border-amber-300 bg-white px-3 py-2 text-sm font-mono focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
-            autoComplete="off"
-          />
-          <button
-            type="button"
-            onClick={() => setShowKey(!showKey)}
-            className="rounded-lg border border-amber-300 bg-white px-3 py-2 text-xs font-medium text-amber-900 hover:bg-amber-100"
-          >
-            {showKey ? "Hide" : "Show"}
-          </button>
-        </div>
-        <p className="text-xs text-amber-700 mt-1">
-          Your key is used directly from your browser and never sent to our servers.{" "}
-          <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer" className="underline">
-            Get API key →
-          </a>
-        </p>
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
@@ -278,7 +232,7 @@ Respond ONLY with valid JSON in this exact format:
           <button
             type="button"
             onClick={analyze}
-            disabled={loading || !imageSrc || !altText.trim() || !apiKey.trim()}
+            disabled={loading || !imageSrc || !altText.trim()}
             className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-teal-600 px-5 py-3 text-sm font-semibold text-white hover:bg-teal-500 disabled:opacity-50 transition-colors"
           >
             {loading ? (

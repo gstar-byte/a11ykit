@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import {
-  Sparkles, Loader2, Key, Copy, Check, Download, Info, ChevronDown,
+  Sparkles, Loader2, Copy, Check, Download, Info, ChevronDown,
 } from "lucide-react";
 
 /* ─── Component presets ──────────────────────────────────────── */
@@ -30,8 +30,6 @@ type OutputFormat = "html" | "react" | "vue";
 /* ─── Component ──────────────────────────────────────────────── */
 
 export function AiAriaGenerator() {
-  const [apiKey, setApiKey] = useState("");
-  const [showKey, setShowKey] = useState(false);
   const [prompt, setPrompt] = useState("");
   const [format, setFormat] = useState<OutputFormat>("html");
   const [loading, setLoading] = useState(false);
@@ -42,7 +40,6 @@ export function AiAriaGenerator() {
   const [showPresets, setShowPresets] = useState(false);
 
   async function generate() {
-    if (!apiKey.trim()) { setError("Please enter your OpenAI API key."); return; }
     if (!prompt.trim()) { setError("Please describe the component you want to generate."); return; }
 
     setLoading(true);
@@ -80,12 +77,9 @@ Respond with a JSON object in this exact format:
 }`;
 
     try {
-      const res = await fetch("https://api.openai.com/v1/chat/completions", {
+      const res = await fetch("/api/openai", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${apiKey}`,
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           model: "gpt-4o-mini",
           messages: [
@@ -146,36 +140,6 @@ Respond with a JSON object in this exact format:
             focus management, and full ARIA attributes.
           </p>
         </div>
-      </div>
-
-      {/* API key */}
-      <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
-        <label htmlFor="aria-gen-api-key" className="flex items-center gap-2 text-sm font-semibold text-amber-900 mb-2">
-          <Key className="h-4 w-4" aria-hidden="true" />
-          OpenAI API Key
-        </label>
-        <div className="flex gap-2">
-          <input
-            id="aria-gen-api-key"
-            type={showKey ? "text" : "password"}
-            value={apiKey}
-            onChange={(e) => setApiKey(e.target.value)}
-            placeholder="sk-..."
-            className="flex-1 rounded-lg border border-amber-300 bg-white px-3 py-2 text-sm font-mono focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
-            autoComplete="off"
-          />
-          <button
-            type="button"
-            onClick={() => setShowKey(!showKey)}
-            className="rounded-lg border border-amber-300 bg-white px-3 py-2 text-xs font-medium text-amber-900 hover:bg-amber-100"
-          >
-            {showKey ? "Hide" : "Show"}
-          </button>
-        </div>
-        <p className="text-xs text-amber-700 mt-1">
-          Used directly in your browser — never sent to our servers.{" "}
-          <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer" className="underline">Get API key →</a>
-        </p>
       </div>
 
       {/* Prompt + format */}
@@ -243,7 +207,7 @@ Respond with a JSON object in this exact format:
         <button
           type="button"
           onClick={generate}
-          disabled={loading || !prompt.trim() || !apiKey.trim()}
+          disabled={loading || !prompt.trim()}
           className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-teal-600 px-5 py-3 text-sm font-semibold text-white hover:bg-teal-500 disabled:opacity-50 transition-colors"
         >
           {loading ? (
