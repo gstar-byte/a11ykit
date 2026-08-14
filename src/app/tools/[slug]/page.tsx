@@ -1,35 +1,130 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import type { Metadata } from "next";
 import { tools, getToolBySlug } from "@/lib/tools";
-import { ContrastChecker } from "@/components/tools/contrast-checker";
-import { WcagChecklist } from "@/components/tools/wcag-checklist";
-import { StatementGenerator } from "@/components/tools/statement-generator";
-import { AriaGenerator } from "@/components/tools/aria-generator";
-import { HeadingAnalyzer } from "@/components/tools/heading-analyzer";
-import { FormLabelChecker } from "@/components/tools/form-label-checker";
-import { ColorBlindSimulator } from "@/components/tools/color-blind-simulator";
-import { HtmlScanner } from "@/components/tools/html-scanner";
-import { LinkTextChecker } from "@/components/tools/link-text-checker";
-import { FocusOrderChecker } from "@/components/tools/focus-order-checker";
-import { AltTextChecker } from "@/components/tools/alt-text-checker";
-import { UrlScanner } from "@/components/tools/url-scanner";
-import { PdfChecker } from "@/components/tools/pdf-checker";
-import { AltTextGenerator } from "@/components/tools/alt-text-generator";
-import { AccessibilityMonitor } from "@/components/tools/accessibility-monitor";
-import { ReadingLevelAnalyzer } from "@/components/tools/reading-level-analyzer";
-import { TouchTargetChecker } from "@/components/tools/touch-target-checker";
-import { SkipLinkGenerator } from "@/components/tools/skip-link-generator";
-import { LandmarkVisualizer } from "@/components/tools/landmark-visualizer";
-import { FocusIndicatorGenerator } from "@/components/tools/focus-indicator-generator";
-import { ColorPaletteGenerator } from "@/components/tools/color-palette-generator";
-import { AnimationChecker } from "@/components/tools/animation-checker";
-import { ContrastBatchTester } from "@/components/tools/contrast-batch-tester";
-import { WebcamColorblind } from "@/components/tools/webcam-colorblind";
-import { FormErrorChecker } from "@/components/tools/form-error-checker";
-import { AltQualityScorer } from "@/components/tools/alt-quality-scorer";
-import { AiAriaGenerator } from "@/components/tools/ai-aria-generator";
 import { ToolContent } from "@/components/tool-content";
+
+// 统一骨架屏：避免动态载入时产生 CLS（累积布局偏移）
+function ToolSkeleton() {
+  return (
+    <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm animate-pulse space-y-4">
+      <div className="h-6 w-1/3 rounded bg-slate-200" />
+      <div className="h-24 rounded bg-slate-100" />
+      <div className="h-10 w-1/4 rounded bg-slate-200" />
+    </div>
+  );
+}
+
+// 路由级动态按需加载：各工具拥有独立 Chunk，杜绝无用 JS 打包
+const ContrastChecker = dynamic(
+  () => import("@/components/tools/contrast-checker").then((m) => m.ContrastChecker),
+  { loading: ToolSkeleton }
+);
+const WcagChecklist = dynamic(
+  () => import("@/components/tools/wcag-checklist").then((m) => m.WcagChecklist),
+  { loading: ToolSkeleton }
+);
+const StatementGenerator = dynamic(
+  () => import("@/components/tools/statement-generator").then((m) => m.StatementGenerator),
+  { loading: ToolSkeleton }
+);
+const AriaGenerator = dynamic(
+  () => import("@/components/tools/aria-generator").then((m) => m.AriaGenerator),
+  { loading: ToolSkeleton }
+);
+const HeadingAnalyzer = dynamic(
+  () => import("@/components/tools/heading-analyzer").then((m) => m.HeadingAnalyzer),
+  { loading: ToolSkeleton }
+);
+const FormLabelChecker = dynamic(
+  () => import("@/components/tools/form-label-checker").then((m) => m.FormLabelChecker),
+  { loading: ToolSkeleton }
+);
+const ColorBlindSimulator = dynamic(
+  () => import("@/components/tools/color-blind-simulator").then((m) => m.ColorBlindSimulator),
+  { loading: ToolSkeleton }
+);
+const HtmlScanner = dynamic(
+  () => import("@/components/tools/html-scanner").then((m) => m.HtmlScanner),
+  { loading: ToolSkeleton }
+);
+const LinkTextChecker = dynamic(
+  () => import("@/components/tools/link-text-checker").then((m) => m.LinkTextChecker),
+  { loading: ToolSkeleton }
+);
+const FocusOrderChecker = dynamic(
+  () => import("@/components/tools/focus-order-checker").then((m) => m.FocusOrderChecker),
+  { loading: ToolSkeleton }
+);
+const AltTextChecker = dynamic(
+  () => import("@/components/tools/alt-text-checker").then((m) => m.AltTextChecker),
+  { loading: ToolSkeleton }
+);
+const UrlScanner = dynamic(
+  () => import("@/components/tools/url-scanner").then((m) => m.UrlScanner),
+  { loading: ToolSkeleton }
+);
+const PdfChecker = dynamic(
+  () => import("@/components/tools/pdf-checker").then((m) => m.PdfChecker),
+  { loading: ToolSkeleton }
+);
+const AltTextGenerator = dynamic(
+  () => import("@/components/tools/alt-text-generator").then((m) => m.AltTextGenerator),
+  { loading: ToolSkeleton }
+);
+const AccessibilityMonitor = dynamic(
+  () => import("@/components/tools/accessibility-monitor").then((m) => m.AccessibilityMonitor),
+  { loading: ToolSkeleton }
+);
+const ReadingLevelAnalyzer = dynamic(
+  () => import("@/components/tools/reading-level-analyzer").then((m) => m.ReadingLevelAnalyzer),
+  { loading: ToolSkeleton }
+);
+const TouchTargetChecker = dynamic(
+  () => import("@/components/tools/touch-target-checker").then((m) => m.TouchTargetChecker),
+  { loading: ToolSkeleton }
+);
+const SkipLinkGenerator = dynamic(
+  () => import("@/components/tools/skip-link-generator").then((m) => m.SkipLinkGenerator),
+  { loading: ToolSkeleton }
+);
+const LandmarkVisualizer = dynamic(
+  () => import("@/components/tools/landmark-visualizer").then((m) => m.LandmarkVisualizer),
+  { loading: ToolSkeleton }
+);
+const FocusIndicatorGenerator = dynamic(
+  () => import("@/components/tools/focus-indicator-generator").then((m) => m.FocusIndicatorGenerator),
+  { loading: ToolSkeleton }
+);
+const ColorPaletteGenerator = dynamic(
+  () => import("@/components/tools/color-palette-generator").then((m) => m.ColorPaletteGenerator),
+  { loading: ToolSkeleton }
+);
+const AnimationChecker = dynamic(
+  () => import("@/components/tools/animation-checker").then((m) => m.AnimationChecker),
+  { loading: ToolSkeleton }
+);
+const ContrastBatchTester = dynamic(
+  () => import("@/components/tools/contrast-batch-tester").then((m) => m.ContrastBatchTester),
+  { loading: ToolSkeleton }
+);
+const WebcamColorblind = dynamic(
+  () => import("@/components/tools/webcam-colorblind").then((m) => m.WebcamColorblind),
+  { loading: ToolSkeleton }
+);
+const FormErrorChecker = dynamic(
+  () => import("@/components/tools/form-error-checker").then((m) => m.FormErrorChecker),
+  { loading: ToolSkeleton }
+);
+const AltQualityScorer = dynamic(
+  () => import("@/components/tools/alt-quality-scorer").then((m) => m.AltQualityScorer),
+  { loading: ToolSkeleton }
+);
+const AiAriaGenerator = dynamic(
+  () => import("@/components/tools/ai-aria-generator").then((m) => m.AiAriaGenerator),
+  { loading: ToolSkeleton }
+);
 
 export function generateStaticParams() {
   return tools

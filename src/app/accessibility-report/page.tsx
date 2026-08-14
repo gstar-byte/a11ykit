@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import auditData from "@/data/audit-results.json";
+
 
 export const metadata: Metadata = {
   title: "Top 50 Websites Accessibility Audit 2026 — A11yKit",
@@ -161,21 +163,21 @@ export default function AccessibilityReportPage() {
             <div className="flex flex-wrap gap-4 text-sm">
               <div className="bg-white/10 rounded-lg px-4 py-2 backdrop-blur">
                 <span className="text-2xl font-bold">{summary.successfulScans}</span>
-                <span className="text-gray-400 ml-2">sites scanned</span>
+                <span className="text-slate-300 ml-2">sites scanned</span>
               </div>
               <div className="bg-white/10 rounded-lg px-4 py-2 backdrop-blur">
                 <span className="text-2xl font-bold">{summary.totalViolations}</span>
-                <span className="text-gray-400 ml-2">violations found</span>
+                <span className="text-slate-300 ml-2">violations found</span>
               </div>
               <div className="bg-white/10 rounded-lg px-4 py-2 backdrop-blur">
                 <span className="text-2xl font-bold">{summary.avgViolationsPerSite}</span>
-                <span className="text-gray-400 ml-2">avg per site</span>
+                <span className="text-slate-300 ml-2">avg per site</span>
               </div>
               <div className="bg-white/10 rounded-lg px-4 py-2 backdrop-blur">
                 <span className="text-2xl font-bold text-red-400">
                   {Math.round((summary.totalErrors / summary.totalViolations) * 100)}%
                 </span>
-                <span className="text-gray-400 ml-2">error severity</span>
+                <span className="text-slate-300 ml-2">error severity</span>
               </div>
             </div>
           </div>
@@ -239,10 +241,10 @@ export default function AccessibilityReportPage() {
                     <tr key={v.rule} className={i < 3 ? "bg-red-50/50" : ""}>
                       <td className="px-4 py-3 text-sm">
                         <div className="font-medium text-gray-900">{v.label}</div>
-                        <div className="text-xs text-gray-500 font-mono">{v.rule}</div>
+                        <div className="text-xs text-slate-600 font-mono">{v.rule}</div>
                       </td>
                       <td className="px-4 py-3 text-center text-sm font-semibold text-gray-900">{v.count}</td>
-                      <td className="px-4 py-3 text-center text-sm text-gray-600">{v.percent}%</td>
+                      <td className="px-4 py-3 text-center text-sm text-slate-700">{v.percent}%</td>
                       <td className="px-4 py-3 hidden md:table-cell">
                         <div className="w-full bg-gray-100 rounded-full h-2">
                           <div
@@ -266,7 +268,7 @@ export default function AccessibilityReportPage() {
                 <div key={cat.category}>
                   <div className="flex justify-between items-center mb-1">
                     <span className="text-sm font-medium text-gray-700">{cat.category}</span>
-                    <span className="text-sm text-gray-500">
+                    <span className="text-sm text-slate-700">
                       {cat.total} total · {cat.avg.toFixed(1)} avg
                     </span>
                   </div>
@@ -299,23 +301,23 @@ export default function AccessibilityReportPage() {
                     <tr key={site.url}>
                       <td className="px-4 py-3 text-sm">
                         <div className="font-medium text-gray-900">{site.name}</div>
-                        <div className="text-xs text-gray-500">{site.category}</div>
+                        <div className="text-xs text-slate-600">{site.category}</div>
                       </td>
                       <td className="px-4 py-3 text-center">
                         <span className="inline-block px-2 py-1 rounded bg-red-100 text-red-700 text-sm font-bold">
                           {site.violationCount}
                         </span>
                       </td>
-                      <td className="px-4 py-3 text-center text-sm text-gray-600">{site.errorCount}</td>
+                      <td className="px-4 py-3 text-center text-sm text-slate-700">{site.errorCount}</td>
                       <td className="px-4 py-3 hidden md:table-cell">
                         <div className="flex flex-wrap gap-1">
                           {site.violations.slice(0, 4).map((v: any) => (
-                            <span key={v.id} className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">
+                            <span key={v.id} className="text-xs bg-gray-100 text-slate-700 px-2 py-0.5 rounded">
                               {v.id}
                             </span>
                           ))}
                           {site.violations.length > 4 && (
-                            <span className="text-xs text-gray-400">+{site.violations.length - 4}</span>
+                            <span className="text-xs text-slate-600">+{site.violations.length - 4}</span>
                           )}
                         </div>
                       </td>
@@ -359,19 +361,19 @@ export default function AccessibilityReportPage() {
                 <tbody className="divide-y divide-gray-100">
                   {ranked.map((site: any, i: number) => (
                     <tr key={site.url} className={site.violationCount === 0 ? "bg-green-50/30" : ""}>
-                      <td className="px-4 py-2 text-sm text-gray-400">{i + 1}</td>
+                      <td className="px-4 py-2 text-sm text-slate-600">{i + 1}</td>
                       <td className="px-4 py-2 text-sm">
-                        <a href={site.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-medium">
+                        <a href={site.url} target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:text-blue-900 underline underline-offset-2 font-medium">
                           {site.name}
                         </a>
                       </td>
-                      <td className="px-4 py-2 text-sm text-gray-500 hidden sm:table-cell">{site.category}</td>
+                      <td className="px-4 py-2 text-sm text-slate-700 hidden sm:table-cell">{site.category}</td>
                       <td className="px-4 py-2 text-center">
-                        <span className={`text-sm font-bold ${site.violationCount === 0 ? "text-green-600" : site.violationCount >= 3 ? "text-red-600" : "text-orange-600"}`}>
+                        <span className={`text-sm font-bold ${site.violationCount === 0 ? "text-green-700" : site.violationCount >= 3 ? "text-red-700" : "text-orange-700"}`}>
                           {site.violationCount}
                         </span>
                       </td>
-                      <td className="px-4 py-2 text-center text-sm text-gray-500 hidden md:table-cell">
+                      <td className="px-4 py-2 text-center text-sm text-slate-700 hidden md:table-cell">
                         {site.loadTime ? `${(site.loadTime / 1000).toFixed(1)}s` : "—"}
                       </td>
                     </tr>
@@ -380,7 +382,7 @@ export default function AccessibilityReportPage() {
               </table>
             </div>
             {failedSites.length > 0 && (
-              <div className="mt-4 text-sm text-gray-500">
+              <div className="mt-4 text-sm text-slate-700">
                 <strong>Failed to scan ({failedSites.length}):</strong>{" "}
                 {failedSites.map((s: any) => s.name).join(", ")}
               </div>
@@ -390,14 +392,14 @@ export default function AccessibilityReportPage() {
           {/* Methodology */}
           <section>
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Methodology</h2>
-            <div className="prose prose-sm max-w-none text-gray-600 space-y-3">
+            <div className="prose prose-sm max-w-none text-slate-700 space-y-3">
               <p>
                 We selected {summary.totalSites} of the world&apos;s most visited websites across 11 categories
                 (search, social, e-commerce, news, tech, streaming, productivity, finance, travel, health, education).
               </p>
               <p>
                 Each site was loaded in a headless Chromium browser using Puppeteer with a 1280×800 viewport.
-                After the page loaded, <a href="https://github.com/dequelabs/axe-core" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">axe-core v4.12</a> was
+                After the page loaded, <a href="https://github.com/dequelabs/axe-core" target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:text-blue-900 underline underline-offset-2 font-medium">axe-core v4.12</a> was
                 injected to run the WCAG 2.2 ruleset (tags: wcag2a, wcag2aa, wcag21a, wcag21aa, wcag22aa).
               </p>
               <p>
@@ -405,7 +407,7 @@ export default function AccessibilityReportPage() {
                 <strong> serious</strong> (partial barrier), <strong>moderate</strong> (inconvenience),
                 and <strong>minor</strong> (minor annoyance).
               </p>
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-slate-600">
                 Automated tools detect approximately 30-40% of WCAG issues. A clean scan does not guarantee
                 full accessibility — manual testing with screen readers, keyboard navigation, and real users
                 is always needed. This report captures a snapshot of each site&apos;s homepage at the time of scanning.
@@ -419,12 +421,12 @@ export default function AccessibilityReportPage() {
             <p className="text-blue-100 mb-6 max-w-xl mx-auto">
               Run the same WCAG 2.2 accessibility scan on any URL — free, in your browser, no upload required.
             </p>
-            <a
+            <Link
               href="/tools/url-scanner"
-              className="inline-block bg-white text-blue-700 font-semibold px-6 py-3 rounded-lg hover:bg-blue-50 transition"
+              className="inline-block bg-white text-blue-700 font-semibold px-6 py-3 rounded-lg hover:bg-blue-50 transition focus-visible:outline-2 focus-visible:outline-white"
             >
               Open URL Scanner →
-            </a>
+            </Link>
           </section>
         </div>
       </div>

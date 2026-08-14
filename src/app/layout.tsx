@@ -127,27 +127,50 @@ export default function RootLayout({
           }}
         />
 
-        {/* Google tag (gtag.js) */}
+        {/* Preconnect & DNS-Prefetch for external origins */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+
+        {/* Google tag (gtag.js) - 延迟初始化，消除首屏渲染阻塞与移动端网络争抢 */}
         <script
-          async
-          defer
-          src="https://www.googletagmanager.com/gtag/js?id=G-T1R22CCHQK"
-        />
-        <script
-          defer
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
-              
-              // 默认拒绝分析与广告的 Cookie 存储 (GDPR 合规最优解)
               gtag('consent', 'default', {
                 'analytics_storage': 'denied',
                 'ad_storage': 'denied'
               });
-              
               gtag('js', new Date());
               gtag('config', 'G-T1R22CCHQK');
+
+              // 在页面首屏加载完成或空闲时按需加载 GTAG 外部脚本
+              function loadGtagScript() {
+                if (window._gtagLoaded) return;
+                window._gtagLoaded = true;
+                var script = document.createElement('script');
+                script.async = true;
+                script.src = 'https://www.googletagmanager.com/gtag/js?id=G-T1R22CCHQK';
+                document.head.appendChild(script);
+              }
+
+              if (typeof window !== 'undefined') {
+                if (document.readyState === 'complete') {
+                  if ('requestIdleCallback' in window) {
+                    requestIdleCallback(loadGtagScript, { timeout: 2500 });
+                  } else {
+                    setTimeout(loadGtagScript, 1000);
+                  }
+                } else {
+                  window.addEventListener('load', function() {
+                    if ('requestIdleCallback' in window) {
+                      requestIdleCallback(loadGtagScript, { timeout: 2500 });
+                    } else {
+                      setTimeout(loadGtagScript, 1000);
+                    }
+                  });
+                }
+              }
             `
           }}
         />

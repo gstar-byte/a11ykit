@@ -388,15 +388,27 @@ export function ContrastChecker() {
           </div>
         </div>
 
-        {/* Copy CSS */}
-        <div className="flex items-end justify-end gap-2">
-          <button
-            type="button"
-            onClick={handleSwap}
-            aria-label="Reset to defaults"
-          >
-            <RotateCcw className="h-4 w-4" aria-hidden="true" />
-          </button>
+        {/* Actions: Swap & Reset */}
+        <div className="flex flex-col justify-end gap-2">
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handleSwap}
+              aria-label="Swap foreground and background colors"
+              className="inline-flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
+            >
+              <RotateCcw className="h-4 w-4" aria-hidden="true" />
+              Swap Colors
+            </button>
+            <button
+              type="button"
+              onClick={handleReset}
+              aria-label="Reset all contrast settings to defaults"
+              className="inline-flex min-h-[44px] items-center justify-center rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-600 shadow-sm transition hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
+            >
+              Reset
+            </button>
+          </div>
         </div>
       </div>
 

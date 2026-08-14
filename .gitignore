@@ -26,3 +26,4 @@ next-env.d.ts
 
 # IDE / workbuddy
 .workbuddy/
+scripts/psi-results.json
