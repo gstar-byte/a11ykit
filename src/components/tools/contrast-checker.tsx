@@ -394,8 +394,7 @@ export function ContrastChecker() {
             <button
               type="button"
               onClick={handleSwap}
-              aria-label="Swap foreground and background colors"
-              className="inline-flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
+              className="inline-flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700"
             >
               <RotateCcw className="h-4 w-4" aria-hidden="true" />
               Swap Colors
@@ -403,8 +402,7 @@ export function ContrastChecker() {
             <button
               type="button"
               onClick={handleReset}
-              aria-label="Reset all contrast settings to defaults"
-              className="inline-flex min-h-[44px] items-center justify-center rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-600 shadow-sm transition hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
+              className="inline-flex min-h-[44px] items-center justify-center rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700"
             >
               Reset
             </button>
@@ -417,14 +415,14 @@ export function ContrastChecker() {
         <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-slate-500">Contrast Ratio</p>
+              <p className="text-sm font-medium text-slate-600">Contrast Ratio</p>
               <p className="text-4xl font-bold text-slate-900">
                 {result.ratio}:1
               </p>
             </div>
             <button
               onClick={handleCopy}
-              className="inline-flex items-center gap-2 rounded-md bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-500"
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-lg bg-teal-700 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700"
             >
               {copied ? (
                 <>
@@ -440,9 +438,9 @@ export function ContrastChecker() {
 
           <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="rounded-lg bg-slate-50 p-4">
-              <h3 className="text-sm font-semibold text-slate-900">
+              <h2 className="text-sm font-semibold text-slate-900">
                 WCAG 2.1 Level AA
-              </h3>
+              </h2>
               <div className="mt-3 space-y-2">
                 <PassFail
                   pass={result.aaNormal}
@@ -460,9 +458,9 @@ export function ContrastChecker() {
             </div>
 
             <div className="rounded-lg bg-slate-50 p-4">
-              <h3 className="text-sm font-semibold text-slate-900">
+              <h2 className="text-sm font-semibold text-slate-900">
                 WCAG 2.1 Level AAA
-              </h3>
+              </h2>
               <div className="mt-3 space-y-2">
                 <PassFail
                   pass={result.aaaNormal}
@@ -477,10 +475,10 @@ export function ContrastChecker() {
           </div>
 
           {apcaScore !== null && (
-            <div className="mt-4 rounded-lg bg-blue-50 p-4 text-sm text-slate-700">
+            <div className="mt-4 rounded-lg bg-blue-50 p-4 text-sm text-slate-800">
               <p>
-                <strong>APCA Lc score:</strong> <span className={`font-bold ${Math.abs(apcaScore) >= 75 ? "text-green-700" : Math.abs(apcaScore) >= 60 ? "text-amber-700" : "text-red-700"}`}>{apcaScore}</span>
-                <span className="ml-2 text-xs text-slate-500">
+                <strong>APCA Lc score:</strong> <span className={`font-bold ${Math.abs(apcaScore) >= 75 ? "text-green-800" : Math.abs(apcaScore) >= 60 ? "text-amber-800" : "text-red-700"}`}>{apcaScore}</span>
+                <span className="ml-2 text-xs text-slate-700">
                   (WCAG 3 draft — Lc 90+ preferred body, Lc 75+ minimum, Lc 60+ large text)
                 </span>
               </p>
