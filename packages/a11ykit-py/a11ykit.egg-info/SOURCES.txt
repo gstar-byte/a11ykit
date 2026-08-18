@@ -1,0 +1,9 @@
+README.md
+pyproject.toml
+a11ykit/__init__.py
+a11ykit/cli.py
+a11ykit.egg-info/PKG-INFO
+a11ykit.egg-info/SOURCES.txt
+a11ykit.egg-info/dependency_links.txt
+a11ykit.egg-info/entry_points.txt
+a11ykit.egg-info/top_level.txt

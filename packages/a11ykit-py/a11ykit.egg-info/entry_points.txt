@@ -1,0 +1,2 @@
+[console_scripts]
+a11ykit = a11ykit.cli:main

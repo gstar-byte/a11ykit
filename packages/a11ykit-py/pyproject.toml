@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "a11ykit"
+version = "1.0.0"
+description = "15 free client-side web accessibility tools for WCAG 2.2 and EAA compliance with zero code uploads."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [
+  { name = "A11yKit Team", email = "willpostpony@gmail.com" }
+]
+keywords = [
+  "accessibility",
+  "a11y",
+  "wcag",
+  "wcag22",
+  "eaa",
+  "contrast-checker",
+  "apca",
+  "developer-tools",
+  "privacy-first"
+]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Topic :: Software Development :: Quality Assurance",
+  "Topic :: Software Development :: Testing",
+]
+
+[project.urls]
+Homepage = "https://a11ykit.site"
+Documentation = "https://a11ykit.site"
+Repository = "https://github.com/gstar-byte/a11ykit"
+"Bug Tracker" = "https://github.com/gstar-byte/a11ykit/issues"
+
+[project.scripts]
+a11ykit = "a11ykit.cli:main"
