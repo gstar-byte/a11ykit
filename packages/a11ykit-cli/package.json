@@ -1,0 +1,36 @@
+{
+  "name": "a11ykit-cli",
+  "version": "1.0.0",
+  "description": "15 free client-side web accessibility tools for WCAG 2.2 and EAA compliance with zero code uploads.",
+  "bin": {
+    "a11ykit": "bin/a11ykit.js",
+    "a11ykit-cli": "bin/a11ykit.js"
+  },
+  "scripts": {
+    "start": "node bin/a11ykit.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gstar-byte/a11ykit.git"
+  },
+  "keywords": [
+    "accessibility",
+    "a11y",
+    "wcag",
+    "wcag22",
+    "eaa",
+    "contrast-checker",
+    "apca",
+    "color-blind-simulator",
+    "aria-generator",
+    "axe-core",
+    "developer-tools",
+    "privacy-first"
+  ],
+  "author": "A11yKit Team <https://a11ykit.site>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gstar-byte/a11ykit/issues"
+  },
+  "homepage": "https://a11ykit.site"
+}

@@ -1,0 +1,23 @@
+name: Daily SEO & IndexNow Push
+
+on:
+  schedule:
+    # 每天 UTC 时间 00:00 自动触发推流
+    - cron: '0 0 * * *'
+  workflow_dispatch: # 支持手动一键触发
+
+jobs:
+  ping-search-engines:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Push All URLs to Bing / IndexNow
+        run: |
+          node scripts/indexnow.mjs
