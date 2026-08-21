@@ -1,6 +1,6 @@
-# A11yKit
+# a11ykit-cli
 
-[![PyPI version](https://img.shields.io/pypi/v/a11ykit.svg)](https://pypi.org/project/a11ykit/)
+[![PyPI version](https://img.shields.io/pypi/v/a11ykit-cli.svg)](https://pypi.org/project/a11ykit-cli/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 > **15 Free, Client-Side Web Accessibility Tools for WCAG 2.2 & EAA Compliance with Zero Code Uploads.**
@@ -14,7 +14,7 @@ Official Web App: **[https://a11ykit.site](https://a11ykit.site)**
 Install via pip:
 
 ```bash
-pip install a11ykit
+pip install a11ykit-cli
 ```
 
 ### 1. WCAG 2.2 Color Contrast Checker
@@ -26,7 +26,7 @@ a11ykit contrast "#2563eb" "#ffffff"
 Output:
 ```text
 🎨 A11yKit Contrast Results: #2563eb vs #ffffff
-   Contrast Ratio: 4.54:1
+   Contrast Ratio: 5.17:1
    - WCAG AA (Normal Text >= 4.5:1): [PASS]
    - WCAG AA (Large Text >= 3.0:1):  [PASS]
    - WCAG AAA (Normal Text >= 7.0:1): [FAIL]

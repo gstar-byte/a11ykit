@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "a11ykit"
+name = "a11ykit-cli"
 version = "1.0.0"
 description = "15 free client-side web accessibility tools for WCAG 2.2 and EAA compliance with zero code uploads."
 readme = "README.md"
@@ -39,3 +39,4 @@ Repository = "https://github.com/gstar-byte/a11ykit"
 
 [project.scripts]
 a11ykit = "a11ykit.cli:main"
+a11ykit-cli = "a11ykit.cli:main"

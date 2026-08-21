@@ -1,2 +1,3 @@
 [console_scripts]
 a11ykit = a11ykit.cli:main
+a11ykit-cli = a11ykit.cli:main
