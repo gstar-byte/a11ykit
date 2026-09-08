@@ -37,6 +37,12 @@ A11yKit is a free, open accessibility toolkit containing 15 free online tools fo
 ### Simulate
 - [Color Blindness Simulator](https://a11ykit.site/tools/color-blind-simulator): Preview images through 8 types of color vision deficiency (Brettel/Viénot/Mollon algorithm), with severity slider and CSS filter export.
 
+## Developer Ecosystem & CLI
+- **NPM Package**: [a11ykit-cli](https://www.npmjs.com/package/a11ykit-cli) (`npx a11ykit-cli contrast "#2563eb" "#ffffff"`)
+- **PyPI Package**: [a11ykit-cli](https://pypi.org/project/a11ykit-cli/) (`pip install a11ykit-cli`)
+- **Homebrew Formula**: [gstar-byte/homebrew-tap/a11ykit](https://github.com/gstar-byte/homebrew-tap) (`brew install gstar-byte/tap/a11ykit`)
+- **GitHub Action**: [gstar-byte/a11ykit-action](https://github.com/gstar-byte/a11ykit-action) (`uses: gstar-byte/a11ykit-action@v1`)
+
 ## System Info & Standards
 - Primary Standards Supported: WCAG 2.2, EAA (Directive EU 2019/882), EN 301 549, ADA Title II, Section 508, WAI-ARIA 1.2.
 - Tech Stack: Pure client-side HTML, CSS, React, TypeScript.
