@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Accessibility } from "lucide-react";
 import { liveTools } from "@/lib/tools";
+import { ContactButton } from "@/components/contact-button";
 
 export function Footer() {
   return (
@@ -97,6 +98,9 @@ export function Footer() {
                 >
                   llms.txt (AI)
                 </a>
+              </li>
+              <li>
+                <ContactButton className="text-sm text-slate-600 hover:text-teal-700 text-left" />
               </li>
               <li>
                 <a

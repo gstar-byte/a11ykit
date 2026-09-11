@@ -5,6 +5,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { PrivacyBanner } from "@/components/privacy-banner";
 import { ServiceWorkerRegister } from "@/components/sw-register";
+import { ContactModal } from "@/components/contact-modal";
 import { liveTools } from "@/lib/tools";
 
 /* ── 字体优化：使用 next/font 本地化托管，消除渲染阻塞 ── */
@@ -188,6 +189,7 @@ export default function RootLayout({
         <Footer />
         <PrivacyBanner />
         <ServiceWorkerRegister />
+        <ContactModal />
       </body>
     </html>
   );
