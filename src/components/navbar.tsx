@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, Accessibility, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { liveTools } from "@/lib/tools";
+import { ContactButton } from "@/components/contact-button";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -141,6 +142,11 @@ export function Navbar() {
               </li>
             );
           })}
+          <li>
+            <ContactButton
+              className="rounded-md px-3 py-2 text-sm font-medium transition-colors text-slate-600 hover:bg-slate-100 hover:text-slate-900 cursor-pointer"
+            />
+          </li>
         </ul>
 
         <button
@@ -184,6 +190,12 @@ export function Navbar() {
                 </li>
               );
             })}
+            <li>
+              <ContactButton
+                className="w-full text-left block rounded-md px-3 py-2 text-base font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 cursor-pointer"
+                onClick={() => setMobileOpen(false)}
+              />
+            </li>
           </ul>
         </div>
       )}

@@ -1,9 +1,9 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState, useRef } from "react";
 import { X, Send, CheckCircle, AlertCircle } from "lucide-react";
 
-const WEB3FORMS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "";
+const TARGET_EMAIL = "591611431@qq.com";
 
 type Status = "idle" | "sending" | "success" | "error";
 
@@ -35,22 +35,30 @@ export function ContactModal() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!WEB3FORMS_KEY) { setStatus("error"); return; }
+    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) return;
     setStatus("sending");
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch(`https://formsubmit.co/ajax/${TARGET_EMAIL}`, {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
         body: JSON.stringify({
-          access_key: WEB3FORMS_KEY,
-          subject: `[A11yKit] Message from ${form.name}`,
           name: form.name,
           email: form.email,
           message: form.message,
+          _subject: `[A11yKit] New Message from ${form.name}`,
+          _template: "table",
+          _captcha: "false",
         }),
       });
       const data = await res.json();
-      setStatus(data.success ? "success" : "error");
+      if (res.ok && (data.success === "true" || data.success === true)) {
+        setStatus("success");
+      } else {
+        setStatus("error");
+      }
     } catch {
       setStatus("error");
     }
@@ -125,7 +133,7 @@ export function ContactModal() {
               {status === "error" && (
                 <div role="alert" className="flex items-center gap-2 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">
                   <AlertCircle className="h-4 w-4 shrink-0" aria-hidden="true" />
-                  {WEB3FORMS_KEY ? "Something went wrong. Please try again." : "Form not configured yet."}
+                  Failed to send message. Please try again or email directly to 591611431@qq.com.
                 </div>
               )}
               <button
