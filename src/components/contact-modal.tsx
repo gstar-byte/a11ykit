@@ -10,6 +10,7 @@ type Status = "idle" | "sending" | "success" | "error";
 export function ContactModal() {
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const firstInputRef = useRef<HTMLInputElement>(null);
 
@@ -17,6 +18,7 @@ export function ContactModal() {
     const handler = () => {
       setOpen(true);
       setStatus("idle");
+      setErrorMessage("");
       setForm({ name: "", email: "", message: "" });
     };
     window.addEventListener("open-contact-modal", handler);
@@ -58,9 +60,13 @@ export function ContactModal() {
         setStatus("success");
       } else {
         setStatus("error");
+        setErrorMessage(
+          data?.message || "Failed to send message. Please try again or email directly to 591611431@qq.com."
+        );
       }
     } catch {
       setStatus("error");
+      setErrorMessage("Network error. Please try again or email directly to 591611431@qq.com.");
     }
   };
 
@@ -131,9 +137,9 @@ export function ContactModal() {
                 />
               </div>
               {status === "error" && (
-                <div role="alert" className="flex items-center gap-2 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">
-                  <AlertCircle className="h-4 w-4 shrink-0" aria-hidden="true" />
-                  Failed to send message. Please try again or email directly to 591611431@qq.com.
+                <div role="alert" className="flex items-start gap-2 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700 leading-snug">
+                  <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" aria-hidden="true" />
+                  <span>{errorMessage || "Failed to send message. Please try again or email directly to 591611431@qq.com."}</span>
                 </div>
               )}
               <button
