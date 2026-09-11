@@ -8,7 +8,11 @@
     "start": "next start",
     "lint": "eslint",
     "indexnow": "node scripts/indexnow.mjs",
-    "indexnow:dry-run": "node scripts/indexnow.mjs --dry-run"
+    "auto:submit": "node scripts/auto-submitter.mjs",
+    "import:medium": "node scripts/medium-import.mjs",
+    "publish:api": "node scripts/api-publisher.mjs",
+    "publish:devto": "node scripts/devto-publish.mjs",
+    "test:e2e": "node --test --test-concurrency=1 e2e/*.test.mjs"
   },
   "dependencies": {
     "axe-core": "^4.12.1",
@@ -29,6 +33,8 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
     "puppeteer": "^25.3.0",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
