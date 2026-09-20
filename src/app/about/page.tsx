@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { liveTools } from "@/lib/tools";
 
 export const metadata: Metadata = {
@@ -95,6 +96,68 @@ export default function AboutPage() {
           <li>Section 508 — US federal accessibility standard</li>
           <li>WAI-ARIA 1.2 — Accessible Rich Internet Applications</li>
         </ul>
+
+        <h2 className="text-2xl font-semibold text-slate-900">Our Digital Ecosystem & Sister Initiatives</h2>
+        <p>
+          A11yKit is part of a broader commitment to craft open, accessible, and high-impact digital experiences. We believe that whether you are writing code, drafting engineering schematics, or exploring timeless philosophical questions, digital tools should be barrier-free, fast, and respectful of user privacy.
+        </p>
+        <p>
+          We also build and maintain dedicated digital initiatives across specialized domains:
+        </p>
+        <ul className="list-disc pl-6 space-y-2">
+          <li>
+            <strong>Engineering & CAD Productivity:</strong> For designers and engineers,{" "}
+            <a
+              href="https://cadguide.tools/"
+              target="_blank"
+              rel="noopener"
+              className="font-medium text-teal-700 underline hover:text-teal-800"
+            >
+              CAD Guide & Tools
+            </a>{" "}
+            provides instant command lookups and productivity workflows, while{" "}
+            <a
+              href="https://gstarcademy.com/"
+              target="_blank"
+              rel="noopener"
+              className="font-medium text-teal-700 underline hover:text-teal-800"
+            >
+              Gstarcademy
+            </a>{" "}
+            delivers structured CAD masterclasses and tutorials for professional drafters.
+          </li>
+          <li>
+            <strong>Wisdom & Philosophical Archives:</strong> For spiritual and cultural preservation, the{" "}
+            <a
+              href="https://ramanamaharshi.space/"
+              target="_blank"
+              rel="noopener"
+              className="font-medium text-teal-700 underline hover:text-teal-800"
+            >
+              Sri Ramana Maharshi Wisdom Archive
+            </a>{" "}
+            digitizes non-dual Advaita Vedanta literature and self-enquiry dialogues, and the{" "}
+            <a
+              href="https://chanzong.space/"
+              target="_blank"
+              rel="noopener"
+              className="font-medium text-teal-700 underline hover:text-teal-800"
+            >
+              Chanzong (Zen) Heritage Portal
+            </a>{" "}
+            curates classical koan texts and eastern contemplative thought in an accessible digital format.
+          </li>
+        </ul>
+        <p>
+          You can explore our complete cross-disciplinary collection on our{" "}
+          <Link
+            href="/projects"
+            className="font-medium text-teal-700 underline hover:text-teal-800"
+          >
+            Featured Projects page
+          </Link>
+          .
+        </p>
 
         <h2 className="text-2xl font-semibold text-slate-900">Disclaimer</h2>
         <p>

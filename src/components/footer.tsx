@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { Accessibility } from "lucide-react";
+import { Accessibility, ExternalLink } from "lucide-react";
 import { liveTools } from "@/lib/tools";
+import { projects } from "@/lib/projects";
 import { ContactButton } from "@/components/contact-button";
 
 export function Footer() {
@@ -59,6 +60,14 @@ export function Footer() {
           <div>
             <h3 className="text-sm font-semibold text-slate-900">Resources</h3>
             <ul className="mt-4 space-y-2">
+              <li>
+                <Link
+                  href="/projects"
+                  className="text-sm font-medium text-teal-700 hover:text-teal-800"
+                >
+                  Featured Projects ✦
+                </Link>
+              </li>
               <li>
                 <Link
                   href="/accessibility-report"
@@ -126,7 +135,42 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 border-t border-slate-200 pt-8">
+        {/* Sister Projects & Backlinks */}
+        <div className="mt-12 border-t border-slate-200 pt-8">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900">
+              Our Digital Ecosystem & Sister Projects
+            </h4>
+            <Link
+              href="/projects"
+              className="text-xs font-semibold text-teal-700 hover:text-teal-800 inline-flex items-center gap-1"
+            >
+              Explore All Projects ↗
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+            {projects.map((p) => (
+              <a
+                key={p.id}
+                href={p.url}
+                target="_blank"
+                rel="noopener"
+                className="group rounded-xl border border-slate-200/80 bg-slate-50/70 p-3.5 transition hover:bg-white hover:border-teal-300 hover:shadow-xs"
+              >
+                <div className="flex items-center justify-between text-xs font-bold text-slate-900 group-hover:text-teal-700">
+                  <span className="truncate">{p.shortTitle}</span>
+                  <ExternalLink className="h-3 w-3 flex-shrink-0 text-slate-400 group-hover:text-teal-700 transition" aria-hidden="true" />
+                </div>
+                <p className="mt-1 text-xs text-slate-500 line-clamp-1">
+                  {p.tagline}
+                </p>
+                <span className="sr-only">(opens in a new tab)</span>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-8 border-t border-slate-200 pt-6">
           <p className="text-sm text-slate-600">
             © {new Date().getFullYear()} A11yKit. Free accessibility tools for
             everyone. WCAG is a trademark of W3C. EAA refers to Directive (EU)

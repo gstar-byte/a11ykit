@@ -11,6 +11,7 @@ import { ContactButton } from "@/components/contact-button";
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/tools", label: "All Tools" },
+  { href: "/projects", label: "Projects" },
   { href: "/about", label: "About" },
 ];
 
