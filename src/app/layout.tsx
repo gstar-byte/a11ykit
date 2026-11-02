@@ -139,7 +139,7 @@ export default function RootLayout({
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('consent', 'default', {
-                'analytics_storage': 'denied',
+                'analytics_storage': 'granted',
                 'ad_storage': 'denied'
               });
               gtag('js', new Date());

@@ -18,7 +18,7 @@ export function PrivacyBanner({ position = "right" }: PrivacyBannerProps) {
   // Cookie 状态选择
   const [preferences, setPreferences] = useState({
     essential: true,
-    analytics: false,
+    analytics: true,
     marketing: false,
   });
 
